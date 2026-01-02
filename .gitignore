@@ -26,6 +26,9 @@ personal-notes/
 my-notes.md
 private/
 
+# Cleanup and internal reports
+CLEANUP-REPORT.md
+
 # Backup Files
 *.bak
 *.backup
