@@ -1,5 +1,14 @@
 # AWS Solutions Architect - Quick Reference Guide
 
+## 📚 Quick Learning Resources ✨
+
+**For Enhanced Learning, Also See:**
+- **[QUICK-STUDY-NOTES.md](./QUICK-STUDY-NOTES.md)** - Mnemonics, memory aids, exam tips
+- **[FLASHCARDS.md](./FLASHCARDS.md)** - Service comparisons, rapid review
+- **[VISUAL-GUIDE.md](./VISUAL-GUIDE.md)** - Architecture diagrams, visual patterns
+
+---
+
 ## 🚀 Service Quick Reference
 
 ### Compute

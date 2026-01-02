@@ -11,6 +11,9 @@ Congratulations! You now have access to a comprehensive study guide covering all
 ### Main Documentation
 1. **README.md** - Master guide with study plan and overview
 2. **QUICK-REFERENCE.md** - Quick lookup guide for exam day
+3. **QUICK-STUDY-NOTES.md** ✨ - Mnemonics, memory aids, and exam tips
+4. **FLASHCARDS.md** ✨ - Rapid review flashcards and comparisons
+5. **VISUAL-GUIDE.md** ✨ - Architecture diagrams and visual learning
 
 ### Module Series (14 Modules)
 
@@ -25,11 +28,13 @@ Congratulations! You now have access to a comprehensive study guide covering all
 | **07** | Security & Compliance | ✅ Complete | KMS, WAF, GuardDuty, encryption |
 | **08** | Application Integration | ✅ Complete | SQS, SNS, EventBridge, Step Functions |
 | **09** | Monitoring & Management | ✅ Complete | CloudWatch, CloudTrail, Config, SSM |
-| **10** | Migration & Transfer | ⚠️ Placeholder | DataSync, DMS, Snow Family |
-| **11** | Analytics | ⚠️ Placeholder | Athena, Kinesis, EMR, Glue |
+| **10** | Migration & Transfer | ✅ Complete ✨ | DataSync, DMS, Migration Hub, 6 R's |
+| **11** | Analytics | ✅ Complete ✨ | Athena, Kinesis, EMR, Glue, QuickSight |
 | **12** | Architecture Patterns | ✅ Complete | Multi-tier, serverless, DR strategies |
-| **13** | Cost Optimization | ⚠️ Placeholder | Pricing, budgets, optimization |
+| **13** | Cost Optimization | ✅ Complete ✨ | Pricing models, Cost Explorer, Budgets |
 | **14** | Practice Questions | ✅ Complete | 50+ questions, scenarios, mock exams |
+
+**✨ = Recently Added with Comprehensive Content**
 
 ---
 
@@ -115,27 +120,35 @@ Congratulations! You now have access to a comprehensive study guide covering all
 
 ---
 
-### Week 5: Advanced Topics
-**Days 1-2**: Module 10 - Migration (Self-study)
-- AWS Migration Hub
-- Database Migration Service
-- DataSync and Transfer Family
+### Week 5: Advanced Topics ✨
+**Days 1-2**: Module 10 - Migration & Transfer Services
+- Migration Strategies (6 R's: Rehost, Replatform, Repurchase, Refactor, Retire, Retain)
+- AWS DataSync (automated data transfer)
+- Database Migration Service (DMS) with CDC
+- AWS Schema Conversion Tool (SCT)
+- AWS Migration Hub (centralized tracking)
+- Application Migration Service (MGN)
 
-**Days 3-4**: Module 11 - Analytics (Self-study)
-- Athena for S3 queries
-- Kinesis for streaming
-- EMR for big data
-- Glue for ETL
+**Days 3-4**: Module 11 - Analytics Services
+- Amazon Athena (serverless SQL on S3)
+- Amazon Kinesis (Streams, Firehose, Analytics)
+- Amazon EMR (Hadoop/Spark clusters)
+- AWS Glue (ETL, Data Catalog, Crawlers)
+- Amazon QuickSight (BI dashboards)
+- Data Lake architecture patterns
 
-**Days 5-6**: Module 13 - Cost Optimization (Self-study)
-- AWS pricing models
-- Cost Explorer and Budgets
-- Reserved Instances vs Savings Plans
-- Right-sizing strategies
+**Days 5-6**: Module 13 - Cost Optimization
+- EC2 pricing models (On-Demand, Reserved, Spot, Savings Plans)
+- AWS Cost Explorer (visualization & forecasting)
+- AWS Budgets (alerts and actions)
+- Cost and Usage Reports (CUR)
+- Cost allocation tags strategy
+- Right-sizing and optimization techniques
+- AWS Trusted Advisor recommendations
 
-**Day 7**: Review advanced topics
+**Day 7**: Review advanced topics and use **QUICK-STUDY-NOTES.md** for memory aids
 
-**Weekend**: Create sample architectures
+**Weekend**: Practice with **FLASHCARDS.md** and create sample architectures
 
 ---
 
@@ -176,16 +189,17 @@ Congratulations! You now have access to a comprehensive study guide covering all
 
 ---
 
-### Week 8: Final Prep
+### Week 8: Final Prep ✨
 **Days 1-2**: Mock Exam 2
 - Another full practice exam
 - Review all incorrect answers
 - Note patterns in mistakes
 
-**Days 3-4**: QUICK-REFERENCE.md review
-- Service comparisons
-- Limits and quotas
-- Common patterns
+**Days 3-4**: Comprehensive Review
+- **QUICK-REFERENCE.md** - Service comparisons, limits, quotas
+- **QUICK-STUDY-NOTES.md** - Mnemonics, decision matrices, exam tips
+- **FLASHCARDS.md** - Rapid review of all services
+- **VISUAL-GUIDE.md** - Architecture patterns and diagrams
 - Mental cheat sheet
 
 **Days 5-6**: Final review
