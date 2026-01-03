@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Repository organization with `scripts/` and `docs/` folders
+- Enhanced Mermaid diagram validation script with new checks:
+  - Quoted subgraph syntax detection
+  - Unescaped HTML operators detection
+  - Floating nodes detection with smart filtering
+  - Subgraph ID exclusion from node detection
+- Auto-fix script improvements:
+  - Converts quoted subgraph syntax to ID-based format
+  - Escapes HTML entities while preserving `<br/>` tags
+  - Safe pattern matching to prevent corruption
+- Documentation:
+  - `docs/MERMAID-VALIDATION-GUIDE.md` - Comprehensive validation guide
+  - `scripts/README.md` - Script usage documentation
+  - Repository structure section in main README
+  - Validation workflow in CONTRIBUTING.md
+
+### Fixed
+- **10-Migration/DIAGRAMS.md** - Snow Family Device Comparison:
+  - Fixed quoted subgraph syntax
+  - Connected floating Decision node
+  - Added comprehensive color-coded styling
+  - Improved internal subgraph connections
+- **08-Application-Integration/DIAGRAMS.md** - AWS AppSync Architecture:
+  - Fixed quoted subgraph syntax
+  - Connected Features node
+  - Added database cylinder shapes
+  - Enhanced with color-coded components
+- **07-Security/DIAGRAMS.md** - Amazon Inspector Assessment:
+  - Fixed quoted subgraph syntax
+  - Connected Features node
+  - Added complete scan-to-finding flows
+  - Implemented risk-based color coding
+
+### Changed
+- Moved Python scripts from root to `scripts/` folder
+- Moved validation guide to `docs/` folder
+- Updated all script paths in documentation
+- Scripts now auto-detect repository root directory
+- Improved validation error messages with line numbers
+
 ### Planned
 - Video tutorials for complex topics
 - Interactive quiz platform

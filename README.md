@@ -171,6 +171,50 @@ Each module now includes a condensed **FAST-LEARN.md** file with:
 
 ---
 
+## 📁 Repository Structure
+
+```
+AWS-Solution-Architect/
+├── 📚 Study Modules (01-14)/
+│   ├── README.md              # Comprehensive detailed content
+│   ├── FAST-LEARN.md         # ⚡ Condensed essentials
+│   ├── PRACTICE-QUESTIONS.md # Exam-style practice
+│   └── DIAGRAMS.md           # Visual architecture diagrams
+│
+├── 📖 docs/                   # Documentation
+│   └── MERMAID-VALIDATION-GUIDE.md
+│
+├── 🔧 scripts/                # Utility scripts
+│   ├── README.md
+│   ├── validate_mermaid.py   # Validate diagram syntax
+│   └── fix_mermaid.py        # Auto-fix common issues
+│
+└── 📄 Quick References/
+    ├── QUICK-START.md        # Getting started guide
+    ├── FAST-LEARN-GUIDE.md   # 11-14 hour fast track
+    ├── QUICK-STUDY-NOTES.md  # Mnemonics & shortcuts
+    ├── FLASHCARDS.md         # Quick review cards
+    ├── VISUAL-GUIDE.md       # Visual patterns
+    ├── QUICK-REFERENCE.md    # Service lookup
+    └── STUDY-ROADMAP.md      # 8-week study plan
+```
+
+### 🔧 Maintenance Scripts
+
+For contributors and maintainers:
+
+```bash
+# Validate all Mermaid diagrams
+python3 scripts/validate_mermaid.py
+
+# Auto-fix common diagram issues
+python3 scripts/fix_mermaid.py
+```
+
+See [scripts/README.md](scripts/README.md) and [docs/MERMAID-VALIDATION-GUIDE.md](docs/MERMAID-VALIDATION-GUIDE.md) for details.
+
+---
+
 ## 📅 8-Week Study Plan
 
 | Week | Focus Area | Modules |

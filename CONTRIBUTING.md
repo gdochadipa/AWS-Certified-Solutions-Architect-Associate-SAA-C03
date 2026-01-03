@@ -136,30 +136,59 @@ Interested in translating this guide to other languages? [Let us know](../../dis
    cd AWS-Solution-Architect
    ```
 
-3. **Create a branch**
+3. **Understand the repository structure**
+   ```
+   AWS-Solution-Architect/
+   ├── 01-14/              # Study modules
+   │   ├── README.md       # Detailed content
+   │   ├── FAST-LEARN.md   # Condensed version
+   │   ├── PRACTICE-QUESTIONS.md
+   │   └── DIAGRAMS.md     # Visual diagrams
+   ├── scripts/            # Maintenance scripts
+   │   ├── validate_mermaid.py
+   │   └── fix_mermaid.py
+   ├── docs/               # Additional documentation
+   └── *.md                # Quick reference guides
+   ```
+
+4. **Create a branch**
    ```bash
    git checkout -b feature/your-feature-name
    # or
    git checkout -b fix/issue-you-are-fixing
    ```
 
-4. **Make your changes**
+5. **Make your changes**
    - Follow the [Style Guide](#style-guide)
    - Test your changes
    - Ensure formatting is consistent
 
-5. **Commit your changes**
+6. **Validate diagrams (if you modified DIAGRAMS.md)**
+   ```bash
+   # Check for syntax issues
+   python3 scripts/validate_mermaid.py
+   
+   # Auto-fix common issues
+   python3 scripts/fix_mermaid.py
+   
+   # Review changes
+   git diff
+   ```
+   
+   See [docs/MERMAID-VALIDATION-GUIDE.md](docs/MERMAID-VALIDATION-GUIDE.md) for details.
+
+7. **Commit your changes**
    ```bash
    git add .
    git commit -m "Add: Description of your changes"
    ```
 
-6. **Push to your fork**
+8. **Push to your fork**
    ```bash
    git push origin feature/your-feature-name
    ```
 
-7. **Create a Pull Request**
+9. **Create a Pull Request**
    - Go to the original repository
    - Click "New Pull Request"
    - Select your fork and branch

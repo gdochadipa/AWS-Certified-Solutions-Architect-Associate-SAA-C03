@@ -6,23 +6,23 @@
 
 ```mermaid
 graph TB
-    subgraph "AWS Global Infrastructure"
-        subgraph "Region: us-east-1"
-            AZ1[AZ: us-east-1a<br/>Data Center 1<br/>Data Center 2]
-            AZ2[AZ: us-east-1b<br/>Data Center 1<br/>Data Center 2]
-            AZ3[AZ: us-east-1c<br/>Data Center 1<br/>Data Center 2]
+    subgraph AWS_Global_Infrastructure_Group["AWS Global Infrastructure"]
+        subgraph Region_us_east_1_Group["Region: us-east-1"]
+            AZ1["AZ: us-east-1a<br/>Data Center 1<br/>Data Center 2"]
+            AZ2["AZ: us-east-1b<br/>Data Center 1<br/>Data Center 2"]
+            AZ3["AZ: us-east-1c<br/>Data Center 1<br/>Data Center 2"]
         end
         
-        subgraph "Region: eu-west-1"
-            AZ4[AZ: eu-west-1a<br/>Data Center 1<br/>Data Center 2]
-            AZ5[AZ: eu-west-1b<br/>Data Center 1<br/>Data Center 2]
-            AZ6[AZ: eu-west-1c<br/>Data Center 1<br/>Data Center 2]
+        subgraph Region_eu_west_1_Group["Region: eu-west-1"]
+            AZ4["AZ: eu-west-1a<br/>Data Center 1<br/>Data Center 2"]
+            AZ5["AZ: eu-west-1b<br/>Data Center 1<br/>Data Center 2"]
+            AZ6["AZ: eu-west-1c<br/>Data Center 1<br/>Data Center 2"]
         end
         
-        subgraph "Region: ap-southeast-1"
-            AZ7[AZ: ap-southeast-1a<br/>Data Center 1<br/>Data Center 2]
-            AZ8[AZ: ap-southeast-1b<br/>Data Center 1<br/>Data Center 2]
-            AZ9[AZ: ap-southeast-1c<br/>Data Center 1<br/>Data Center 2]
+        subgraph Region_ap_southeast_1_Group["Region: ap-southeast-1"]
+            AZ7["AZ: ap-southeast-1a<br/>Data Center 1<br/>Data Center 2"]
+            AZ8["AZ: ap-southeast-1b<br/>Data Center 1<br/>Data Center 2"]
+            AZ9["AZ: ap-southeast-1c<br/>Data Center 1<br/>Data Center 2"]
         end
     end
     
@@ -38,65 +38,86 @@ graph TB
     AZ8 -.Low Latency Link.-> AZ9
     AZ9 -.Low Latency Link.-> AZ7
     
-    style AZ1 fill:#FF9900
-    style AZ2 fill:#FF9900
-    style AZ3 fill:#FF9900
-    style AZ4 fill:#FF9900
-    style AZ5 fill:#FF9900
-    style AZ6 fill:#FF9900
-    style AZ7 fill:#FF9900
-    style AZ8 fill:#FF9900
-    style AZ9 fill:#FF9900
+    classDef style1 fill:#FF9900
+    class AZ1 style1
+    classDef style2 fill:#FF9900
+    class AZ2 style2
+    classDef style3 fill:#FF9900
+    class AZ3 style3
+    classDef style4 fill:#FF9900
+    class AZ4 style4
+    classDef style5 fill:#FF9900
+    class AZ5 style5
+    classDef style6 fill:#FF9900
+    class AZ6 style6
+    classDef style7 fill:#FF9900
+    class AZ7 style7
+    classDef style8 fill:#FF9900
+    class AZ8 style8
+    classDef style9 fill:#FF9900
+    class AZ9 style9
 ```
 
 ### Edge Locations and CloudFront Distribution
 
 ```mermaid
 graph LR
-    User1[User in NYC] --> Edge1[Edge Location<br/>New York]
-    User2[User in London] --> Edge2[Edge Location<br/>London]
-    User3[User in Tokyo] --> Edge3[Edge Location<br/>Tokyo]
-    User4[User in Sydney] --> Edge4[Edge Location<br/>Sydney]
+    User1[User in NYC] --> Edge1["Edge Location<br/>New York"]
+    User2[User in London] --> Edge2["Edge Location<br/>London"]
+    User3[User in Tokyo] --> Edge3["Edge Location<br/>Tokyo"]
+    User4[User in Sydney] --> Edge4["Edge Location<br/>Sydney"]
     
-    Edge1 --> CloudFront[Amazon CloudFront<br/>CDN]
+    Edge1 --> CloudFront["Amazon CloudFront<br/>CDN"]
     Edge2 --> CloudFront
     Edge3 --> CloudFront
     Edge4 --> CloudFront
     
-    CloudFront --> Origin[Origin Server<br/>S3 / EC2 / ALB]
+    CloudFront --> Origin["Origin Server<br/>S3 / EC2 / ALB"]
     
-    style Edge1 fill:#146EB4
-    style Edge2 fill:#146EB4
-    style Edge3 fill:#146EB4
-    style Edge4 fill:#146EB4
-    style CloudFront fill:#FF9900
-    style Origin fill:#569A31
+    classDef style1 fill:#146EB4
+    class Edge1 style1
+    classDef style2 fill:#146EB4
+    class Edge2 style2
+    classDef style3 fill:#146EB4
+    class Edge3 style3
+    classDef style4 fill:#146EB4
+    class Edge4 style4
+    classDef style5 fill:#FF9900
+    class CloudFront style5
+    classDef style6 fill:#569A31
+    class Origin style6
 ```
 
 ### Region Selection Decision Flow
 
 ```mermaid
 flowchart TD
-    Start([Start: Need to Choose Region]) --> Q1{Data Sovereignty<br/>Requirements?}
-    Q1 -->|Yes| RegionCompliance[Choose Region<br/>Based on Compliance]
-    Q1 -->|No| Q2{Where are<br/>your users?}
+    Start([Start: Need to Choose Region]) --> Q1{"Data Sovereignty<br/>Requirements?"}
+    Q1 -->|Yes| RegionCompliance["Choose Region<br/>Based on Compliance"]
+    Q1 -->|No| Q2{"Where are<br/>your users?"}
     
-    Q2 --> Proximity[Choose Closest Region<br/>for Low Latency]
+    Q2 --> Proximity["Choose Closest Region<br/>for Low Latency"]
     
-    Proximity --> Q3{Service Available<br/>in Region?}
+    Proximity --> Q3{"Service Available<br/>in Region?"}
     Q3 -->|Yes| Q4{Check Pricing}
-    Q3 -->|No| AltRegion[Choose Alternative<br/>Region]
+    Q3 -->|No| AltRegion["Choose Alternative<br/>Region"]
     
     Q4 --> Final[Selected Region]
     RegionCompliance --> Final
     AltRegion --> Q3
     
-    style Start fill:#232F3E
-    style Final fill:#569A31
-    style Q1 fill:#FF9900
-    style Q2 fill:#FF9900
-    style Q3 fill:#FF9900
-    style Q4 fill:#FF9900
+    classDef style1 fill:#232F3E
+    class Start style1
+    classDef style2 fill:#569A31
+    class Final style2
+    classDef style3 fill:#FF9900
+    class Q1 style3
+    classDef style4 fill:#FF9900
+    class Q2 style4
+    classDef style5 fill:#FF9900
+    class Q3 style5
+    classDef style6 fill:#FF9900
+    class Q4 style6
 ```
 
 ## AWS Well-Architected Framework
@@ -143,7 +164,7 @@ mindmap
 
 ```mermaid
 graph TB
-    subgraph "Operational Excellence"
+    subgraph Operational_Excellence_Group["Operational Excellence"]
         OE1[Infrastructure as Code]
         OE2[Annotated Documentation]
         OE3[Frequent Small Reversible Changes]
@@ -151,7 +172,7 @@ graph TB
         OE5[Learn from Failures]
     end
     
-    subgraph "Security"
+    subgraph Security_Group["Security"]
         S1[Identity & Access Management]
         S2[Detective Controls]
         S3[Infrastructure Protection]
@@ -159,40 +180,46 @@ graph TB
         S5[Incident Response]
     end
     
-    subgraph "Reliability"
+    subgraph Reliability_Group["Reliability"]
         R1[Recover from Failures]
         R2[Test Recovery Procedures]
         R3[Scale Horizontally]
         R4[Manage Change Automatically]
     end
     
-    subgraph "Performance Efficiency"
+    subgraph Performance_Efficiency_Group["Performance Efficiency"]
         P1[Use Advanced Technologies]
         P2[Deploy Globally in Minutes]
         P3[Use Serverless]
         P4[Experiment More Often]
     end
     
-    subgraph "Cost Optimization"
+    subgraph Cost_Optimization_Group["Cost Optimization"]
         C1[Adopt Consumption Model]
         C2[Measure Overall Efficiency]
         C3[Stop Spending on Undifferentiated Work]
         C4[Analyze and Attribute]
     end
     
-    subgraph "Sustainability"
+    subgraph Sustainability_Group["Sustainability"]
         SU1[Understand Impact]
         SU2[Establish Sustainability Goals]
         SU3[Maximize Utilization]
         SU4[Use Managed Services]
     end
     
-    style OE1 fill:#FF9900
-    style S1 fill:#FF9900
-    style R1 fill:#FF9900
-    style P1 fill:#FF9900
-    style C1 fill:#FF9900
-    style SU1 fill:#FF9900
+    classDef style1 fill:#FF9900
+    class OE1 style1
+    classDef style2 fill:#FF9900
+    class S1 style2
+    classDef style3 fill:#FF9900
+    class R1 style3
+    classDef style4 fill:#FF9900
+    class P1 style4
+    classDef style5 fill:#FF9900
+    class C1 style5
+    classDef style6 fill:#FF9900
+    class SU1 style6
 ```
 
 ## Shared Responsibility Model
@@ -201,19 +228,19 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "Customer Responsibility<br/>(Security IN the Cloud)"
+    subgraph Customer_Responsibility_br_Security_IN_the_Cloud_Group["Customer Responsibility&lt;&lt;&lt;BRTAG&gt;&gt;&gt;(Security IN the Cloud)"]
         C1[Customer Data]
         C2[Platform, Applications, IAM]
-        C3[Operating System, Network,<br/>Firewall Configuration]
+        C3["Operating System, Network,<br/>Firewall Configuration"]
         C4[Client-Side Data Encryption]
         C5[Server-Side Encryption]
         C6[Network Traffic Protection]
     end
     
-    subgraph "AWS Responsibility<br/>(Security OF the Cloud)"
-        A1[Hardware/AWS Global Infrastructure]
+    subgraph AWS_Responsibility_br_Security_OF_the_Cloud_Group["AWS Responsibility&lt;&lt;&lt;BRTAG&gt;&gt;&gt;(Security OF the Cloud)"]
+        A1["Hardware/AWS Global Infrastructure"]
         A2[Regions, AZs, Edge Locations]
-        A3[Compute, Storage, Database,<br/>Networking]
+        A3["Compute, Storage, Database,<br/>Networking"]
         A4[Software - Managed Services]
         A5[Physical Security of Data Centers]
     end
@@ -221,47 +248,60 @@ graph TB
     C1 --> Line[Shared Responsibility Line]
     Line --> A1
     
-    style C1 fill:#FF9900
-    style C2 fill:#FF9900
-    style C3 fill:#FF9900
-    style A1 fill:#146EB4
-    style A2 fill:#146EB4
-    style A3 fill:#146EB4
-    style Line fill:#232F3E
+    classDef style1 fill:#FF9900
+    class C1 style1
+    classDef style2 fill:#FF9900
+    class C2 style2
+    classDef style3 fill:#FF9900
+    class C3 style3
+    classDef style4 fill:#146EB4
+    class A1 style4
+    classDef style5 fill:#146EB4
+    class A2 style5
+    classDef style6 fill:#146EB4
+    class A3 style6
+    classDef style7 fill:#232F3E
+    class Line style7
 ```
 
 ### Service-Specific Responsibility Model
 
 ```mermaid
 graph LR
-    subgraph "Infrastructure Services (EC2, EBS, VPC)"
+    subgraph Infrastructure_Services_EC2_EBS_VPC_Group["Infrastructure Services (EC2, EBS, VPC)"]
         direction TB
-        I1[Customer Manages:<br/>• OS Patching<br/>• Security Groups<br/>• Network Config<br/>• Application Security]
-        I2[AWS Manages:<br/>• Infrastructure<br/>• Virtualization Layer]
+        I1["Customer Manages:<br/>• OS Patching<br/>• Security Groups<br/>• Network Config<br/>• Application Security"]
+        I2["AWS Manages:<br/>• Infrastructure<br/>• Virtualization Layer"]
     end
     
-    subgraph "Container Services (RDS, EMR)"
+    subgraph Container_Services_RDS_EMR_Group["Container Services (RDS, EMR)"]
         direction TB
-        Co1[Customer Manages:<br/>• Security Groups<br/>• IAM<br/>• Data Encryption]
-        Co2[AWS Manages:<br/>• OS Patching<br/>• Database Patching<br/>• Infrastructure]
+        Co1["Customer Manages:<br/>• Security Groups<br/>• IAM<br/>• Data Encryption"]
+        Co2["AWS Manages:<br/>• OS Patching<br/>• Database Patching<br/>• Infrastructure"]
     end
     
-    subgraph "Abstracted Services (S3, DynamoDB)"
+    subgraph Abstracted_Services_S3_DynamoDB_Group["Abstracted Services (S3, DynamoDB)"]
         direction TB
-        A1[Customer Manages:<br/>• IAM<br/>• Data Encryption<br/>• Client-Side Protection]
-        A2[AWS Manages:<br/>• Infrastructure<br/>• Platform<br/>• Operating System]
+        A1["Customer Manages:<br/>• IAM<br/>• Data Encryption<br/>• Client-Side Protection"]
+        A2["AWS Manages:<br/>• Infrastructure<br/>• Platform<br/>• Operating System"]
     end
     
     I1 --> I2
     Co1 --> Co2
     A1 --> A2
     
-    style I1 fill:#FF9900
-    style Co1 fill:#FF9900
-    style A1 fill:#FF9900
-    style I2 fill:#146EB4
-    style Co2 fill:#146EB4
-    style A2 fill:#146EB4
+    classDef style1 fill:#FF9900
+    class I1 style1
+    classDef style2 fill:#FF9900
+    class Co1 style2
+    classDef style3 fill:#FF9900
+    class A1 style3
+    classDef style4 fill:#146EB4
+    class I2 style4
+    classDef style5 fill:#146EB4
+    class Co2 style5
+    classDef style6 fill:#146EB4
+    class A2 style6
 ```
 
 ## AWS Management Tools
@@ -293,20 +333,20 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph "Client Environment"
+    subgraph Client_Environment_Group["Client Environment"]
         CLI[AWS CLI]
-        SDK[AWS SDK<br/>Python/Java/JS/etc]
+        SDK["AWS SDK<br/>Python/Java/JS/etc"]
         Scripts[Automation Scripts]
     end
     
-    subgraph "Authentication"
-        Creds[Credentials File<br/>~/.aws/credentials]
-        Config[Config File<br/>~/.aws/config]
+    subgraph Authentication_Group["Authentication"]
+        Creds["Credentials File<br/>~/.aws/credentials"]
+        Config["Config File<br/>~/.aws/config"]
         EnvVars[Environment Variables]
-        IAMRole[IAM Role<br/>for EC2/Lambda]
+        IAMRole["IAM Role<br/>for EC2/Lambda"]
     end
     
-    subgraph "AWS Services"
+    subgraph AWS_Services_Group["AWS Services"]
         S3[S3]
         EC2[EC2]
         Lambda[Lambda]
@@ -325,9 +365,12 @@ graph TB
     IAMRole --> Lambda
     EnvVars --> RDS
     
-    style CLI fill:#FF9900
-    style SDK fill:#FF9900
-    style IAMRole fill:#569A31
+    classDef style1 fill:#FF9900
+    class CLI style1
+    classDef style2 fill:#FF9900
+    class SDK style2
+    classDef style3 fill:#569A31
+    class IAMRole style3
 ```
 
 ## AWS Service Categories
@@ -402,7 +445,7 @@ flowchart TD
     Compute -->|Serverless| Lambda[Lambda]
     Compute -->|Containers| Container{Managed?}
     Container -->|Yes| Fargate[Fargate]
-    Container -->|No| ECS[ECS/EKS]
+    Container -->|No| ECS["ECS/EKS"]
     
     Storage -->|Object| S3[S3]
     Storage -->|Block| EBS[EBS]
@@ -410,7 +453,7 @@ flowchart TD
     File -->|NFS| EFS[EFS]
     File -->|SMB/Windows| FSx[FSx]
     
-    Database -->|Relational| RDS[RDS/Aurora]
+    Database -->|Relational| RDS["RDS/Aurora"]
     Database -->|NoSQL| NoSQL{Key-Value?}
     NoSQL -->|Yes| DynamoDB[DynamoDB]
     NoSQL -->|Document| DocumentDB[DocumentDB]
@@ -419,12 +462,18 @@ flowchart TD
     Network -->|DNS| Route53[Route 53]
     Network -->|CDN| CloudFront[CloudFront]
     
-    style Start fill:#232F3E
-    style EC2 fill:#FF9900
-    style Lambda fill:#FF9900
-    style S3 fill:#FF9900
-    style RDS fill:#FF9900
-    style VPC fill:#FF9900
+    classDef style1 fill:#232F3E
+    class Start style1
+    classDef style2 fill:#FF9900
+    class EC2 style2
+    classDef style3 fill:#FF9900
+    class Lambda style3
+    classDef style4 fill:#FF9900
+    class S3 style4
+    classDef style5 fill:#FF9900
+    class RDS style5
+    classDef style6 fill:#FF9900
+    class VPC style6
 ```
 
 ## AWS Account Management
@@ -433,11 +482,11 @@ flowchart TD
 
 ```mermaid
 graph TB
-    Root[Root Account<br/>Management Account]
+    Root["Root Account<br/>Management Account"]
     
-    Root --> OU1[Organizational Unit:<br/>Production]
-    Root --> OU2[Organizational Unit:<br/>Development]
-    Root --> OU3[Organizational Unit:<br/>Security]
+    Root --> OU1["Organizational Unit:<br/>Production"]
+    Root --> OU2["Organizational Unit:<br/>Development"]
+    Root --> OU3["Organizational Unit:<br/>Security"]
     
     OU1 --> ProdAcct1[Production Account 1]
     OU1 --> ProdAcct2[Production Account 2]
@@ -448,60 +497,70 @@ graph TB
     OU3 --> SecAcct1[Security Account]
     OU3 --> SecAcct2[Audit Account]
     
-    SCP1[Service Control Policy<br/>Deny S3 Public Access] -.Applies to.-> OU1
-    SCP2[Service Control Policy<br/>Restrict Regions] -.Applies to.-> OU2
+    SCP1["Service Control Policy<br/>Deny S3 Public Access"] -.Applies to.-> OU1
+    SCP2["Service Control Policy<br/>Restrict Regions"] -.Applies to.-> OU2
     
-    style Root fill:#232F3E
-    style OU1 fill:#FF9900
-    style OU2 fill:#FF9900
-    style OU3 fill:#FF9900
-    style SCP1 fill:#146EB4
-    style SCP2 fill:#146EB4
+    classDef style1 fill:#232F3E
+    class Root style1
+    classDef style2 fill:#FF9900
+    class OU1 style2
+    classDef style3 fill:#FF9900
+    class OU2 style3
+    classDef style4 fill:#FF9900
+    class OU3 style4
+    classDef style5 fill:#146EB4
+    class SCP1 style5
+    classDef style6 fill:#146EB4
+    class SCP2 style6
 ```
 
 ### Billing and Cost Management Flow
 
 ```mermaid
 flowchart LR
-    Services[AWS Services<br/>Usage] --> CostExplorer[AWS Cost Explorer]
+    Services["AWS Services<br/>Usage"] --> CostExplorer[AWS Cost Explorer]
     Services --> Budgets[AWS Budgets]
     Services --> Bill[AWS Bill]
     
-    CostExplorer --> Analysis[Cost Analysis<br/>& Visualization]
+    CostExplorer --> Analysis["Cost Analysis<br/>& Visualization"]
     Budgets --> Alerts[Budget Alerts]
     Bill --> Pay[Payment]
     
-    Analysis --> Actions[Cost Optimization<br/>Actions]
+    Analysis --> Actions["Cost Optimization<br/>Actions"]
     Alerts --> Actions
     
-    Tags[Cost Allocation<br/>Tags] -.Tag Resources.-> Services
+    Tags["Cost Allocation<br/>Tags"] -.Tag Resources.-> Services
     
-    style Services fill:#FF9900
-    style CostExplorer fill:#146EB4
-    style Budgets fill:#146EB4
-    style Actions fill:#569A31
+    classDef style1 fill:#FF9900
+    class Services style1
+    classDef style2 fill:#146EB4
+    class CostExplorer style2
+    classDef style3 fill:#146EB4
+    class Budgets style3
+    classDef style4 fill:#569A31
+    class Actions style4
 ```
 
 ### Multi-Account Strategy
 
 ```mermaid
 graph TB
-    subgraph "Management Account"
+    subgraph Management_Account_Group["Management Account"]
         Billing[Consolidated Billing]
         Org[AWS Organizations]
     end
     
-    subgraph "Security OU"
+    subgraph Security_OU_Group["Security OU"]
         LogArchive[Log Archive Account]
         Security[Security Tooling Account]
     end
     
-    subgraph "Infrastructure OU"
+    subgraph Infrastructure_OU_Group["Infrastructure OU"]
         Network[Network Account]
         SharedServices[Shared Services Account]
     end
     
-    subgraph "Workloads"
+    subgraph Workloads_Group["Workloads"]
         Prod[Production Account]
         Dev[Development Account]
         Test[Test Account]
@@ -522,30 +581,33 @@ graph TB
     Network -.VPC Peering/Transit Gateway.-> Prod
     Network -.VPC Peering/Transit Gateway.-> Dev
     
-    style Billing fill:#FF9900
-    style LogArchive fill:#146EB4
-    style Prod fill:#569A31
+    classDef style1 fill:#FF9900
+    class Billing style1
+    classDef style2 fill:#146EB4
+    class LogArchive style2
+    classDef style3 fill:#569A31
+    class Prod style3
 ```
 
 ## High Availability Multi-AZ Deployment
 
 ```mermaid
 graph TB
-    subgraph "Region: us-east-1"
-        Route53[Route 53<br/>DNS]
+    subgraph Region_us_east_1_Group["Region: us-east-1"]
+        Route53["Route 53<br/>DNS"]
         
-        subgraph "AZ: us-east-1a"
+        subgraph AZ_us_east_1a_Group["AZ: us-east-1a"]
             ALB1[Application Load Balancer]
             App1[Application Server 1]
             DB1[(Primary Database)]
         end
         
-        subgraph "AZ: us-east-1b"
+        subgraph AZ_us_east_1b_Group["AZ: us-east-1b"]
             App2[Application Server 2]
-            DB2[(Standby Database<br/>Sync Replication)]
+            DB2["(Standby Database<br/>Sync Replication)"]
         end
         
-        subgraph "AZ: us-east-1c"
+        subgraph AZ_us_east_1c_Group["AZ: us-east-1c"]
             App3[Application Server 3]
         end
     end
@@ -563,9 +625,13 @@ graph TB
     
     DB1 -.Synchronous<br/>Replication.-> DB2
     
-    style Route53 fill:#8C4FFF
-    style ALB1 fill:#FF9900
-    style DB1 fill:#3B48CC
-    style DB2 fill:#3B48CC
+    classDef style1 fill:#8C4FFF
+    class Route53 style1
+    classDef style2 fill:#FF9900
+    class ALB1 style2
+    classDef style3 fill:#3B48CC
+    class DB1 style3
+    classDef style4 fill:#3B48CC
+    class DB2 style4
 ```
 

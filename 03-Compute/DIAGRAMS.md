@@ -93,32 +93,35 @@ mindmap
 
 ```mermaid
 graph TB
-    subgraph "Pricing Models"
-        OnDemand[On-Demand<br/>💰 No Discount<br/>⏱️ Pay by hour/second<br/>📊 Flexible]
-        Reserved[Reserved Instances<br/>💰 Up to 72% Discount<br/>⏱️ 1 or 3 years<br/>📊 Steady workloads]
-        Savings[Savings Plans<br/>💰 Up to 66% Discount<br/>⏱️ 1 or 3 years<br/>📊 Flexible instance type]
-        Spot[Spot Instances<br/>💰 Up to 90% Discount<br/>⏱️ Can be terminated<br/>📊 Fault-tolerant]
-        Dedicated[Dedicated Hosts<br/>💰 No Discount<br/>⏱️ Physical server<br/>📊 Compliance/Licensing]
+    subgraph Pricing_Models_Group["Pricing Models"]
+        OnDemand["On-Demand<br/>💰 No Discount<br/>⏱️ Pay by hour/second<br/>📊 Flexible"]
+        Reserved["Reserved Instances<br/>💰 Up to 72% Discount<br/>⏱️ 1 or 3 years<br/>📊 Steady workloads"]
+        Savings["Savings Plans<br/>💰 Up to 66% Discount<br/>⏱️ 1 or 3 years<br/>📊 Flexible instance type"]
+        Spot["Spot Instances<br/>💰 Up to 90% Discount<br/>⏱️ Can be terminated<br/>📊 Fault-tolerant"]
+        Dedicated["Dedicated Hosts<br/>💰 No Discount<br/>⏱️ Physical server<br/>📊 Compliance/Licensing"]
     end
     
-    subgraph "Use Cases"
-        OnDemand --> UC1[Short-term workloads<br/>Unpredictable patterns<br/>Development/Testing]
-        Reserved --> UC2[Production databases<br/>Steady-state applications<br/>Predictable usage]
-        Savings --> UC3[Flexible compute needs<br/>Commitment without lock-in<br/>Mixed workloads]
-        Spot --> UC4[Batch jobs<br/>Data analysis<br/>Background processing<br/>CI/CD]
-        Dedicated --> UC5[Regulatory requirements<br/>License restrictions<br/>Multi-tenant isolation]
+    subgraph Use_Cases_Group["Use Cases"]
+        OnDemand --> UC1["Short-term workloads<br/>Unpredictable patterns<br/>Development/Testing"]
+        Reserved --> UC2["Production databases<br/>Steady-state applications<br/>Predictable usage"]
+        Savings --> UC3["Flexible compute needs<br/>Commitment without lock-in<br/>Mixed workloads"]
+        Spot --> UC4["Batch jobs<br/>Data analysis<br/>Background processing<br/>CI/CD"]
+        Dedicated --> UC5["Regulatory requirements<br/>License restrictions<br/>Multi-tenant isolation"]
     end
     
-    style OnDemand fill:#FF9900
-    style Reserved fill:#146EB4
-    style Spot fill:#569A31
+    classDef style1 fill:#FF9900
+    class OnDemand style1
+    classDef style2 fill:#146EB4
+    class Reserved style2
+    classDef style3 fill:#569A31
+    class Spot style3
 ```
 
 ### EC2 Placement Groups
 
 ```mermaid
 graph TB
-    subgraph "Cluster Placement Group"
+    subgraph Cluster_Placement_Group["Cluster Placement Group"]
         direction LR
         AZ1[Same AZ]
         I1[Instance 1] -.Low Latency.-> I2[Instance 2]
@@ -129,32 +132,35 @@ graph TB
         I3 --> AZ1
     end
     
-    subgraph "Spread Placement Group"
+    subgraph Spread_Placement_Group["Spread Placement Group"]
         direction TB
         AZa[AZ-1a: Max 7 Instances]
         AZb[AZ-1b: Max 7 Instances]
         AZc[AZ-1c: Max 7 Instances]
         
-        S1[Instance 1<br/>Isolated Hardware] --> AZa
-        S2[Instance 2<br/>Isolated Hardware] --> AZb
-        S3[Instance 3<br/>Isolated Hardware] --> AZc
-        S4[Instance 4<br/>Isolated Hardware] --> AZa
+        S1["Instance 1<br/>Isolated Hardware"] --> AZa
+        S2["Instance 2<br/>Isolated Hardware"] --> AZb
+        S3["Instance 3<br/>Isolated Hardware"] --> AZc
+        S4["Instance 4<br/>Isolated Hardware"] --> AZa
     end
     
-    subgraph "Partition Placement Group"
+    subgraph Partition_Placement_Group["Partition Placement Group"]
         direction TB
-        P1[Partition 1<br/>Rack 1<br/>Instances A,B,C]
-        P2[Partition 2<br/>Rack 2<br/>Instances D,E,F]
-        P3[Partition 3<br/>Rack 3<br/>Instances G,H,I]
+        P1["Partition 1<br/>Rack 1<br/>Instances A,B,C"]
+        P2["Partition 2<br/>Rack 2<br/>Instances D,E,F"]
+        P3["Partition 3<br/>Rack 3<br/>Instances G,H,I"]
     end
     
-    Use1[HPC, Big Data<br/>Low Latency Required] -.Use.-> I1
-    Use2[Critical Applications<br/>High Availability] -.Use.-> S1
-    Use3[Hadoop, Kafka, Cassandra<br/>Large Distributed Systems] -.Use.-> P1
+    Use1["HPC, Big Data<br/>Low Latency Required"] -.Use.-> I1
+    Use2["Critical Applications<br/>High Availability"] -.Use.-> S1
+    Use3["Hadoop, Kafka, Cassandra<br/>Large Distributed Systems"] -.Use.-> P1
     
-    style I1 fill:#C00
-    style S1 fill:#FF9900
-    style P1 fill:#146EB4
+    classDef style1 fill:#C00
+    class I1 style1
+    classDef style2 fill:#FF9900
+    class S1 style2
+    classDef style3 fill:#146EB4
+    class P1 style3
 ```
 
 ## Auto Scaling
@@ -165,20 +171,20 @@ graph TB
 graph TB
     Users[Users] --> ALB[Application Load Balancer]
     
-    subgraph "Auto Scaling Group"
-        ASG[Auto Scaling Group<br/>Min: 2, Desired: 4, Max: 8]
+    subgraph Auto_Scaling_Group["Auto Scaling Group"]
+        ASG["Auto Scaling Group<br/>Min: 2, Desired: 4, Max: 8"]
         
-        subgraph "AZ-1a"
+        subgraph AZ_1a_Group["AZ-1a"]
             EC2_1a_1[EC2 Instance]
             EC2_1a_2[EC2 Instance]
         end
         
-        subgraph "AZ-1b"
+        subgraph AZ_1b_Group["AZ-1b"]
             EC2_1b_1[EC2 Instance]
             EC2_1b_2[EC2 Instance]
         end
         
-        subgraph "AZ-1c"
+        subgraph AZ_1c_Group["AZ-1c"]
             EC2_1c_1[EC2 Instance]
         end
     end
@@ -195,34 +201,39 @@ graph TB
     ScaleOut --> ASG
     ScaleIn --> ASG
     
-    LaunchTemplate[Launch Template<br/>AMI, Instance Type,<br/>Security Groups, IAM Role] -.Defines.-> ASG
+    LaunchTemplate["Launch Template<br/>AMI, Instance Type,<br/>Security Groups, IAM Role"] -.Defines.-> ASG
     
-    style ASG fill:#FF9900
-    style CloudWatch fill:#8C4FFF
-    style LaunchTemplate fill:#146EB4
+    classDef style1 fill:#FF9900
+    class ASG style1
+    classDef style2 fill:#8C4FFF
+    class CloudWatch style2
+    classDef style3 fill:#146EB4
+    class LaunchTemplate style3
 ```
 
 ### Auto Scaling Policies
 
 ```mermaid
 graph TB
-    subgraph "Scaling Policies"
-        Target[Target Tracking Scaling<br/>Maintain metric at target<br/>e.g., CPU at 50%]
-        Step[Step Scaling<br/>Scale based on CloudWatch alarms<br/>Different steps for different thresholds]
-        Simple[Simple Scaling<br/>Single adjustment<br/>Wait for cooldown]
-        Scheduled[Scheduled Scaling<br/>Time-based scaling<br/>Predictable patterns]
-        Predictive[Predictive Scaling<br/>ML-based forecasting<br/>Analyze historical data]
+    subgraph Scaling_Policies_Group["Scaling Policies"]
+        Target["Target Tracking Scaling<br/>Maintain metric at target<br/>e.g., CPU at 50%"]
+        Step["Step Scaling<br/>Scale based on CloudWatch alarms<br/>Different steps for different thresholds"]
+        Simple["Simple Scaling<br/>Single adjustment<br/>Wait for cooldown"]
+        Scheduled["Scheduled Scaling<br/>Time-based scaling<br/>Predictable patterns"]
+        Predictive["Predictive Scaling<br/>ML-based forecasting<br/>Analyze historical data"]
     end
     
-    subgraph "Metrics"
-        Target --> M1[CPU Utilization<br/>Request Count<br/>Network I/O]
-        Step --> M2[CPU > 80%: +3<br/>CPU > 60%: +2<br/>CPU > 40%: +1]
-        Scheduled --> M3[Weekday 9AM: Scale to 10<br/>Weekday 6PM: Scale to 2]
-        Predictive --> M4[Predict daily traffic patterns<br/>Pre-scale before load]
+    subgraph Metrics_Group["Metrics"]
+        Target --> M1["CPU Utilization<br/>Request Count<br/>Network I/O"]
+        Step --> M2["CPU &gt; 80%: +3<br/>CPU &gt; 60%: +2<br/>CPU &gt; 40%: +1"]
+        Scheduled --> M3["Weekday 9AM: Scale to 10<br/>Weekday 6PM: Scale to 2"]
+        Predictive --> M4["Predict daily traffic patterns<br/>Pre-scale before load"]
     end
     
-    style Target fill:#FF9900
-    style Predictive fill:#569A31
+    classDef style1 fill:#FF9900
+    class Target style1
+    classDef style2 fill:#569A31
+    class Predictive style2
 ```
 
 ### Auto Scaling Lifecycle
@@ -264,7 +275,6 @@ sequenceDiagram
         ASG->>EC2: Terminate Instance
     end
     
-    style ASG fill:#FF9900
 ```
 
 ## Elastic Load Balancing
@@ -273,33 +283,37 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph "Application Load Balancer (ALB)"
-        ALB[Layer 7 - HTTP/HTTPS]
-        ALB --> ALBFeatures[• Path-based routing<br/>• Host-based routing<br/>• Lambda targets<br/>• WebSocket support<br/>• HTTP/2 support]
-        ALBFeatures --> ALBUse[Microservices<br/>Containers<br/>Web Applications]
+    subgraph Application_Load_Balancer_ALB_Group["Application Load Balancer (ALB)"]
+        ALB["Layer 7 - HTTP/HTTPS"]
+        ALB --> ALBFeatures["• Path-based routing<br/>• Host-based routing<br/>• Lambda targets<br/>• WebSocket support<br/>• HTTP/2 support"]
+        ALBFeatures --> ALBUse["Microservices<br/>Containers<br/>Web Applications"]
     end
     
-    subgraph "Network Load Balancer (NLB)"
-        NLB[Layer 4 - TCP/UDP/TLS]
-        NLB --> NLBFeatures[• Ultra-high performance<br/>• Static IP addresses<br/>• Preserve source IP<br/>• Millions of req/sec]
-        NLBFeatures --> NLBUse[Gaming<br/>IoT<br/>TCP/UDP traffic]
+    subgraph Network_Load_Balancer_NLB_Group["Network Load Balancer (NLB)"]
+        NLB["Layer 4 - TCP/UDP/TLS"]
+        NLB --> NLBFeatures["• Ultra-high performance<br/>• Static IP addresses<br/>• Preserve source IP<br/>• Millions of req/sec"]
+        NLBFeatures --> NLBUse["Gaming<br/>IoT<br/>TCP/UDP traffic"]
     end
     
-    subgraph "Gateway Load Balancer (GWLB)"
+    subgraph Gateway_Load_Balancer_GWLB_Group["Gateway Load Balancer (GWLB)"]
         GWLB[Layer 3 - IP Packets]
-        GWLB --> GWLBFeatures[• Deploy virtual appliances<br/>• Transparent to applications<br/>• GENEVE protocol]
-        GWLBFeatures --> GWLBUse[Firewalls<br/>IDS/IPS<br/>Deep packet inspection]
+        GWLB --> GWLBFeatures["• Deploy virtual appliances<br/>• Transparent to applications<br/>• GENEVE protocol"]
+        GWLBFeatures --> GWLBUse["Firewalls<br/>IDS/IPS<br/>Deep packet inspection"]
     end
     
-    subgraph "Classic Load Balancer (CLB)"
+    subgraph Classic_Load_Balancer_CLB_Group["Classic Load Balancer (CLB)"]
         CLB[Layer 4 & 7 - Legacy]
-        CLB --> CLBNote[❌ Not recommended<br/>For new applications]
+        CLB --> CLBNote["❌ Not recommended<br/>For new applications"]
     end
     
-    style ALB fill:#FF9900
-    style NLB fill:#146EB4
-    style GWLB fill:#569A31
-    style CLB fill:#999
+    classDef style1 fill:#FF9900
+    class ALB style1
+    classDef style2 fill:#146EB4
+    class NLB style2
+    classDef style3 fill:#569A31
+    class GWLB style3
+    classDef style4 fill:#999
+    class CLB style4
 ```
 
 ### ALB Request Routing
@@ -308,15 +322,15 @@ graph TB
 graph TB
     Client[Client Request] --> ALB[Application Load Balancer]
     
-    ALB --> Rule1{Path: /api/*}
-    ALB --> Rule2{Path: /images/*}
+    ALB --> Rule1{"Path: /api/*"}
+    ALB --> Rule2{"Path: /images/*"}
     ALB --> Rule3{Host: mobile.example.com}
     ALB --> Rule4{Header: X-Custom-Header}
     
-    Rule1 -->|Match| TG1[Target Group 1<br/>API Servers<br/>Port 8080]
-    Rule2 -->|Match| TG2[Target Group 2<br/>Image Servers<br/>Port 8081]
-    Rule3 -->|Match| TG3[Target Group 3<br/>Mobile Backend<br/>Port 8082]
-    Rule4 -->|Match| TG4[Target Group 4<br/>Lambda Functions]
+    Rule1 -->|Match| TG1["Target Group 1<br/>API Servers<br/>Port 8080"]
+    Rule2 -->|Match| TG2["Target Group 2<br/>Image Servers<br/>Port 8081"]
+    Rule3 -->|Match| TG3["Target Group 3<br/>Mobile Backend<br/>Port 8082"]
+    Rule4 -->|Match| TG4["Target Group 4<br/>Lambda Functions"]
     
     TG1 --> EC2_1[EC2 Instance 1]
     TG1 --> EC2_2[EC2 Instance 2]
@@ -328,9 +342,12 @@ graph TB
     
     TG4 --> Lambda[Lambda Function]
     
-    style ALB fill:#FF9900
-    style TG1 fill:#146EB4
-    style TG4 fill:#569A31
+    classDef style1 fill:#FF9900
+    class ALB style1
+    classDef style2 fill:#146EB4
+    class TG1 style2
+    classDef style3 fill:#569A31
+    class TG4 style3
 ```
 
 ### Load Balancer with Health Checks
@@ -372,22 +389,21 @@ sequenceDiagram
     
     ELB->>TG: Mark EC2_3 as Healthy
     
-    style ELB fill:#FF9900
 ```
 
 ### Cross-Zone Load Balancing
 
 ```mermaid
 graph TB
-    subgraph "With Cross-Zone Load Balancing"
+    subgraph With_Cross_Zone_Load_Balancing_Group["With Cross-Zone Load Balancing"]
         ALB1[Load Balancer]
         
-        subgraph "AZ-1a"
+        subgraph AZ_1a_Group["AZ-1a"]
             E1[EC2 - 25%]
             E2[EC2 - 25%]
         end
         
-        subgraph "AZ-1b"
+        subgraph AZ_1b_Group["AZ-1b"]
             E3[EC2 - 25%]
             E4[EC2 - 25%]
         end
@@ -398,16 +414,16 @@ graph TB
         ALB1 --> E4
     end
     
-    subgraph "Without Cross-Zone Load Balancing"
-        NLB1[Load Balancer Node 1<br/>AZ-1a]
-        NLB2[Load Balancer Node 2<br/>AZ-1b]
+    subgraph Without_Cross_Zone_Load_Balancing_Group["Without Cross-Zone Load Balancing"]
+        NLB1["Load Balancer Node 1<br/>AZ-1a"]
+        NLB2["Load Balancer Node 2<br/>AZ-1b"]
         
-        subgraph "AZ-1a "
+        subgraph AZ_1a_Group["AZ-1a "]
             N1[EC2 - 25%]
             N2[EC2 - 25%]
         end
         
-        subgraph "AZ-1b "
+        subgraph AZ_1b_Group["AZ-1b "]
             N3[EC2 - 50%]
         end
         
@@ -416,9 +432,12 @@ graph TB
         NLB2 --> N3
     end
     
-    style ALB1 fill:#569A31
-    style NLB1 fill:#C00
-    style NLB2 fill:#C00
+    classDef style1 fill:#569A31
+    class ALB1 style1
+    classDef style2 fill:#C00
+    class NLB1 style2
+    classDef style3 fill:#C00
+    class NLB2 style3
 ```
 
 ## AWS Lambda
@@ -427,7 +446,7 @@ graph TB
 
 ```mermaid
 graph LR
-    subgraph "Event Sources"
+    subgraph Event_Sources_Group["Event Sources"]
         API[API Gateway]
         S3[S3 Events]
         DDB[DynamoDB Streams]
@@ -437,16 +456,16 @@ graph LR
         ALB[ALB]
     end
     
-    subgraph "Lambda Function"
-        Handler[Function Handler<br/>Your Code]
-        Runtime[Runtime Environment<br/>Python/Node.js/Java/etc]
+    subgraph Lambda_Function_Group["Lambda Function"]
+        Handler["Function Handler<br/>Your Code"]
+        Runtime["Runtime Environment<br/>Python/Node.js/Java/etc"]
         Execution[Execution Context]
         
         Handler --> Runtime
         Runtime --> Execution
     end
     
-    subgraph "AWS Services"
+    subgraph AWS_Services_Group["AWS Services"]
         S3Out[S3]
         DDBOut[DynamoDB]
         RDS[RDS Proxy]
@@ -468,36 +487,38 @@ graph LR
     
     IAM[IAM Execution Role] -.Permissions.-> Execution
     
-    style Handler fill:#FF9900
-    style Execution fill:#569A31
+    classDef style1 fill:#FF9900
+    class Handler style1
+    classDef style2 fill:#569A31
+    class Execution style2
 ```
 
 ### Lambda Invocation Types
 
 ```mermaid
 graph TB
-    subgraph "Synchronous Invocation"
+    subgraph Synchronous_Invocation_Group["Synchronous Invocation"]
         Client1[Client] -->|Invoke| Lambda1[Lambda Function]
         Lambda1 -->|Return Response| Client1
-        Examples1[Examples:<br/>• API Gateway<br/>• ALB<br/>• CLI invoke]
+        Examples1["Examples:<br/>• API Gateway<br/>• ALB<br/>• CLI invoke"]
         
-        Note1[⏱️ Wait for response<br/>🔁 Retry 0 times<br/>❌ Client handles errors]
+        Note1["⏱️ Wait for response<br/>🔁 Retry 0 times<br/>❌ Client handles errors"]
     end
     
-    subgraph "Asynchronous Invocation"
+    subgraph Asynchronous_Invocation_Group["Asynchronous Invocation"]
         Client2[Event Source] -->|Send Event| Queue[Event Queue]
         Queue -->|Process| Lambda2[Lambda Function]
         Lambda2 -.Success.-> Success[Success]
         Lambda2 -.Failure.-> Retry[Retry 2x]
-        Retry -.Still Fails.-> DLQ[Dead Letter Queue<br/>SQS/SNS]
+        Retry -.Still Fails.-> DLQ["Dead Letter Queue<br/>SQS/SNS"]
         
-        Examples2[Examples:<br/>• S3<br/>• SNS<br/>• EventBridge<br/>• CloudWatch Events]
+        Examples2["Examples:<br/>• S3<br/>• SNS<br/>• EventBridge<br/>• CloudWatch Events"]
         
-        Note2[⚡ Returns immediately<br/>🔁 Retry 2 times<br/>☠️ DLQ for failures]
+        Note2["⚡ Returns immediately<br/>🔁 Retry 2 times<br/>☠️ DLQ for failures"]
     end
     
-    subgraph "Event Source Mapping"
-        Stream[Stream/Queue] -.Poll.-> Lambda3[Lambda Function]
+    subgraph Event_Source_Mapping_Group["Event Source Mapping"]
+        Stream["Stream/Queue"] -.Poll.-> Lambda3[Lambda Function]
         
         Kinesis[Kinesis Streams]
         DynamoDB[DynamoDB Streams]
@@ -509,41 +530,46 @@ graph TB
         
         Lambda3 --> Batch[Process Batch]
         
-        Note3[📦 Batch processing<br/>🔁 Retry entire batch<br/>⏸️ Can pause polling]
+        Note3["📦 Batch processing<br/>🔁 Retry entire batch<br/>⏸️ Can pause polling"]
     end
     
-    style Lambda1 fill:#FF9900
-    style Lambda2 fill:#146EB4
-    style Lambda3 fill:#569A31
+    classDef style1 fill:#FF9900
+    class Lambda1 style1
+    classDef style2 fill:#146EB4
+    class Lambda2 style2
+    classDef style3 fill:#569A31
+    class Lambda3 style3
 ```
 
 ### Lambda Architecture Limits
 
 ```mermaid
 graph TB
-    subgraph "Lambda Limits"
-        Memory[Memory<br/>128 MB - 10 GB<br/>⚙️ Configurable in 1 MB increments]
+    subgraph Lambda_Limits_Group["Lambda Limits"]
+        Memory["Memory<br/>128 MB - 10 GB<br/>⚙️ Configurable in 1 MB increments"]
         
-        Timeout[Timeout<br/>⏱️ 15 minutes maximum<br/>⚙️ Default: 3 seconds]
+        Timeout["Timeout<br/>⏱️ 15 minutes maximum<br/>⚙️ Default: 3 seconds"]
         
-        Concurrent[Concurrent Executions<br/>🔢 1,000 default per region<br/>📈 Can request increase]
+        Concurrent["Concurrent Executions<br/>🔢 1,000 default per region<br/>📈 Can request increase"]
         
-        EnvVars[Environment Variables<br/>📝 4 KB total<br/>🔐 Can encrypt with KMS]
+        EnvVars["Environment Variables<br/>📝 4 KB total<br/>🔐 Can encrypt with KMS"]
         
-        Deployment[Deployment Package<br/>📦 50 MB zipped<br/>📂 250 MB unzipped<br/>💾 /tmp storage: 512 MB - 10 GB]
+        Deployment["Deployment Package<br/>📦 50 MB zipped<br/>📂 250 MB unzipped<br/>💾 /tmp storage: 512 MB - 10 GB"]
         
-        Layers[Lambda Layers<br/>📚 5 layers per function<br/>📦 50 MB per layer]
+        Layers["Lambda Layers<br/>📚 5 layers per function<br/>📦 50 MB per layer"]
     end
     
-    subgraph "Performance Tips"
-        Memory --> Perf1[More Memory =<br/>More CPU Power]
-        Timeout --> Perf2[Set realistic timeout<br/>to avoid waste]
-        Concurrent --> Perf3[Reserve concurrent<br/>for critical functions]
-        Deployment --> Perf4[Use layers for<br/>shared dependencies]
+    subgraph Performance_Tips_Group["Performance Tips"]
+        Memory --> Perf1["More Memory =<br/>More CPU Power"]
+        Timeout --> Perf2["Set realistic timeout<br/>to avoid waste"]
+        Concurrent --> Perf3["Reserve concurrent<br/>for critical functions"]
+        Deployment --> Perf4["Use layers for<br/>shared dependencies"]
     end
     
-    style Memory fill:#FF9900
-    style Concurrent fill:#146EB4
+    classDef style1 fill:#FF9900
+    class Memory style1
+    classDef style2 fill:#146EB4
+    class Concurrent style2
 ```
 
 ### Lambda Cold Start vs Warm Start
@@ -574,8 +600,6 @@ sequenceDiagram
     
     Note over Event,Function: Cold Start: 100ms - several seconds<br/>Warm Start: Single-digit milliseconds
     
-    style Container fill:#FF9900
-    style Function fill:#569A31
 ```
 
 ## Container Services
@@ -584,89 +608,95 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph "ECS Cluster"
-        subgraph "EC2 Launch Type"
-            EC2_1[EC2 Instance 1<br/>ECS Agent]
-            EC2_2[EC2 Instance 2<br/>ECS Agent]
+    subgraph ECS_Cluster_Group["ECS Cluster"]
+        subgraph EC2_Launch_Type_Group["EC2 Launch Type"]
+            EC2_1["EC2 Instance 1<br/>ECS Agent"]
+            EC2_2["EC2 Instance 2<br/>ECS Agent"]
             
-            Task1[Task 1<br/>Container A<br/>Container B]
-            Task2[Task 2<br/>Container C]
-            Task3[Task 3<br/>Container D<br/>Container E]
+            Task1["Task 1<br/>Container A<br/>Container B"]
+            Task2["Task 2<br/>Container C"]
+            Task3["Task 3<br/>Container D<br/>Container E"]
             
             Task1 --> EC2_1
             Task2 --> EC2_1
             Task3 --> EC2_2
         end
         
-        subgraph "Fargate Launch Type"
-            FargateTask1[Task 1<br/>Serverless]
-            FargateTask2[Task 2<br/>Serverless]
-            FargateTask3[Task 3<br/>Serverless]
+        subgraph Fargate_Launch_Type_Group["Fargate Launch Type"]
+            FargateTask1["Task 1<br/>Serverless"]
+            FargateTask2["Task 2<br/>Serverless"]
+            FargateTask3["Task 3<br/>Serverless"]
         end
     end
     
-    ECR[Elastic Container Registry<br/>Docker Images] -.Pull Images.-> Task1
+    ECR["Elastic Container Registry<br/>Docker Images"] -.Pull Images.-> Task1
     ECR -.Pull Images.-> FargateTask1
     
-    TaskDef[Task Definition<br/>Image, CPU, Memory,<br/>IAM Role, Networking] -.Defines.-> Task1
+    TaskDef["Task Definition<br/>Image, CPU, Memory,<br/>IAM Role, Networking"] -.Defines.-> Task1
     TaskDef -.Defines.-> FargateTask1
     
-    Service[ECS Service<br/>Desired Count,<br/>Auto Scaling,<br/>Load Balancer] -.Manages.-> Task1
+    Service["ECS Service<br/>Desired Count,<br/>Auto Scaling,<br/>Load Balancer"] -.Manages.-> Task1
     Service -.Manages.-> FargateTask1
     
     ALB[Application Load Balancer] --> Task1
     ALB --> FargateTask1
     
-    style EC2_1 fill:#FF9900
-    style FargateTask1 fill:#569A31
-    style ECR fill:#146EB4
+    classDef style1 fill:#FF9900
+    class EC2_1 style1
+    classDef style2 fill:#569A31
+    class FargateTask1 style2
+    classDef style3 fill:#146EB4
+    class ECR style3
 ```
 
 ### ECS vs EKS vs Fargate
 
 ```mermaid
 graph TB
-    subgraph "Amazon ECS"
+    subgraph Amazon_ECS_Group["Amazon ECS"]
         ECS[Elastic Container Service]
-        ECS --> ECSFeatures[• AWS-native<br/>• Simple setup<br/>• Deep AWS integration<br/>• ECS Agent]
-        ECSFeatures --> ECSUse[Use when:<br/>AWS-focused<br/>Simpler orchestration<br/>Tight AWS integration]
+        ECS --> ECSFeatures["• AWS-native<br/>• Simple setup<br/>• Deep AWS integration<br/>• ECS Agent"]
+        ECSFeatures --> ECSUse["Use when:<br/>AWS-focused<br/>Simpler orchestration<br/>Tight AWS integration"]
     end
     
-    subgraph "Amazon EKS"
+    subgraph Amazon_EKS_Group["Amazon EKS"]
         EKS[Elastic Kubernetes Service]
-        EKS --> EKSFeatures[• Kubernetes-native<br/>• Standard K8s API<br/>• Portable workloads<br/>• Complex but powerful]
-        EKSFeatures --> EKSUse[Use when:<br/>Already using Kubernetes<br/>Multi-cloud strategy<br/>Complex orchestration]
+        EKS --> EKSFeatures["• Kubernetes-native<br/>• Standard K8s API<br/>• Portable workloads<br/>• Complex but powerful"]
+        EKSFeatures --> EKSUse["Use when:<br/>Already using Kubernetes<br/>Multi-cloud strategy<br/>Complex orchestration"]
     end
     
-    subgraph "AWS Fargate"
+    subgraph AWS_Fargate_Group["AWS Fargate"]
         Fargate[Fargate]
-        Fargate --> FargateFeatures[• Serverless containers<br/>• No server management<br/>• Works with ECS & EKS<br/>• Pay per task]
-        FargateFeatures --> FargateUse[Use when:<br/>Don't want to manage servers<br/>Unpredictable workloads<br/>Quick deployment]
+        Fargate --> FargateFeatures["• Serverless containers<br/>• No server management<br/>• Works with ECS & EKS<br/>• Pay per task"]
+        FargateFeatures --> FargateUse["Use when:<br/>Don't want to manage servers<br/>Unpredictable workloads<br/>Quick deployment"]
     end
     
     Both[ECS & EKS] -.Can use.-> Fargate
     
-    style ECS fill:#FF9900
-    style EKS fill:#146EB4
-    style Fargate fill:#569A31
+    classDef style1 fill:#FF9900
+    class ECS style1
+    classDef style2 fill:#146EB4
+    class EKS style2
+    classDef style3 fill:#569A31
+    class Fargate style3
 ```
 
 ### Container Task Networking (awsvpc Mode)
 
 ```mermaid
 graph TB
-    subgraph "VPC"
-        subgraph "Subnet"
-            ENI1[ENI 1<br/>Private IP: 10.0.1.10]
-            ENI2[ENI 2<br/>Private IP: 10.0.1.11]
-            ENI3[ENI 3<br/>Private IP: 10.0.1.12]
+    subgraph VPC_Group["VPC"]
+        subgraph Subnet_Group["Subnet"]
+            ENI1["ENI 1<br/>Private IP: 10.0.1.10"]
+            ENI2["ENI 2<br/>Private IP: 10.0.1.11"]
+            ENI3["ENI 3<br/>Private IP: 10.0.1.12"]
             
-            Task1[ECS Task 1<br/>Container App] --> ENI1
-            Task2[ECS Task 2<br/>Container App] --> ENI2
-            Task3[ECS Task 3<br/>Container App] --> ENI3
+            Task1["ECS Task 1<br/>Container App"] --> ENI1
+            Task2["ECS Task 2<br/>Container App"] --> ENI2
+            Task3["ECS Task 3<br/>Container App"] --> ENI3
         end
         
-        SG[Security Group<br/>Port 80, 443]
+        SG["Security Group<br/>Port 80, 443"]
         
         ENI1 --> SG
         ENI2 --> SG
@@ -677,10 +707,12 @@ graph TB
     ALB --> ENI2
     ALB --> ENI3
     
-    Note[✅ Each task has own ENI<br/>✅ Full VPC networking<br/>✅ Security Groups per task<br/>✅ Required for Fargate]
+    Note["✅ Each task has own ENI<br/>✅ Full VPC networking<br/>✅ Security Groups per task<br/>✅ Required for Fargate"]
     
-    style Task1 fill:#FF9900
-    style SG fill:#146EB4
+    classDef style1 fill:#FF9900
+    class Task1 style1
+    classDef style2 fill:#146EB4
+    class SG style2
 ```
 
 ## Elastic Beanstalk
@@ -693,48 +725,52 @@ graph TB
     
     EB --> Components{Components Provisioned}
     
-    Components --> EC2[EC2 Instances<br/>Auto Scaling Group]
+    Components --> EC2["EC2 Instances<br/>Auto Scaling Group"]
     Components --> ELB[Elastic Load Balancer]
-    Components --> RDS[RDS Database<br/>Optional]
-    Components --> S3[S3 Bucket<br/>Code Storage]
-    Components --> CloudWatch[CloudWatch<br/>Monitoring]
+    Components --> RDS["RDS Database<br/>Optional"]
+    Components --> S3["S3 Bucket<br/>Code Storage"]
+    Components --> CloudWatch["CloudWatch<br/>Monitoring"]
     
-    subgraph "Deployment Options"
-        AllAtOnce[All at Once<br/>⚡ Fastest<br/>❌ Downtime]
-        Rolling[Rolling<br/>⚙️ Batch updates<br/>✅ No downtime<br/>⚠️ Reduced capacity]
-        RollingExtra[Rolling with Extra Batch<br/>⚙️ Launch new batch first<br/>✅ Full capacity]
-        Immutable[Immutable<br/>🆕 New ASG<br/>✅ Zero downtime<br/>💰 Double capacity temp]
-        BlueGreen[Blue/Green<br/>🔄 Separate environment<br/>✅ Instant rollback<br/>💰 Double cost]
+    subgraph Deployment_Options_Group["Deployment Options"]
+        AllAtOnce["All at Once<br/>⚡ Fastest<br/>❌ Downtime"]
+        Rolling["Rolling<br/>⚙️ Batch updates<br/>✅ No downtime<br/>⚠️ Reduced capacity"]
+        RollingExtra["Rolling with Extra Batch<br/>⚙️ Launch new batch first<br/>✅ Full capacity"]
+        Immutable["Immutable<br/>🆕 New ASG<br/>✅ Zero downtime<br/>💰 Double capacity temp"]
+        BlueGreen["Blue/Green<br/>🔄 Separate environment<br/>✅ Instant rollback<br/>💰 Double cost"]
     end
     
     EB -.Deployment Strategy.-> AllAtOnce
     EB -.Deployment Strategy.-> Immutable
     
-    style EB fill:#FF9900
-    style Immutable fill:#569A31
+    classDef style1 fill:#FF9900
+    class EB style1
+    classDef style2 fill:#569A31
+    class Immutable style2
 ```
 
 ### Beanstalk Environments
 
 ```mermaid
 graph LR
-    subgraph "Web Server Environment"
+    subgraph Web_Server_Environment_Group["Web Server Environment"]
         WEB[Web Server Tier]
-        WEB --> WEBComponents[• ELB<br/>• Auto Scaling Group<br/>• EC2 Instances<br/>• Security Groups]
-        WEBComponents --> WEBUse[Traditional web apps<br/>REST APIs<br/>HTTP/HTTPS traffic]
+        WEB --> WEBComponents["• ELB<br/>• Auto Scaling Group<br/>• EC2 Instances<br/>• Security Groups"]
+        WEBComponents --> WEBUse["Traditional web apps<br/>REST APIs<br/>HTTP/HTTPS traffic"]
     end
     
-    subgraph "Worker Environment"
+    subgraph Worker_Environment_Group["Worker Environment"]
         WORKER[Worker Tier]
-        WORKER --> WORKERComponents[• SQS Queue<br/>• Auto Scaling Group<br/>• EC2 Instances<br/>• IAM Roles]
-        WORKERComponents --> WORKERUse[Background processing<br/>Batch jobs<br/>Async tasks]
+        WORKER --> WORKERComponents["• SQS Queue<br/>• Auto Scaling Group<br/>• EC2 Instances<br/>• IAM Roles"]
+        WORKERComponents --> WORKERUse["Background processing<br/>Batch jobs<br/>Async tasks"]
     end
     
     Client[Client] --> WEB
     WEB -->|Send tasks| WORKER
     
-    style WEB fill:#FF9900
-    style WORKER fill:#146EB4
+    classDef style1 fill:#FF9900
+    class WEB style1
+    classDef style2 fill:#146EB4
+    class WORKER style2
 ```
 
 ## Instance Metadata Service (IMDS)
@@ -765,7 +801,6 @@ sequenceDiagram
     App->>IMDS: GET /latest/user-data<br/>X-aws-ec2-metadata-token: [token]
     IMDS->>App: Bootstrap script content
     
-    style IMDS fill:#FF9900
 ```
 
 ### Common IMDS Endpoints

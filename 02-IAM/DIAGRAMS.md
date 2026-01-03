@@ -6,14 +6,14 @@
 
 ```mermaid
 graph TB
-    subgraph "IAM Components"
-        Users[IAM Users<br/>People & Applications]
-        Groups[IAM Groups<br/>Collection of Users]
-        Roles[IAM Roles<br/>For Services & Temporary Access]
-        Policies[IAM Policies<br/>JSON Documents]
+    subgraph IAM_Components_Group["IAM Components"]
+        Users["IAM Users<br/>People & Applications"]
+        Groups["IAM Groups<br/>Collection of Users"]
+        Roles["IAM Roles<br/>For Services & Temporary Access"]
+        Policies["IAM Policies<br/>JSON Documents"]
     end
     
-    subgraph "AWS Services"
+    subgraph AWS_Services_Group["AWS Services"]
         EC2[EC2]
         S3[S3]
         RDS[RDS]
@@ -33,25 +33,29 @@ graph TB
     EC2 -->|Assumes| Roles
     Lambda -->|Assumes| Roles
     
-    style Users fill:#FF9900
-    style Groups fill:#FF9900
-    style Roles fill:#FF9900
-    style Policies fill:#146EB4
+    classDef style1 fill:#FF9900
+    class Users style1
+    classDef style2 fill:#FF9900
+    class Groups style2
+    classDef style3 fill:#FF9900
+    class Roles style3
+    classDef style4 fill:#146EB4
+    class Policies style4
 ```
 
 ### IAM Hierarchy and Structure
 
 ```mermaid
 graph TB
-    Root[AWS Account Root User<br/>⚠️ Complete Access]
+    Root["AWS Account Root User<br/>⚠️ Complete Access"]
     
     Root --> AdminGroup[Administrators Group]
     Root --> DevGroup[Developers Group]
     Root --> OpsGroup[Operations Group]
     
-    AdminGroup --> AdminPolicy[AdministratorAccess<br/>Policy]
-    DevGroup --> DevPolicy[Developer Policy<br/>Limited EC2, S3, RDS]
-    OpsGroup --> OpsPolicy[Operations Policy<br/>Read-Only + CloudWatch]
+    AdminGroup --> AdminPolicy["AdministratorAccess<br/>Policy"]
+    DevGroup --> DevPolicy["Developer Policy<br/>Limited EC2, S3, RDS"]
+    OpsGroup --> OpsPolicy["Operations Policy<br/>Read-Only + CloudWatch"]
     
     AdminGroup --> User1[Alice]
     AdminGroup --> User2[Bob]
@@ -63,11 +67,16 @@ graph TB
     
     User1 -.Additional Policy.-> MFAPolicy[MFA Policy]
     
-    style Root fill:#C00
-    style AdminGroup fill:#FF9900
-    style DevGroup fill:#FF9900
-    style OpsGroup fill:#FF9900
-    style AdminPolicy fill:#146EB4
+    classDef style1 fill:#C00
+    class Root style1
+    classDef style2 fill:#FF9900
+    class AdminGroup style2
+    classDef style3 fill:#FF9900
+    class DevGroup style3
+    classDef style4 fill:#FF9900
+    class OpsGroup style4
+    classDef style5 fill:#146EB4
+    class AdminPolicy style5
 ```
 
 ## IAM Users and Authentication
@@ -97,27 +106,25 @@ sequenceDiagram
     IAM->>Service: Allow/Deny
     Service->>User: Result
     
-    style IAM fill:#FF9900
-    style MFA fill:#146EB4
 ```
 
 ### Access Keys for Programmatic Access
 
 ```mermaid
 graph LR
-    subgraph "IAM User"
+    subgraph IAM_User_Group["IAM User"]
         User[User: Developer]
-        AccessKey[Access Key ID:<br/>AKIAIOSFODNN7EXAMPLE]
-        SecretKey[Secret Access Key:<br/>wJalrXUtnFEMI/K7MDENG/...]
+        AccessKey["Access Key ID:<br/>AKIAIOSFODNN7EXAMPLE"]
+        SecretKey["Secret Access Key:<br/>wJalrXUtnFEMI/K7MDENG/..."]
     end
     
-    subgraph "Client Tools"
+    subgraph Client_Tools_Group["Client Tools"]
         CLI[AWS CLI]
         SDK[AWS SDK]
         API[Direct API Calls]
     end
     
-    subgraph "AWS Services"
+    subgraph AWS_Services_Group["AWS Services"]
         S3[S3]
         EC2[EC2]
         DynamoDB[DynamoDB]
@@ -139,9 +146,12 @@ graph LR
     SDK --> EC2
     API --> DynamoDB
     
-    style User fill:#FF9900
-    style AccessKey fill:#569A31
-    style SecretKey fill:#C00
+    classDef style1 fill:#FF9900
+    class User style1
+    classDef style2 fill:#569A31
+    class AccessKey style2
+    classDef style3 fill:#C00
+    class SecretKey style3
 ```
 
 ## IAM Groups
@@ -150,7 +160,7 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "Organization"
+    subgraph Organization_Group["Organization"]
         Dev[Developers Group]
         QA[QA Group]
         Ops[Operations Group]
@@ -158,7 +168,7 @@ graph TB
         Admin[Administrators Group]
     end
     
-    subgraph "Users"
+    subgraph Users_Group["Users"]
         U1[Alice] -.Member.-> Dev
         U2[Bob] -.Member.-> Dev
         U3[Charlie] -.Member.-> QA
@@ -170,19 +180,24 @@ graph TB
         U5 -.Also Member.-> Dev
     end
     
-    subgraph "Policies"
-        Dev --> P1[EC2 Full Access<br/>S3 Read/Write<br/>RDS Access]
-        QA --> P2[EC2 Read Only<br/>S3 Read Only]
-        Ops --> P3[CloudWatch Full<br/>EC2 Start/Stop<br/>Systems Manager]
-        Data --> P4[S3 Full Access<br/>Glue & Athena<br/>SageMaker]
+    subgraph Policies_Group["Policies"]
+        Dev --> P1["EC2 Full Access<br/>S3 Read/Write<br/>RDS Access"]
+        QA --> P2["EC2 Read Only<br/>S3 Read Only"]
+        Ops --> P3["CloudWatch Full<br/>EC2 Start/Stop<br/>Systems Manager"]
+        Data --> P4["S3 Full Access<br/>Glue & Athena<br/>SageMaker"]
         Admin --> P5[AdministratorAccess]
     end
     
-    style Dev fill:#FF9900
-    style QA fill:#FF9900
-    style Ops fill:#FF9900
-    style Data fill:#FF9900
-    style Admin fill:#C00
+    classDef style1 fill:#FF9900
+    class Dev style1
+    classDef style2 fill:#FF9900
+    class QA style2
+    classDef style3 fill:#FF9900
+    class Ops style3
+    classDef style4 fill:#FF9900
+    class Data style4
+    classDef style5 fill:#C00
+    class Admin style5
 ```
 
 ## IAM Roles
@@ -207,33 +222,30 @@ sequenceDiagram
     Role->>S3: Allow/Deny
     S3->>EC2: Return Data
     
-    style EC2 fill:#FF9900
-    style STS fill:#146EB4
-    style Role fill:#569A31
 ```
 
 ### Common Role Use Cases
 
 ```mermaid
 graph TB
-    subgraph "AWS Service Roles"
-        EC2Role[EC2 Instance Role<br/>Access S3, DynamoDB, etc.]
-        LambdaRole[Lambda Execution Role<br/>Access CloudWatch Logs]
-        ECSRole[ECS Task Role<br/>Access AWS Services]
+    subgraph AWS_Service_Roles_Group["AWS Service Roles"]
+        EC2Role["EC2 Instance Role<br/>Access S3, DynamoDB, etc."]
+        LambdaRole["Lambda Execution Role<br/>Access CloudWatch Logs"]
+        ECSRole["ECS Task Role<br/>Access AWS Services"]
     end
     
-    subgraph "Cross-Account Access"
-        AccountA[Account A<br/>Production]
-        AccountB[Account B<br/>Development]
+    subgraph Cross_Account_Access_Group["Cross-Account Access"]
+        AccountA["Account A<br/>Production"]
+        AccountB["Account B<br/>Development"]
         CrossRole[Cross-Account Role]
         
         AccountB -.Assume.-> CrossRole
         CrossRole -.Access.-> AccountA
     end
     
-    subgraph "Federated Access"
-        SAML[SAML 2.0 Provider<br/>Active Directory]
-        WebIdentity[Web Identity Federation<br/>Google, Facebook, Amazon]
+    subgraph Federated_Access_Group["Federated Access"]
+        SAML["SAML 2.0 Provider<br/>Active Directory"]
+        WebIdentity["Web Identity Federation<br/>Google, Facebook, Amazon"]
         FedRole[Federated Role]
         
         SAML -.Authenticate.-> FedRole
@@ -244,41 +256,48 @@ graph TB
     Lambda[Lambda Function] --> LambdaRole
     ECS[ECS Task] --> ECSRole
     
-    style EC2Role fill:#FF9900
-    style LambdaRole fill:#FF9900
-    style CrossRole fill:#569A31
-    style FedRole fill:#146EB4
+    classDef style1 fill:#FF9900
+    class EC2Role style1
+    classDef style2 fill:#FF9900
+    class LambdaRole style2
+    classDef style3 fill:#569A31
+    class CrossRole style3
+    classDef style4 fill:#146EB4
+    class FedRole style4
 ```
 
 ### Role Trust Policy vs Permission Policy
 
 ```mermaid
 graph LR
-    subgraph "IAM Role Components"
-        TrustPolicy[Trust Policy<br/>WHO can assume this role?]
-        PermPolicy[Permission Policy<br/>WHAT can they do?]
+    subgraph IAM_Role_Components_Group["IAM Role Components"]
+        TrustPolicy["Trust Policy<br/>WHO can assume this role?"]
+        PermPolicy["Permission Policy<br/>WHAT can they do?"]
     end
     
-    subgraph "Trust Policy Example"
-        TP1["Trusted Entity:<br/>• EC2 Service<br/>• Another AWS Account<br/>• SAML Provider<br/>• Web Identity"]
+    subgraph Trust_Policy_Example_Group["Trust Policy Example"]
+        TP1["Trusted Entity:&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• EC2 Service&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Another AWS Account&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• SAML Provider&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Web Identity"]
     end
     
-    subgraph "Permission Policy Example"
-        PP1["Allowed Actions:<br/>• s3:GetObject<br/>• s3:PutObject<br/>• dynamodb:Query<br/>• logs:CreateLogGroup"]
+    subgraph Permission_Policy_Example_Group["Permission Policy Example"]
+        PP1["Allowed Actions:&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• s3:GetObject&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• s3:PutObject&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• dynamodb:Query&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• logs:CreateLogGroup"]
     end
     
     TrustPolicy --> TP1
     PermPolicy --> PP1
     
-    Entity[EC2/User/Service] -->|1. Can I assume?| TrustPolicy
+    Entity["EC2/User/Service"] -->|1. Can I assume?| TrustPolicy
     TrustPolicy -->|2. Assume Role| STS[AWS STS]
     STS -->|3. Temporary Credentials| Entity
     Entity -->|4. What can I do?| PermPolicy
     PermPolicy -->|5. Allow/Deny| Action[AWS Service Action]
     
-    style TrustPolicy fill:#FF9900
-    style PermPolicy fill:#146EB4
-    style STS fill:#569A31
+    classDef style1 fill:#FF9900
+    class TrustPolicy style1
+    classDef style2 fill:#146EB4
+    class PermPolicy style2
+    classDef style3 fill:#569A31
+    class STS style3
 ```
 
 ## IAM Policies
@@ -287,13 +306,13 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "Policy Types"
-        Identity[Identity-based Policies<br/>Attached to Users, Groups, Roles]
-        Resource[Resource-based Policies<br/>Attached to Resources like S3]
-        Permission[Permissions Boundary<br/>Maximum Permissions Limit]
-        SCP[Service Control Policies<br/>AWS Organizations]
-        Session[Session Policies<br/>Temporary Credentials]
-        ACL[Access Control Lists<br/>Legacy]
+    subgraph Policy_Types_Group["Policy Types"]
+        Identity["Identity-based Policies<br/>Attached to Users, Groups, Roles"]
+        Resource["Resource-based Policies<br/>Attached to Resources like S3"]
+        Permission["Permissions Boundary<br/>Maximum Permissions Limit"]
+        SCP["Service Control Policies<br/>AWS Organizations"]
+        Session["Session Policies<br/>Temporary Credentials"]
+        ACL["Access Control Lists<br/>Legacy"]
     end
     
     Identity --> User[IAM User]
@@ -307,10 +326,14 @@ graph TB
     Permission -.Limits.-> Identity
     SCP -.Limits.-> Account[AWS Accounts]
     
-    style Identity fill:#FF9900
-    style Resource fill:#146EB4
-    style Permission fill:#569A31
-    style SCP fill:#8C4FFF
+    classDef style1 fill:#FF9900
+    class Identity style1
+    classDef style2 fill:#146EB4
+    class Resource style2
+    classDef style3 fill:#569A31
+    class Permission style3
+    classDef style4 fill:#8C4FFF
+    class SCP style4
 ```
 
 ### Policy Evaluation Logic
@@ -319,26 +342,30 @@ graph TB
 flowchart TD
     Start([API Request]) --> Default{Default Deny}
     
-    Default --> Explicit{Explicit Deny<br/>Exists?}
-    Explicit -->|Yes| Deny([❌ DENY])
-    Explicit -->|No| SCP{SCP<br/>Allows?}
+    Default --> Explicit{"Explicit Deny<br/>Exists?"}
+    Explicit -->|Yes| Deny(["❌ DENY"])
+    Explicit -->|No| SCP{"SCP<br/>Allows?"}
     
     SCP -->|No| Deny
-    SCP -->|Yes| Boundary{Permission Boundary<br/>Allows?}
+    SCP -->|Yes| Boundary{"Permission Boundary<br/>Allows?"}
     
     Boundary -->|No| Deny
-    Boundary -->|Yes| Identity{Identity Policy<br/>Allows?}
+    Boundary -->|Yes| Identity{"Identity Policy<br/>Allows?"}
     
-    Identity -->|No| Resource{Resource Policy<br/>Allows?}
-    Identity -->|Yes| Allow([✅ ALLOW])
+    Identity -->|No| Resource{"Resource Policy<br/>Allows?"}
+    Identity -->|Yes| Allow(["✅ ALLOW"])
     
     Resource -->|Yes| Allow
     Resource -->|No| Deny
     
-    style Start fill:#232F3E
-    style Allow fill:#569A31
-    style Deny fill:#C00
-    style Explicit fill:#FF9900
+    classDef style1 fill:#232F3E
+    class Start style1
+    classDef style2 fill:#569A31
+    class Allow style2
+    classDef style3 fill:#C00
+    class Deny style3
+    classDef style4 fill:#FF9900
+    class Explicit style4
 ```
 
 ### Policy Structure Example
@@ -355,16 +382,19 @@ graph TB
     
     Stmt1 --> Effect1[Effect: Allow]
     Stmt1 --> Action1[Action: s3:GetObject]
-    Stmt1 --> Resource1[Resource: arn:aws:s3:::bucket/*]
+    Stmt1 --> Resource1["Resource: arn:aws:s3:::bucket/*"]
     Stmt1 --> Condition1[Condition: IpAddress]
     
     Stmt2 --> Effect2[Effect: Deny]
     Stmt2 --> Action2[Action: s3:DeleteBucket]
     Stmt2 --> Resource2[Resource: arn:aws:s3:::bucket]
     
-    style Policy fill:#FF9900
-    style Effect1 fill:#569A31
-    style Effect2 fill:#C00
+    classDef style1 fill:#FF9900
+    class Policy style1
+    classDef style2 fill:#569A31
+    class Effect1 style2
+    classDef style3 fill:#C00
+    class Effect2 style3
 ```
 
 ## Multi-Factor Authentication (MFA)
@@ -390,8 +420,6 @@ sequenceDiagram
     IAM->>AWS: MFA Valid
     AWS->>User: Access Granted ✅
     
-    style IAM fill:#FF9900
-    style Device fill:#146EB4
 ```
 
 ### MFA Device Types
@@ -413,10 +441,14 @@ graph TB
     
     U2F --> Yubikey[YubiKey]
     
-    style MFA fill:#FF9900
-    style Virtual fill:#146EB4
-    style Hardware fill:#569A31
-    style U2F fill:#8C4FFF
+    classDef style1 fill:#FF9900
+    class MFA style1
+    classDef style2 fill:#146EB4
+    class Virtual style2
+    classDef style3 fill:#569A31
+    class Hardware style3
+    classDef style4 fill:#8C4FFF
+    class U2F style4
 ```
 
 ## Cross-Account Access
@@ -443,28 +475,26 @@ sequenceDiagram
     UserA->>S3: Access S3 with temp credentials
     S3->>UserA: Return Data
     
-    style Role fill:#FF9900
-    style STSb fill:#146EB4
 ```
 
 ### Cross-Account Architecture
 
 ```mermaid
 graph TB
-    subgraph "Account A - Development (111111111111)"
+    subgraph Account_A_Development_111111111111_Group["Account A - Development (111111111111)"]
         DevUser[Developer User]
         DevGroup[Developers Group]
-        AssumePolicy[Assume Role Policy<br/>sts:AssumeRole]
+        AssumePolicy["Assume Role Policy<br/>sts:AssumeRole"]
         
         DevUser --> DevGroup
         DevGroup --> AssumePolicy
     end
     
-    subgraph "Account B - Production (222222222222)"
+    subgraph Account_B_Production_222222222222_Group["Account B - Production (222222222222)"]
         ProdRole[Production-ReadOnly-Role]
-        TrustPolicy[Trust Policy:<br/>Trust Account 111111111111]
-        PermPolicy[Permission Policy:<br/>S3 Read, EC2 Describe]
-        ProdResources[Production Resources<br/>S3, EC2, RDS]
+        TrustPolicy["Trust Policy:<br/>Trust Account 111111111111"]
+        PermPolicy["Permission Policy:<br/>S3 Read, EC2 Describe"]
+        ProdResources["Production Resources<br/>S3, EC2, RDS"]
         
         ProdRole --> TrustPolicy
         ProdRole --> PermPolicy
@@ -473,9 +503,12 @@ graph TB
     
     AssumePolicy -.AssumeRole.-> ProdRole
     
-    style DevUser fill:#FF9900
-    style ProdRole fill:#569A31
-    style TrustPolicy fill:#146EB4
+    classDef style1 fill:#FF9900
+    class DevUser style1
+    classDef style2 fill:#569A31
+    class ProdRole style2
+    classDef style3 fill:#146EB4
+    class TrustPolicy style3
 ```
 
 ## Identity Federation
@@ -498,15 +531,13 @@ sequenceDiagram
     STS->>User: 6. Temporary Security Credentials
     User->>Console: 7. Access AWS Console
     
-    style IdP fill:#FF9900
-    style STS fill:#146EB4
 ```
 
 ### Web Identity Federation (Cognito)
 
 ```mermaid
 graph TB
-    User[Mobile/Web User]
+    User["Mobile/Web User"]
     
     User --> Social{Choose Provider}
     
@@ -527,10 +558,14 @@ graph TB
     TempCreds --> DynamoDB[Access DynamoDB]
     TempCreds --> Lambda[Invoke Lambda]
     
-    style User fill:#232F3E
-    style Cognito fill:#FF9900
-    style STS fill:#146EB4
-    style TempCreds fill:#569A31
+    classDef style1 fill:#232F3E
+    class User style1
+    classDef style2 fill:#FF9900
+    class Cognito style2
+    classDef style3 fill:#146EB4
+    class STS style3
+    classDef style4 fill:#569A31
+    class TempCreds style4
 ```
 
 ## IAM Best Practices
@@ -539,7 +574,7 @@ graph TB
 
 ```mermaid
 flowchart TD
-    Start([IAM Best Practices]) --> Root[🔐 Secure Root Account]
+    Start([IAM Best Practices]) --> Root["🔐 Secure Root Account"]
     
     Root --> RootMFA[Enable MFA on Root]
     Root --> RootNoUse[Don't use Root for daily tasks]
@@ -558,40 +593,46 @@ flowchart TD
     
     Conditions --> Roles[Use Roles for Applications]
     Roles --> Monitor[Monitor with CloudTrail]
-    Monitor --> End([Secure IAM Setup ✅])
+    Monitor --> End(["Secure IAM Setup ✅"])
     
-    style Start fill:#232F3E
-    style Root fill:#C00
-    style End fill:#569A31
-    style LeastPriv fill:#FF9900
+    classDef style1 fill:#232F3E
+    class Start style1
+    classDef style2 fill:#C00
+    class Root style2
+    classDef style3 fill:#569A31
+    class End style3
+    classDef style4 fill:#FF9900
+    class LeastPriv style4
 ```
 
 ### Permission Boundary Pattern
 
 ```mermaid
 graph TB
-    subgraph "Permission Evaluation"
-        MaxPerm[Maximum Permissions<br/>Permission Boundary]
-        IdentityPerm[Identity Policy<br/>What user can do]
-        Effective[Effective Permissions<br/>Intersection]
+    subgraph Permission_Evaluation_Group["Permission Evaluation"]
+        MaxPerm["Maximum Permissions<br/>Permission Boundary"]
+        IdentityPerm["Identity Policy<br/>What user can do"]
+        Effective["Effective Permissions<br/>Intersection"]
         
         MaxPerm --> Effective
         IdentityPerm --> Effective
     end
     
-    subgraph "Example"
-        Boundary["Boundary Policy:<br/>• Allow: EC2, S3, RDS<br/>• Region: us-east-1"]
+    subgraph Example_Group["Example"]
+        Boundary["Boundary Policy:&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: EC2, S3, RDS&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Region: us-east-1"]
         
-        UserPolicy["User Policy:<br/>• Allow: EC2:*<br/>• Allow: S3:*<br/>• Allow: Lambda:*<br/>• All Regions"]
+        UserPolicy["User Policy:&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: EC2:*&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: S3:*&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: Lambda:*&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• All Regions"]
         
-        Result["Effective Permission:<br/>• Allow: EC2:* (us-east-1)<br/>• Allow: S3:* (us-east-1)<br/>❌ No RDS (not in user policy)<br/>❌ No Lambda (not in boundary)"]
+        Result["Effective Permission:&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: EC2:* (us-east-1)&lt;&lt;&lt;BRTAG&gt;&gt;&gt;• Allow: S3:* (us-east-1)&lt;&lt;&lt;BRTAG&gt;&gt;&gt;❌ No RDS (not in user policy)&lt;&lt;&lt;BRTAG&gt;&gt;&gt;❌ No Lambda (not in boundary)"]
     end
     
     Boundary -.AND.-> Result
     UserPolicy -.AND.-> Result
     
-    style Effective fill:#569A31
-    style Result fill:#FF9900
+    classDef style1 fill:#569A31
+    class Effective style1
+    classDef style2 fill:#FF9900
+    class Result style2
 ```
 
 ## IAM Access Analyzer
@@ -618,16 +659,20 @@ graph TB
     KMS --> Findings
     Secrets --> Findings
     
-    Findings --> Alert{External Access<br/>Detected?}
+    Findings --> Alert{"External Access<br/>Detected?"}
     
-    Alert -->|Yes| Notify[SNS Notification<br/>Security Team]
+    Alert -->|Yes| Notify["SNS Notification<br/>Security Team"]
     Alert -->|Yes| Report[Generate Report]
     Alert -->|No| Safe[No Action Needed]
     
-    style Analyzer fill:#FF9900
-    style Findings fill:#146EB4
-    style Notify fill:#C00
-    style Safe fill:#569A31
+    classDef style1 fill:#FF9900
+    class Analyzer style1
+    classDef style2 fill:#146EB4
+    class Findings style2
+    classDef style3 fill:#C00
+    class Notify style3
+    classDef style4 fill:#569A31
+    class Safe style4
 ```
 
 ## IAM Database Authentication
@@ -653,7 +698,5 @@ sequenceDiagram
     
     Note over App,RDS: Benefits: No password storage, IAM centralized auth, SSL enforced
     
-    style IAM fill:#FF9900
-    style RDS fill:#3B48CC
 ```
 
