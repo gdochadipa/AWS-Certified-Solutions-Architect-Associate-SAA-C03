@@ -37,8 +37,6 @@
 
 **💡 Memory Tip**: "**R**egions for **R**esidency, **A**Zs for **A**vailability, **E**dges for **E**xperience"
 
-**💡 Memory Tip**: "**R**egions for **R**esidency, **A**Zs for **A**vailability, **E**dges for **E**xperience"
-
 ### 1.2 Well-Architected Framework (6 Pillars)
 
 ```
@@ -76,6 +74,12 @@
 ```
 
 **💡 Memory Tip**: "AWS protects **OF** (infrastructure), You protect **IN** (configuration & data)"
+
+### 📚 Learn More
+- [AWS Fundamentals - Chapter Guide](./01-AWS-Fundamentals/README.md)
+- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
+- [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
+- [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
 
 ---
 
@@ -225,6 +229,11 @@
 | Web application firewall | **WAF** |
 | Event-driven architecture | **EventBridge** |
 
+### 📚 Learn More
+- [AWS Services Overview](https://aws.amazon.com/products/)
+- [AWS Service Categories](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/introduction.html)
+- [AWS Free Tier](https://aws.amazon.com/free/)
+
 ---
 
 ## 3. Compute Services
@@ -333,6 +342,13 @@ Z - High Frequency    → Gaming, high-performance computing
 - **Launch Template**: Defines what to launch (AMI, instance type, etc.)
 - **Desired Capacity**: Target number of instances
 - **Min/Max**: Capacity boundaries
+
+### 📚 Learn More
+- [Compute Services - Chapter Guide](./03-Compute/README.md)
+- [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/)
+- [AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/)
+- [Amazon ECS Documentation](https://docs.aws.amazon.com/ecs/)
+- [Amazon EKS Documentation](https://docs.aws.amazon.com/eks/)
 
 ---
 
@@ -528,6 +544,13 @@ Client  → Encrypt before upload (client-side)
 - Shared file system (Windows) → **FSx for Windows**
 - HPC/ML workloads → **FSx for Lustre**
 
+### 📚 Learn More
+- [Storage Services - Chapter Guide](./04-Storage/README.md)
+- [Amazon S3 Documentation](https://docs.aws.amazon.com/s3/)
+- [Amazon EBS Documentation](https://docs.aws.amazon.com/ebs/)
+- [Amazon EFS Documentation](https://docs.aws.amazon.com/efs/)
+- [Amazon FSx Documentation](https://docs.aws.amazon.com/fsx/)
+
 ---
 
 ## 5. Database Services
@@ -716,6 +739,14 @@ Need a database?
 ```
 
 **💡 Memory Tip**: "**R**DS = **R**elations, **D**ynamo = **D**ynamic, **R**edshift = **R**eports"
+
+### 📚 Learn More
+- [Database Services - Chapter Guide](./05-Database/README.md)
+- [Amazon RDS Documentation](https://docs.aws.amazon.com/rds/)
+- [Amazon DynamoDB Documentation](https://docs.aws.amazon.com/dynamodb/)
+- [Amazon Aurora Documentation](https://docs.aws.amazon.com/aurora/)
+- [Amazon Redshift Documentation](https://docs.aws.amazon.com/redshift/)
+- [Amazon ElastiCache Documentation](https://docs.aws.amazon.com/elasticache/)
 
 ---
 
@@ -932,6 +963,14 @@ AWS Reserves 5 IPs per Subnet:
 - Health checks, failover
 - Good for non-HTTP (gaming, IoT, VoIP)
 
+### 📚 Learn More
+- [Networking Services - Chapter Guide](./06-Networking/README.md)
+- [Amazon VPC Documentation](https://docs.aws.amazon.com/vpc/)
+- [Amazon CloudFront Documentation](https://docs.aws.amazon.com/cloudfront/)
+- [Elastic Load Balancing Documentation](https://docs.aws.amazon.com/elasticloadbalancing/)
+- [Amazon Route 53 Documentation](https://docs.aws.amazon.com/route53/)
+- [AWS Direct Connect Documentation](https://docs.aws.amazon.com/directconnect/)
+
 ---
 
 ## 7. Security & Identity
@@ -1097,6 +1136,15 @@ AWS Owned      → Free, AWS controls, you don't see
 - Enforce HTTPS on S3, CloudFront, API Gateway
 - VPN for site-to-site encryption
 
+### 📚 Learn More
+- [Security Services - Chapter Guide](./07-Security/README.md)
+- [AWS IAM Documentation](https://docs.aws.amazon.com/iam/)
+- [AWS KMS Documentation](https://docs.aws.amazon.com/kms/)
+- [AWS Secrets Manager Documentation](https://docs.aws.amazon.com/secretsmanager/)
+- [AWS WAF Documentation](https://docs.aws.amazon.com/waf/)
+- [AWS Shield Documentation](https://docs.aws.amazon.com/shield/)
+- [AWS Security Best Practices](https://docs.aws.amazon.com/security/)
+
 ---
 
 ## 8. Application Integration
@@ -1244,6 +1292,13 @@ Event Bus → Rules → Targets
 ```
 
 **💡 Memory Tip**: "**SQS** = **Q**ueue, **SNS** = **N**otify **S**ubscribers, **EventBridge** = **E**vents **B**us"
+
+### 📚 Learn More
+- [Application Integration - Chapter Guide](./08-Application-Integration/README.md)
+- [Amazon SQS Documentation](https://docs.aws.amazon.com/sqs/)
+- [Amazon SNS Documentation](https://docs.aws.amazon.com/sns/)
+- [Amazon EventBridge Documentation](https://docs.aws.amazon.com/eventbridge/)
+- [AWS Step Functions Documentation](https://docs.aws.amazon.com/step-functions/)
 
 ---
 
@@ -1398,6 +1453,14 @@ Sources:
 
 **💡 Session Manager**: Access EC2 without SSH keys or bastions (IAM-based)
 
+### 📚 Learn More
+- [Monitoring & Management - Chapter Guide](./09-Monitoring/README.md)
+- [Amazon CloudWatch Documentation](https://docs.aws.amazon.com/cloudwatch/)
+- [AWS CloudTrail Documentation](https://docs.aws.amazon.com/cloudtrail/)
+- [AWS Config Documentation](https://docs.aws.amazon.com/config/)
+- [AWS Systems Manager Documentation](https://docs.aws.amazon.com/systems-manager/)
+- [AWS Trusted Advisor Documentation](https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html)
+
 ---
 
 ## 10. Analytics
@@ -1511,6 +1574,15 @@ Data Sources:
   • On-premises databases
 ```
 
+### 📚 Learn More
+- [Analytics Services - Chapter Guide](./11-Analytics/README.md)
+- [Amazon Kinesis Documentation](https://docs.aws.amazon.com/kinesis/)
+- [Amazon Athena Documentation](https://docs.aws.amazon.com/athena/)
+- [AWS Glue Documentation](https://docs.aws.amazon.com/glue/)
+- [Amazon EMR Documentation](https://docs.aws.amazon.com/emr/)
+- [Amazon Redshift Documentation](https://docs.aws.amazon.com/redshift/)
+- [Amazon QuickSight Documentation](https://docs.aws.amazon.com/quicksight/)
+
 ---
 
 ## 11. Migration & Transfer
@@ -1570,6 +1642,14 @@ Features:
 **What**: SFTP/FTPS/FTP to S3 or EFS
 
 **Use Case**: Third parties upload files to S3 using FTP clients
+
+### 📚 Learn More
+- [Migration Services - Chapter Guide](./10-Migration/README.md)
+- [AWS Database Migration Service](https://docs.aws.amazon.com/dms/)
+- [AWS Application Migration Service](https://docs.aws.amazon.com/mgn/)
+- [AWS DataSync Documentation](https://docs.aws.amazon.com/datasync/)
+- [AWS Snow Family Documentation](https://docs.aws.amazon.com/snowball/)
+- [AWS Transfer Family Documentation](https://docs.aws.amazon.com/transfer/)
 
 ---
 
@@ -2218,6 +2298,13 @@ Need compute?
     └─ Just deploy code? → Elastic Beanstalk
 ```
 
+### 📚 Learn More
+- [Architecture Patterns - Chapter Guide](./12-Architecture-Patterns/README.md)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
+- [AWS Reference Architectures](https://aws.amazon.com/architecture/reference-architecture-diagrams/)
+- [AWS Solutions Library](https://aws.amazon.com/solutions/)
+
 ---
 
 ## 🔢 Numbers to Remember
@@ -2400,6 +2487,14 @@ Cost Reduction Tips:
 • Cost Allocation Tags → Track costs by project/team
 ```
 
+### 📚 Learn More
+- [Cost Optimization - Chapter Guide](./13-Cost-Optimization/README.md)
+- [AWS Pricing](https://aws.amazon.com/pricing/)
+- [AWS Cost Management](https://aws.amazon.com/aws-cost-management/)
+- [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/)
+- [AWS Budgets](https://aws.amazon.com/aws-cost-management/aws-budgets/)
+- [AWS Pricing Calculator](https://calculator.aws/)
+
 ---
 
 ## 💭 Think Like AWS
@@ -2550,6 +2645,14 @@ Cost Reduction Tips:
 | "CDN" | CloudFront |
 | "DNS" | Route 53 |
 | "DDoS protection" | Shield, WAF |
+
+### 📚 Learn More - Additional Study Resources
+- [Practice Questions](./14-Practice/COMPREHENSIVE-PRACTICE-QUESTIONS.md)
+- [AWS Certified Solutions Architect Official Study Guide](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
+- [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
+- [AWS FAQs](https://aws.amazon.com/faqs/)
+- [AWS Training and Certification](https://aws.amazon.com/training/)
+- [AWS Skill Builder](https://skillbuilder.aws/)
 
 ---
 
