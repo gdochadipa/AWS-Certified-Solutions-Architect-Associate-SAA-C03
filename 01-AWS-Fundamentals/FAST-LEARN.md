@@ -98,6 +98,104 @@ CUSTOMER RESPONSIBILITY (Security IN the cloud)
 - Region = Geography (multiple buildings)
 - AZ = Building (independent data center)
 - Edge = Cache point (faster delivery)
+
+### AWS Organizations - Multi-Account Management
+```
+STRUCTURE:
+Root (Organization)
+├── Management Account (pays bills, full access)
+├── Production OU
+│   ├── App Account
+│   └── DB Account
+└── Development OU
+    └── Dev Accounts
+```
+
+**Key Concepts:**
+- **Organizations**: Manage multiple accounts centrally
+- **OUs (Organizational Units)**: Group accounts logically
+- **SCPs (Service Control Policies)**: Maximum permissions guardrails
+- **Consolidated Billing**: Single bill, volume discounts
+
+### Service Control Policies (SCPs) - CRITICAL FOR EXAM
+```
+❌ SCPs DO NOT grant permissions
+✅ SCPs set maximum permissions (guardrails)
+❌ SCPs DO NOT affect management account
+✅ SCPs affect all member accounts
+✅ Effective permissions = IAM policy AND SCP
+```
+
+**Common SCP Use Cases:**
+| Scenario | SCP Action |
+|----------|------------|
+| Restrict to specific regions | Deny all actions outside allowed regions |
+| Require encryption | Deny creating unencrypted resources |
+| Prevent leaving org | Deny organizations:LeaveOrganization |
+| Protect CloudTrail | Deny deletion/modification of logs |
+
+**SCP Quick Example:**
+```json
+{
+  "Effect": "Deny",
+  "Action": "*",
+  "Resource": "*",
+  "Condition": {
+    "StringNotEquals": {
+      "aws:RequestedRegion": ["us-east-1", "eu-west-1"]
+    }
+  }
+}
+```
+
+### Control Tower vs Organizations
+| Feature | Organizations | Control Tower |
+|---------|---------------|---------------|
+| Setup | Manual | Automated (minutes) |
+| Guardrails | Manual SCPs | Pre-built + custom |
+| Accounts | Manual creation | Account Factory |
+| Best For | Custom/flexible | Quick/best practices |
+
+**Exam Tip**: Control Tower = Organizations + Automation + Best Practices
+
+### AWS Resource Access Manager (RAM)
+**Purpose**: Share resources across AWS accounts
+
+**Most Common Use**: VPC Subnet Sharing
+```
+Networking Account
+└── VPC with Subnets
+    ↓ (shared via RAM)
+Application Accounts
+└── Launch EC2 in shared subnets
+```
+
+**Benefits:**
+- ✅ Centralized network management
+- ✅ Reduced VPC sprawl
+- ✅ Efficient IP usage
+- ✅ No resource duplication
+
+**Other Shareable Resources:**
+- VPC Subnets (most tested)
+- Transit Gateway
+- Route 53 Resolver rules
+- Aurora clusters
+- License Manager configs
+
+### Consolidated Billing Benefits
+1. **Single Bill**: One payment for all accounts
+2. **Volume Discounts**: Combined usage = better pricing
+3. **RI Sharing**: Reserved Instances shared across accounts
+4. **Cost Allocation**: Tags work across organization
+
+**Example:**
+```
+Account 1: 500 GB S3
+Account 2: 800 GB S3
+Account 3: 700 GB S3
+Total: 2,000 GB → Higher pricing tier applies to all
+```
 - Multi-AZ = High Availability
 - Multi-Region = Disaster Recovery
 

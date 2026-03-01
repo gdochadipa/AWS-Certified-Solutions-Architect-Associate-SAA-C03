@@ -30,6 +30,40 @@
 - **Organizations**: Centralized billing, consolidated billing, SCPs
 - **Control Tower**: Multi-account governance, guardrails
 - **Service Control Policies (SCPs)**: Restrict what accounts can do
+- **RAM (Resource Access Manager)**: Share resources across accounts
+
+### AWS Organizations - Key Points
+- **Management Account**: Pays bills, not affected by SCPs, full control
+- **Member Accounts**: Subject to SCPs, inherit from OU/Org
+- **OUs**: Organizational Units, up to 5 levels deep
+- **Consolidated Billing**: Volume discounts, single payment, RI sharing
+
+### SCPs (Service Control Policies) - EXAM CRITICAL
+- ❌ **DON'T** grant permissions (only restrict)
+- ❌ **DON'T** affect management account
+- ✅ **DO** set maximum permissions
+- ✅ **DO** override IAM in member accounts
+- ✅ **Formula**: Effective = IAM AND SCP
+
+**Common Uses:**
+- Restrict regions: Deny actions outside allowed regions
+- Require encryption: Deny unencrypted EBS/S3
+- Protect logs: Deny CloudTrail deletion
+- Prevent org exit: Deny LeaveOrganization
+
+### Control Tower
+- **What**: Automated multi-account setup on top of Organizations
+- **Landing Zone**: Well-architected baseline
+- **Account Factory**: Auto-create accounts
+- **Guardrails**: Mandatory (always on) + Optional (your choice)
+- **Dashboard**: Compliance visibility
+- **Use When**: Quick setup, less experience, want best practices
+
+### AWS RAM (Resource Access Manager)
+- **Share**: VPC subnets, Transit Gateway, Route 53 rules, Aurora
+- **Most Common**: Share VPC subnets across accounts
+- **Benefit**: Centralized networking, no VPC duplication
+- **Free**: No charge for using RAM
 
 ## Service Categories (Must Know)
 - **Compute**: EC2, Lambda, ECS, EKS, Fargate, Beanstalk

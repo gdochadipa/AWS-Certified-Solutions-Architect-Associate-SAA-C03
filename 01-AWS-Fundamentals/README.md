@@ -403,24 +403,263 @@ The AWS Well-Architected Framework helps you understand best practices for desig
 
 ### 5.2 AWS Organizations
 
-**Centralized Management:**
-- Manage multiple AWS accounts
-- Consolidated billing
-- Service Control Policies (SCPs)
-- Organizational Units (OUs)
+**What is AWS Organizations?**
+- **Centrally manage multiple AWS accounts**
+- Consolidated billing across all accounts
+- Hierarchical account structure with Organizational Units (OUs)
+- Automate account creation
+- Apply policies across accounts
 
-**Structure Example:**
+**Key Benefits:**
+- ✅ **Consolidated Billing**: Single payment method, volume discounts
+- ✅ **Centralized Management**: Control access and security policies
+- ✅ **Service Control Policies (SCPs)**: Set permission guardrails
+- ✅ **Account Automation**: Programmatic account creation
+- ✅ **Cost Allocation**: Tag-based cost tracking across accounts
+
+#### AWS Organizations Structure
+
 ```
-Root
+Root (Organization)
+│
+├── Management Account (Master Account)
+│   └── Pays all charges, full admin access
+│
 ├── Production OU
-│   ├── Prod Account 1
-│   └── Prod Account 2
+│   ├── Prod-App Account
+│   ├── Prod-DB Account
+│   └── Prod-Network Account
+│
 ├── Development OU
 │   ├── Dev Account 1
-│   └── Dev Account 2
-└── Security OU
-    └── Audit Account
+│   ├── Dev Account 2
+│   └── Test Account
+│
+├── Security OU
+│   ├── Security Audit Account
+│   └── Log Archive Account
+│
+└── Sandbox OU
+    ├── Sandbox 1
+    └── Sandbox 2
 ```
+
+**Organizational Unit (OU) Best Practices:**
+- Group accounts by function (Production, Development, Security)
+- Nest OUs up to 5 levels deep
+- Apply different policies to different OUs
+- Use meaningful names for easy management
+
+#### Service Control Policies (SCPs)
+
+**What are SCPs?**
+- JSON policies that define **maximum permissions** for accounts
+- Act as **guardrails** (don't grant permissions, only limit them)
+- Applied at: Organization Root, OU, or individual Account level
+- Inherited down the OU hierarchy
+
+**Important SCP Rules:**
+- ❌ SCPs **DO NOT** affect the Management Account
+- ❌ SCPs **DO NOT** grant permissions (only restrict)
+- ✅ SCPs override IAM policies in member accounts
+- ✅ Effective permissions = IAM permissions AND SCP permissions
+
+**SCP Example 1: Deny All Access to Specific Region**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyAllOutsideUSEast1",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    }
+  ]
+}
+```
+
+**SCP Example 2: Require Encryption for EBS Volumes**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyUnencryptedEBS",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:CreateVolume",
+        "ec2:RunInstances"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "Bool": {
+          "ec2:Encrypted": "false"
+        }
+      }
+    }
+  ]
+}
+```
+
+**SCP Example 3: Prevent Users from Leaving Organization**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": "organizations:LeaveOrganization",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+**Common SCP Use Cases:**
+- Restrict services to specific regions (data sovereignty)
+- Enforce encryption requirements
+- Prevent deletion of CloudTrail logs
+- Restrict instance types to approved list
+- Deny public S3 buckets
+- Prevent leaving the organization
+
+**SCP Evaluation Logic:**
+```
+User attempts action
+    ↓
+Is there an explicit Deny in SCP? → YES → ❌ DENY
+    ↓ NO
+Is there an explicit Allow in SCP? → YES → Check IAM Policy
+    ↓ NO                                      ↓
+❌ DENY (implicit)                    Is there Allow in IAM? → YES → ✅ ALLOW
+                                            ↓ NO
+                                        ❌ DENY
+```
+
+**Exam Tip**: 🎯 Remember: SCPs affect ALL users and roles in member accounts, but NOT the management account!
+
+#### AWS Control Tower
+
+**What is AWS Control Tower?**
+- **Easy way to set up and govern multi-account AWS environments**
+- Built on top of AWS Organizations
+- Automated account provisioning
+- Pre-configured guardrails (SCPs + Config rules)
+- Dashboard for compliance monitoring
+
+**Key Features:**
+- **Landing Zone**: Well-architected multi-account baseline
+- **Guardrails**: Preventive (SCPs) and detective (Config rules)
+- **Account Factory**: Automated account provisioning
+- **Dashboard**: Centralized visibility and compliance
+
+**Control Tower Guardrails:**
+
+**Mandatory Guardrails** (always enforced):
+- Disallow changes to CloudTrail configuration
+- Disallow deletion of log archive
+- Enable CloudTrail in all regions
+- Enable MFA for root user
+
+**Strongly Recommended Guardrails**:
+- Enable encryption for EBS volumes
+- Disallow public read/write on S3 buckets
+- Enable AWS Config in all regions
+
+**Elective Guardrails** (optional):
+- Restrict EC2 instance types
+- Disallow internet connections from VPC
+- Require tags on resources
+
+**Control Tower vs Organizations:**
+| Feature | Organizations | Control Tower |
+|---------|---------------|---------------|
+| Setup Complexity | Manual | Automated |
+| Guardrails | Manual SCPs | Pre-built + custom |
+| Account Provisioning | Manual | Account Factory |
+| Compliance Dashboard | No | Yes |
+| Use Case | Full control | Quick setup with best practices |
+
+**When to Use:**
+- **Control Tower**: Quick setup, governance out-of-the-box, less AWS experience
+- **Organizations**: Maximum flexibility, custom policies, experienced teams
+
+#### AWS Resource Access Manager (RAM)
+
+**What is AWS RAM?**
+- **Share AWS resources across accounts** without duplicating them
+- Share within your Organization or with specific accounts
+- No additional charge for using RAM
+- Centralized resource management
+
+**Shareable Resources:**
+- **VPC Subnets**: Share subnets with other accounts (common use case)
+- **Transit Gateway**: Share transit gateway attachments
+- **Route 53 Resolver**: Share DNS query resolution rules
+- **License Manager**: Share software licenses
+- **Aurora DB Clusters**: Share Aurora DB clusters
+- **Resource Groups**: Share resource groups
+- **Capacity Reservations**: Share EC2 capacity reservations
+- **Dedicated Hosts**: Share dedicated hosts
+- **Prefix Lists**: Share managed prefix lists
+
+**Common Use Case: VPC Subnet Sharing**
+```
+Account A (Networking Account)
+└── VPC (10.0.0.0/16)
+    ├── Private Subnet 1 (shared via RAM)
+    └── Private Subnet 2 (shared via RAM)
+        ↓
+        RAM Resource Share
+        ↓
+Account B (Application Account)
+└── EC2 instances launch in Account A's subnets
+    (but owned by Account B)
+```
+
+**Benefits of Subnet Sharing:**
+- ✅ Centralized network management
+- ✅ Reduced number of VPCs
+- ✅ Simplified network architecture
+- ✅ Lower operational overhead
+- ✅ Efficient use of IP addresses
+
+**RAM Sharing Process:**
+1. Resource owner creates a resource share
+2. Specify which resources to share
+3. Specify which accounts/OUs can access
+4. Recipients accept the share (if outside Organization)
+5. Recipients can use resources (but not modify/delete)
+
+**Exam Tip**: 🎯 RAM is commonly tested with VPC subnet sharing scenarios for centralized networking!
+
+#### Consolidated Billing
+
+**How Consolidated Billing Works:**
+- Single payment method for all accounts in Organization
+- Management account pays all charges
+- Member accounts cannot change billing settings
+- Combined usage for volume discounts
+
+**Volume Discount Benefits:**
+```
+Account 1: Uses 500 GB S3 storage
+Account 2: Uses 800 GB S3 storage
+Account 3: Uses 700 GB S3 storage
+Total: 2,000 GB → Higher volume pricing tier applies
+```
+
+**Cost Allocation Tags:**
+- Tag resources across accounts
+- Track costs by project, department, environment
+- Generate detailed cost reports
+- Examples: `Project:WebApp`, `Environment:Production`, `CostCenter:Engineering`
 
 ### 5.3 Billing and Cost Management
 

@@ -517,27 +517,321 @@ D. To reduce data transfer costs
 
 ---
 
+### Question 21
+A company has 50 AWS accounts and wants to centrally manage billing and apply organization-wide security policies. Which AWS service should they use?
+
+A. AWS IAM  
+B. AWS Organizations  
+C. AWS Control Tower  
+D. AWS Systems Manager  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: B**
+
+**Explanation:**
+- **AWS Organizations** is the service for managing multiple AWS accounts
+- Provides consolidated billing across all accounts
+- Enables Service Control Policies (SCPs) for organization-wide policies
+- Can create Organizational Units (OUs) for logical grouping
+- Control Tower (C) is built on Organizations but is for automated setup
+- IAM (A) is for user/role management within a single account
+- Systems Manager (D) is for operations, not multi-account management
+
+**References:** AWS Organizations, Multi-Account Strategy
+</details>
+
+---
+
+### Question 22
+A security team wants to prevent all member accounts in their AWS Organization from creating resources in any region except us-east-1 and eu-west-1. How should this be implemented?
+
+A. Create IAM policies in each account restricting regions  
+B. Use AWS Config rules to detect non-compliant resources  
+C. Create a Service Control Policy (SCP) denying actions in other regions  
+D. Use AWS Firewall Manager to block region access  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: C**
+
+**Explanation:**
+- **Service Control Policies (SCPs)** provide centralized, preventive controls
+- SCPs can restrict which AWS regions can be used
+- Applied at the Organization, OU, or account level
+- Cannot be overridden by users in member accounts
+- IAM policies (A) can be changed by account administrators
+- Config rules (B) are detective, not preventive
+- Firewall Manager (D) is for security group/WAF rules, not region restrictions
+
+**SCP Example:**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Deny",
+    "Action": "*",
+    "Resource": "*",
+    "Condition": {
+      "StringNotEquals": {
+        "aws:RequestedRegion": ["us-east-1", "eu-west-1"]
+      }
+    }
+  }]
+}
+```
+
+**References:** Service Control Policies, AWS Organizations, Region Restrictions
+</details>
+
+---
+
+### Question 23
+Which of the following statements about Service Control Policies (SCPs) is TRUE?
+
+A. SCPs grant permissions to users and roles  
+B. SCPs affect the management account in an AWS Organization  
+C. SCPs define maximum permissions for member accounts  
+D. SCPs can only be applied to individual accounts, not OUs  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: C**
+
+**Explanation:**
+- **SCPs define maximum permissions** - they act as guardrails
+- SCPs do NOT grant permissions (A is wrong)
+- They only restrict what is possible
+- SCPs do NOT affect the management account (B is wrong)
+- SCPs can be applied to Organization root, OUs, or accounts (D is wrong)
+- Effective permissions = IAM policy AND SCP
+
+**Key SCP Rules:**
+- ❌ Don't grant permissions
+- ❌ Don't affect management account
+- ✅ Set maximum permission boundaries
+- ✅ Can be applied to OUs
+- ✅ Inherited down the hierarchy
+
+**References:** Service Control Policies, Permission Boundaries
+</details>
+
+---
+
+### Question 24
+A company wants to quickly set up a secure, multi-account AWS environment following best practices with automated account provisioning and pre-configured governance guardrails. Which service should they use?
+
+A. AWS Organizations  
+B. AWS Control Tower  
+C. AWS CloudFormation StackSets  
+D. AWS Service Catalog  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: B**
+
+**Explanation:**
+- **AWS Control Tower** provides automated multi-account setup
+- Includes Landing Zone (well-architected baseline)
+- Pre-configured guardrails (preventive and detective)
+- Account Factory for automated provisioning
+- Built on top of AWS Organizations
+- AWS Organizations (A) requires manual setup
+- CloudFormation StackSets (C) deploys templates, not governance
+- Service Catalog (D) is for self-service IT resources
+
+**Control Tower Features:**
+- ✅ Automated setup (minutes vs days)
+- ✅ Pre-built guardrails
+- ✅ Account Factory
+- ✅ Compliance dashboard
+- ✅ Integrated with Organizations, IAM Identity Center, CloudTrail
+
+**When to Use:**
+- Quick setup with best practices
+- Less AWS expertise required
+- Want pre-built governance
+
+**When to Use Organizations Directly:**
+- Need maximum flexibility
+- Have custom requirements
+- Experienced AWS team
+
+**References:** AWS Control Tower, Landing Zone, Multi-Account Governance
+</details>
+
+---
+
+### Question 25
+A company has a centralized networking account and wants to share VPC subnets with multiple application accounts without duplicating VPC infrastructure. Which AWS service enables this?
+
+A. VPC Peering  
+B. AWS Transit Gateway  
+C. AWS Resource Access Manager (RAM)  
+D. AWS PrivateLink  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: C**
+
+**Explanation:**
+- **AWS Resource Access Manager (RAM)** allows sharing resources across accounts
+- Can share VPC subnets between accounts
+- Resources remain in owner account, but accessible to shared accounts
+- No need to duplicate VPCs
+- VPC Peering (A) connects VPCs but doesn't share subnets
+- Transit Gateway (B) connects networks but doesn't share subnets
+- PrivateLink (D) is for service-to-VPC connectivity
+
+**Benefits of Subnet Sharing with RAM:**
+- ✅ Centralized network management
+- ✅ Reduced VPC sprawl
+- ✅ Efficient IP address usage
+- ✅ Simplified network architecture
+- ✅ Lower operational overhead
+
+**Other Shareable Resources via RAM:**
+- VPC Subnets (most common)
+- Transit Gateway attachments
+- Route 53 Resolver rules
+- License Manager configurations
+- Aurora DB clusters
+- Prefix lists
+
+**References:** AWS Resource Access Manager, VPC Subnet Sharing, Centralized Networking
+</details>
+
+---
+
+### Question 26
+A company uses AWS Organizations with consolidated billing. They notice they're receiving volume discounts on S3 storage even though no single account uses enough storage to qualify. Why?
+
+A. AWS provides automatic discounts for Organizations  
+B. Consolidated billing combines usage across all accounts for volume pricing  
+C. The management account gets all the discounts  
+D. SCPs enable cost savings automatically  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: B**
+
+**Explanation:**
+- **Consolidated billing** combines usage across all accounts
+- AWS treats the entire organization as a single billing entity
+- Volume discounts apply to combined usage
+- Example: 3 accounts with 500GB each = 1500GB total → higher tier pricing
+- Not automatic discounts (A), just usage aggregation
+- All accounts benefit, not just management account (C)
+- SCPs are for permissions, not costs (D)
+
+**Consolidated Billing Benefits:**
+- ✅ Volume discounts across accounts
+- ✅ Single payment method
+- ✅ Easier cost tracking
+- ✅ Cost allocation tags across org
+- ✅ Reserved Instance sharing
+
+**References:** AWS Organizations, Consolidated Billing, Volume Pricing
+</details>
+
+---
+
+### Question 27
+Which AWS Organizations feature allows you to create policies that prevent accounts from leaving the organization?
+
+A. IAM Policy  
+B. Service Control Policy (SCP)  
+C. Resource Control Policy  
+D. Organizational Lock  
+
+<details>
+<summary>Show Answer</summary>
+
+**Answer: B**
+
+**Explanation:**
+- **Service Control Policies (SCPs)** can prevent accounts from leaving
+- SCP can deny the `organizations:LeaveOrganization` action
+- Applied at Organization or OU level
+- Cannot be overridden by member accounts
+
+**Example SCP:**
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Deny",
+    "Action": "organizations:LeaveOrganization",
+    "Resource": "*"
+  }]
+}
+```
+
+**Other Preventive SCP Use Cases:**
+- Prevent deletion of CloudTrail
+- Deny public S3 buckets
+- Restrict to approved instance types
+- Enforce encryption requirements
+- Restrict root user actions
+
+**References:** Service Control Policies, Organization Governance
+</details>
+
+---
+
 ## Summary
 
-**Total Questions**: 20  
+**Total Questions**: 27  
 **Topics Covered**:
 - AWS Global Infrastructure (Regions, AZs, Edge Locations, Local Zones, Wavelength)
 - AWS Well-Architected Framework (All 6 pillars)
 - Shared Responsibility Model
 - AWS Account Management (Organizations, Consolidated Billing)
+- **Service Control Policies (SCPs)** - NEW
+- **AWS Control Tower** - NEW
+- **AWS Resource Access Manager (RAM)** - NEW
 - Cost Management Tools (Pricing Calculator, Budgets, Cost Explorer)
 - Service Categories and Cloud Models
 
 **Exam Tips**:
-1. Understand the difference between Regions, AZs, Edge Locations, Local Zones, and Wavelength
-2. Memorize the 6 pillars of Well-Architected Framework
-3. Know what AWS vs Customer manages in Shared Responsibility Model
-4. Understand when to use each cost management tool
-5. Know AWS Organizations for multi-account management
+1. ✅ Understand the difference between Regions, AZs, Edge Locations, Local Zones, and Wavelength
+2. ✅ Memorize the 6 pillars of Well-Architected Framework
+3. ✅ Know what AWS vs Customer manages in Shared Responsibility Model
+4. ✅ **CRITICAL**: Understand SCPs - they DON'T grant permissions, only restrict
+5. ✅ **CRITICAL**: SCPs do NOT affect the management account
+6. ✅ Know when to use Control Tower vs manual Organizations setup
+7. ✅ Understand RAM for VPC subnet sharing (common exam scenario)
+8. ✅ Consolidated billing enables volume discounts across accounts
+9. ✅ Understand when to use each cost management tool
+10. ✅ Know AWS Organizations for multi-account management
+
+**Key Exam Concepts - AWS Organizations:**
+- **Management Account**: Cannot be restricted by SCPs, pays all bills
+- **Member Accounts**: Subject to SCPs, inherit from OU/Organization
+- **Organizational Units (OUs)**: Logical groupings, up to 5 levels deep
+- **SCPs**: Maximum permissions, don't grant access, preventive control
+- **Consolidated Billing**: Volume discounts, single payment, RI sharing
+- **Control Tower**: Automated setup, Landing Zone, guardrails
+- **RAM**: Share resources (especially VPC subnets) across accounts
+
+**Common Exam Scenarios:**
+- "Prevent accounts from using services in specific regions" → SCP
+- "Centralize billing across 50 accounts" → AWS Organizations
+- "Quick multi-account setup with governance" → Control Tower
+- "Share VPC subnets across accounts" → RAM
+- "Enforce encryption across all accounts" → SCP
+- "Get volume discounts across accounts" → Consolidated Billing
 
 **Next Steps**:
 - Review incorrect answers
 - Study referenced topics in main README
 - Practice scenario-based questions
 - Take module quiz to reinforce learning
+- **FOCUS**: Spend extra time on SCPs - heavily tested!
 

@@ -815,7 +815,517 @@ Application: E-Commerce Website
    - Automated cutover
    - Replaces CloudEndure and SMS
 
-### Common Scenarios
+✅ **AWS Backup**
+   - Centralized backup management
+   - Cross-region and cross-account backup
+   - Backup policies and compliance
+   - Essential for DR and data protection
+
+---
+
+## 7. AWS Backup
+
+### What is AWS Backup?
+
+**AWS Backup** is a fully managed, policy-based backup service that centralizes and automates data protection across AWS services.
+
+**Key Benefits:**
+- ✅ **Centralized Management**: Single console for all backups
+- ✅ **Policy-Based**: Automated backup scheduling and retention
+- ✅ **Cross-Region/Cross-Account**: Copy backups for disaster recovery
+- ✅ **Compliance**: Lifecycle policies and backup auditing
+- ✅ **Cost-Effective**: Pay only for backup storage used
+
+### Supported AWS Services
+
+**Compute:**
+- Amazon EC2 (instances and EBS volumes)
+- VMware on AWS
+
+**Storage:**
+- Amazon EBS volumes
+- Amazon EFS file systems
+- Amazon FSx (Windows File Server, Lustre, OpenZFS, NetApp ONTAP)
+- AWS Storage Gateway volumes
+
+**Databases:**
+- Amazon RDS (all engines)
+- Amazon Aurora
+- Amazon DynamoDB
+- Amazon DocumentDB
+- Amazon Neptune
+
+**Other:**
+- Amazon S3
+- AWS CloudFormation stacks
+
+### AWS Backup Components
+
+#### 1. Backup Plans
+
+**What is a Backup Plan?**
+- Defines **WHEN** and **HOW OFTEN** to back up resources
+- Specifies backup **retention period**
+- Defines backup **lifecycle** (move to cold storage)
+- Can copy backups to other regions
+
+**Backup Plan Example:**
+```json
+{
+  "BackupPlanName": "DailyBackupPlan",
+  "Rules": [
+    {
+      "RuleName": "DailyBackup",
+      "ScheduleExpression": "cron(0 2 * * ? *)",
+      "StartWindowMinutes": 60,
+      "CompletionWindowMinutes": 120,
+      "Lifecycle": {
+        "MoveToColdStorageAfterDays": 30,
+        "DeleteAfterDays": 365
+      },
+      "CopyActions": [
+        {
+          "DestinationBackupVaultArn": "arn:aws:backup:us-west-2:123456789012:backup-vault:DRVault",
+          "Lifecycle": {
+            "DeleteAfterDays": 90
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Backup Frequency Options:**
+- Continuous (point-in-time recovery)
+- Hourly
+- Every 12 hours
+- Daily
+- Weekly
+- Monthly
+- Custom cron expressions
+
+#### 2. Backup Vaults
+
+**What is a Backup Vault?**
+- Container for storing and organizing backups
+- Can enable vault lock for **compliance** (WORM - Write Once Read Many)
+- Apply resource-based access policies
+- Enable encryption with KMS
+
+**Vault Lock:**
+- Enforce retention policies
+- Prevent backup deletion (even by root user)
+- Meet regulatory compliance (SEC, HIPAA, etc.)
+- Set minimum and maximum retention periods
+
+#### 3. Resource Assignment
+
+**How to Assign Resources:**
+- **By tags**: Backup all resources with `Backup:Daily` tag
+- **By resource ID**: Specific resources (ARN)
+- **By resource type**: All RDS instances, all EBS volumes
+
+**Example Tag-Based Assignment:**
+```json
+{
+  "ResourceType": "*",
+  "Tags": {
+    "Environment": "Production",
+    "Backup": "Required"
+  }
+}
+```
+
+### AWS Backup Features
+
+#### Cross-Region Backup
+
+**Purpose:**
+- Disaster recovery
+- Compliance requirements
+- Geographic redundancy
+
+**How it Works:**
+1. Primary backup in source region
+2. Automatically copy to destination region(s)
+3. Managed by backup plan
+4. Different retention in each region
+
+**Example:**
+```
+Production (us-east-1)
+  └── Backup Vault: PrimaryVault
+      └── Daily backups (retain 30 days)
+          ↓ Copy to DR region
+DR Region (us-west-2)
+  └── Backup Vault: DRVault
+      └── Backup copies (retain 90 days)
+```
+
+#### Cross-Account Backup
+
+**Use Case:**
+- Centralized backup management
+- Security isolation
+- Compliance requirements
+
+**Architecture:**
+```
+Production Account (111111111111)
+  └── Resources (RDS, EC2, EFS)
+      └── Backup to local vault
+          ↓ Copy to backup account
+Backup Account (222222222222)
+  └── Centralized Backup Vault
+      └── All organization backups
+```
+
+**Setup Steps:**
+1. Enable AWS Organizations
+2. Enable cross-account backup in Backup settings
+3. Share backup vault using AWS RAM
+4. Configure backup plan with copy action
+
+#### Backup Policies (AWS Organizations)
+
+**What are Backup Policies?**
+- Organization-wide backup policies
+- Enforce backup requirements across all accounts
+- Applied at OU or account level
+- Inherited down the hierarchy
+
+**Example Backup Policy:**
+```json
+{
+  "plans": {
+    "ProdBackupPlan": {
+      "regions": ["us-east-1", "us-west-2"],
+      "rules": {
+        "DailyBackupRule": {
+          "schedule_expression": "cron(0 2 * * ? *)",
+          "start_backup_window_minutes": 60,
+          "complete_backup_window_minutes": 120,
+          "lifecycle": {
+            "move_to_cold_storage_after_days": 30,
+            "delete_after_days": 365
+          }
+        }
+      },
+      "selections": {
+        "tags": {
+          "ProdBackupTag": {
+            "iam_role_arn": "arn:aws:iam::$account:role/BackupRole",
+            "tag_key": "Backup",
+            "tag_value": ["Required", "Daily"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Backup Lifecycle Management
+
+**Storage Tiers:**
+1. **Warm Storage**: Fast access, higher cost
+2. **Cold Storage**: Glacier, lower cost, slower access
+
+**Lifecycle Transition:**
+```
+Day 0-30: Warm Storage (frequent access)
+    ↓
+Day 30-90: Cold Storage (compliance)
+    ↓
+Day 90+: Delete (retention expired)
+```
+
+**Cost Optimization:**
+- Move to cold storage after 30-90 days
+- Set appropriate deletion policies
+- Use continuous backup only when necessary
+
+### AWS Backup vs Service-Native Backups
+
+| Feature | AWS Backup | Service-Native (e.g., RDS snapshots) |
+|---------|------------|--------------------------------------|
+| Centralized management | ✅ Yes | ❌ Per-service |
+| Policy-based automation | ✅ Yes | ⚠️ Limited |
+| Cross-region copy | ✅ Automated | ⚠️ Manual |
+| Cross-account backup | ✅ Yes | ❌ Complex |
+| Compliance reporting | ✅ Built-in | ❌ Manual |
+| Lifecycle management | ✅ Automated | ⚠️ Manual |
+| Multiple services | ✅ 15+ services | ❌ Single service |
+| Cost | 💰 Backup storage cost | 💰 Snapshot storage cost |
+
+**When to Use AWS Backup:**
+- ✅ Multiple AWS services to back up
+- ✅ Need centralized management
+- ✅ Cross-region or cross-account requirements
+- ✅ Compliance and audit requirements
+- ✅ Policy-based automation
+
+**When to Use Service-Native:**
+- ✅ Simple, single-service backups
+- ✅ Tight integration with service features
+- ✅ Custom scripting requirements
+
+### AWS Backup Monitoring
+
+**CloudWatch Metrics:**
+- Number of backup jobs succeeded/failed
+- Backup job duration
+- Recovery point counts
+
+**EventBridge Integration:**
+- Trigger on backup job completion
+- Alert on backup failures
+- Automate restore testing
+
+**AWS Backup Audit Manager:**
+- Compliance reporting
+- Policy violations detection
+- Automated findings
+
+### AWS Backup Pricing
+
+**Cost Components:**
+1. **Backup Storage**: Price per GB-month
+   - Warm storage: ~$0.05/GB-month
+   - Cold storage: ~$0.01/GB-month
+2. **Restore Requests**: Price per GB restored
+3. **Data Transfer**: Cross-region copy charges
+
+**Cost Optimization Tips:**
+- Use lifecycle policies to move to cold storage
+- Set appropriate retention periods
+- Delete unnecessary backups
+- Use incremental backups (automatic)
+
+### Exam Tips for AWS Backup
+
+✅ **Key Exam Points:**
+- AWS Backup provides **centralized**, **policy-based** backup
+- Supports **15+ AWS services**
+- **Cross-region** and **cross-account** backup for DR
+- **Vault Lock** for compliance (WORM)
+- Integration with **AWS Organizations** for policy enforcement
+- **Lifecycle management** (warm → cold storage → delete)
+
+✅ **Common Exam Scenarios:**
+- "Centralized backup across multiple services" → **AWS Backup**
+- "Cross-region disaster recovery backup" → **AWS Backup with copy actions**
+- "Enforce backup policies across all accounts" → **AWS Backup Policies with Organizations**
+- "Prevent backup deletion for compliance" → **Backup Vault Lock**
+- "Cost-effective long-term backup retention" → **Lifecycle to cold storage**
+
+---
+
+## 8. Disaster Recovery Strategies
+
+### RTO and RPO
+
+**Recovery Time Objective (RTO):**
+- How quickly you need to recover after a disaster
+- Time from disaster event to full recovery
+- Example: RTO = 4 hours means system must be back in 4 hours
+
+**Recovery Point Objective (RPO):**
+- How much data loss is acceptable
+- Time between last backup and disaster event
+- Example: RPO = 1 hour means max 1 hour of data loss acceptable
+
+**RTO vs RPO:**
+```
+Last Backup        Disaster Event        System Recovered
+     |                    |                      |
+     |<---- RPO (data) -->|<---- RTO (time) ---->|
+     |                    |                      |
+   Backup            Disaster              Recovery
+  (8:00 AM)          (9:00 AM)           (11:00 AM)
+
+RPO = 1 hour (data from 8 AM to 9 AM lost)
+RTO = 2 hours (9 AM to 11 AM to recover)
+```
+
+### Four DR Strategies
+
+#### 1. Backup and Restore (Lowest cost, Highest RTO/RPO)
+
+**Architecture:**
+- Regular backups to S3/Glacier
+- Restore when disaster occurs
+- No resources running in DR region
+
+**Characteristics:**
+- 💰 **Cost**: Lowest (only backup storage)
+- ⏱️ **RTO**: Hours to days
+- 💾 **RPO**: Hours (depends on backup frequency)
+
+**Use Case:** Non-critical applications, long RTO acceptable
+
+**Implementation:**
+```
+Production Region (us-east-1)
+  └── Application + Database
+      └── AWS Backup (daily)
+          ↓
+DR Region (us-west-2)
+  └── S3 Backup Vault (backups only)
+  
+Disaster:
+  1. Deploy infrastructure (CloudFormation)
+  2. Restore from backup
+  3. Update DNS
+```
+
+#### 2. Pilot Light (Low cost, Medium RTO/RPO)
+
+**Architecture:**
+- Core components always running in DR region
+- Minimal resources (just enough to restore quickly)
+- Scale up resources during disaster
+
+**Characteristics:**
+- 💰 **Cost**: Low (minimal running resources)
+- ⏱️ **RTO**: Minutes to hours
+- 💾 **RPO**: Minutes (continuous replication)
+
+**Use Case:** Critical applications, moderate RTO requirements
+
+**Implementation:**
+```
+Production Region (us-east-1)
+  ├── Full application stack
+  └── RDS Primary
+      ↓ Continuous replication
+DR Region (us-west-2)
+  ├── AMIs ready
+  ├── RDS Read Replica (or Aurora replica)
+  └── Small or no compute instances
+  
+Disaster:
+  1. Promote RDS read replica to primary
+  2. Scale up compute resources (Auto Scaling)
+  3. Update Route 53 DNS
+```
+
+#### 3. Warm Standby (Medium cost, Low RTO/RPO)
+
+**Architecture:**
+- Scaled-down version of full environment running
+- All components active but minimal capacity
+- Scale up during disaster
+
+**Characteristics:**
+- 💰 **Cost**: Medium (scaled-down resources running)
+- ⏱️ **RTO**: Minutes
+- 💾 **RPO**: Seconds to minutes
+
+**Use Case:** Business-critical applications
+
+**Implementation:**
+```
+Production Region (us-east-1)
+  ├── Full-scale application (100% capacity)
+  └── RDS Multi-AZ Primary
+      ↓ Synchronous replication
+DR Region (us-west-2)
+  ├── Smaller application stack (30% capacity)
+  ├── RDS Read Replica or Aurora Global Database
+  └── Auto Scaling ready to scale up
+  
+Disaster:
+  1. Promote database
+  2. Scale up to 100% capacity
+  3. Route 53 health check automatic failover
+```
+
+#### 4. Multi-Site Active/Active (Highest cost, Lowest RTO/RPO)
+
+**Architecture:**
+- Full production environment in multiple regions
+- Both sites actively serving traffic
+- Immediate failover
+
+**Characteristics:**
+- 💰 **Cost**: Highest (full duplication)
+- ⏱️ **RTO**: Real-time (automatic)
+- 💾 **RPO**: Near-zero (continuous sync)
+
+**Use Case:** Mission-critical applications, zero downtime requirements
+
+**Implementation:**
+```
+Production Region 1 (us-east-1)
+  ├── Full application stack (50% traffic)
+  ├── Aurora Global Database (Primary)
+  └── DynamoDB Global Tables
+      ↕ Bidirectional replication
+Production Region 2 (us-west-2)
+  ├── Full application stack (50% traffic)
+  ├── Aurora Global Database (Secondary)
+  └── DynamoDB Global Tables
+  
+Route 53: Geoproximity routing or weighted routing
+Disaster: Automatic failover, no intervention needed
+```
+
+### DR Strategy Comparison
+
+| Strategy | RTO | RPO | Cost | Use Case |
+|----------|-----|-----|------|----------|
+| **Backup & Restore** | Hours-Days | Hours | 💰 Lowest | Non-critical, cost-sensitive |
+| **Pilot Light** | 10min-Hours | Minutes | 💰💰 Low | Important apps, acceptable downtime |
+| **Warm Standby** | Minutes | Seconds | 💰💰💰 Medium | Business-critical apps |
+| **Multi-Site** | Real-time | Near-zero | 💰💰💰💰 Highest | Mission-critical, zero downtime |
+
+### DR Best Practices
+
+✅ **Define Requirements:**
+- Document acceptable RTO and RPO
+- Understand business impact of downtime
+- Balance cost vs availability
+
+✅ **Automate Everything:**
+- Use CloudFormation for infrastructure
+- Automate failover with Route 53 health checks
+- Test automation regularly
+
+✅ **Test Regularly:**
+- Schedule DR drills
+- Document procedures
+- Update runbooks
+
+✅ **Monitor and Alert:**
+- CloudWatch alarms for replication lag
+- Route 53 health checks
+- AWS Health Dashboard
+
+✅ **Data Replication:**
+- **RDS**: Read replicas, Multi-AZ, Aurora Global Database
+- **DynamoDB**: Global Tables
+- **S3**: Cross-Region Replication (CRR)
+- **EBS**: Snapshots copied to DR region
+- **EFS**: Backup to S3, replicate with DataSync
+
+### Exam Tips for Disaster Recovery
+
+✅ **Exam Keywords Mapping:**
+- "Lowest cost DR" → **Backup and Restore**
+- "Core components always running" → **Pilot Light**
+- "Scaled-down version running" → **Warm Standby**
+- "Zero downtime, both sites active" → **Multi-Site Active/Active**
+- "RTO in minutes, RPO in seconds" → **Warm Standby or Multi-Site**
+- "Acceptable data loss of 1 hour" → **RPO = 1 hour** → Backup & Restore or Pilot Light
+- "Recover within 10 minutes" → **RTO = 10 minutes** → Warm Standby or Multi-Site
+
+---
+
+## 9. Exam Summary
+
+
 
 **Scenario 1: Large Database Migration**
 - Solution: DMS with Multi-AZ, Full Load + CDC
