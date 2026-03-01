@@ -1,7 +1,9 @@
 # Practice Test 3 (SAA-C03) - Exam Review
+
 **Date:** March 1, 2026  
-**Score:** 52/65 (80%) - **PASSED** ✅  
-**Time Taken:** 112 minutes 55 seconds
+**Score:** 52/65 (80.00%) - ✅ **PASSED**  
+**Time Taken:** 112 minutes 55 seconds  
+**Status:** Above passing threshold
 
 ---
 
@@ -10,12 +12,17 @@
 | Metric | Result |
 |--------|--------|
 | **Total Questions** | 65 |
-| **Correct Answers** | 52 |
-| **Incorrect Answers** | 13 |
+| **Correct Answers** | 52 (80.00%) |
+| **Incorrect Answers** | 13 (20.00%) |
 | **Pass/Fail** | **PASS** ✅ |
-| **Score** | 80% |
 | **Passing Score** | 72% |
 | **Questions Marked for Review** | 22 |
+
+### Progress from Previous Tests
+- **Test 1:** 42/65 (64.62%) ❌
+- **Test 2:** 49/65 (75.38%) ⚠️
+- **Test 3:** 52/65 (80.00%) ✅
+- **Improvement:** +3 questions (+4.62%) 📈
 
 ---
 
@@ -23,8 +30,8 @@
 
 | Domain | Total | Correct | Incorrect | Score | Status |
 |--------|-------|---------|-----------|-------|--------|
-| **Design Resilient Architectures** | 16 | 13 | 3 | 81.25% | ⚠️ Needs Review |
 | **Design High-Performing Architectures** | 17 | 15 | 2 | 88.24% | ✅ Strong |
+| **Design Resilient Architectures** | 16 | 13 | 3 | 81.25% | ⚠️ Needs Review |
 | **Design Secure Architectures** | 23 | 18 | 5 | 78.26% | ⚠️ Needs Review |
 | **Design Secure Applications and Architectures** | 1 | 1 | 0 | 100% | ✅ Perfect |
 | **Design Cost-Optimized Architectures** | 8 | 5 | 3 | 62.50% | ❌ Weak Area |

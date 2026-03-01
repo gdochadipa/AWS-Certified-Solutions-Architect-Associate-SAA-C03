@@ -1,45 +1,38 @@
-# Practice Test 2 Review - SAA-C03
-## AWS Certified Solutions Architect Associate
+# Practice Test 2 (SAA-C03) - Exam Review
+
+**Date:** March 2, 2026  
+**Score:** 49/65 (75.38%) - ⚠️ **BORDERLINE PASS**  
+**Time Taken:** Not recorded  
+**Status:** Just above passing threshold
 
 ---
 
-## 📋 Test Information
-- **Test Name:** Practice Test 2 (SAA-C03)
-- **Date Taken:** March 2, 2026
-- **Score:** 49/65 (75.38%)
-- **Status:** ⚠️ **BORDERLINE** (Passing: ≥72%, Recommended: ≥80%)
-- **Time Taken:** Not recorded
-- **Test Type:** Full-length Practice Exam
+## 📊 Performance Summary
 
----
-
-## 📊 Overall Performance Summary
-
-| Metric | Value | Status |
-|--------|-------|--------|
-| **Total Questions** | 65 | - |
-| **Correct Answers** | 49 | 75.38% |
-| **Incorrect Answers** | 16 | 24.62% |
-| **Review Marked** | 21 | Questions to revisit |
-| **Passing Score** | 72% | ⚠️ Just above threshold |
-| **Recommended Score** | 80% | Need 3 more correct |
+| Metric | Result |
+|--------|--------|
+| **Total Questions** | 65 |
+| **Correct Answers** | 49 (75.38%) |
+| **Incorrect Answers** | 16 (24.62%) |
+| **Pass/Fail** | **BORDERLINE PASS** ⚠️ |
+| **Passing Score** | 72% |
+| **Questions Marked for Review** | 21 |
 
 ### Progress from Practice Test 1
 - **Previous Score:** 42/65 (64.62%)
 - **Current Score:** 49/65 (75.38%)
 - **Improvement:** +7 questions (+10.76%) 📈
-- **Status:** Moved from FAIL to BORDERLINE PASS
 
 ---
 
-## 🎯 Domain-wise Performance Analysis
+## 📈 Domain Performance Analysis
 
-| Domain | Questions | Correct | Incorrect | Score % | Status | Priority |
-|--------|-----------|---------|-----------|---------|--------|----------|
-| **Design Resilient Architectures** | 15 | 13 | **2** | 86.67% | ✅ | 🟢 **LOW** |
-| **Design Cost-Optimized Architectures** | 14 | 12 | **2** | 85.71% | ✅ | 🟢 **LOW** |
-| **Design High-Performing Architectures** | 20 | 15 | **5** | 75.00% | ⚠️ | 🟡 **MEDIUM** |
-| **Design Secure Architectures** | 16 | 9 | **7** | 56.25% | ❌ | 🔴 **HIGH** |
+| Domain | Total | Correct | Incorrect | Score | Status |
+|--------|-------|---------|-----------|-------|--------|
+| **Design Resilient Architectures** | 15 | 13 | 2 | 86.67% | ✅ Strong |
+| **Design Cost-Optimized Architectures** | 14 | 12 | 2 | 85.71% | ✅ Strong |
+| **Design High-Performing Architectures** | 20 | 15 | 5 | 75.00% | ⚠️ Needs Review |
+| **Design Secure Architectures** | 16 | 9 | 7 | 56.25% | ❌ **CRITICAL** |
 
 ### Performance Visualization
 ```
@@ -48,6 +41,10 @@ Design Cost-Optimized:      ████████░░ 86% ✅ STRONG
 Design High-Performing:     ███████░░░ 75% ⚠️
 Design Secure:              █████░░░░░ 56% ❌ CRITICAL
 ```
+
+---
+
+## ❌ Incorrect Questions - Detailed Review
 
 ### Comparison with Practice Test 1
 ```
