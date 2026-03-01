@@ -172,8 +172,10 @@ All 14 modules are complete with multiple learning formats:
 | [📇 Flashcards](FLASHCARDS.md) | 30-60 min | Quick review cards | Final review |
 | [🔍 Quick Reference](QUICK-REFERENCE.md) | 15 min | Service lookup table | Quick facts |
 | [📅 Study Roadmap](STUDY-ROADMAP.md) | - | 8-week study plan | Planning |
+| [📝 Exam Reviews](exam-reviews/README.md) | - | Practice test analysis | Track progress |
 
 ---
+
 
 ## 📁 Project Structure
 
@@ -196,8 +198,9 @@ AWS-Certified-Solutions-Architect-Associate-SAA-C03/
 │   ├── QUICK-REFERENCE.md           # Service lookup table
 │   └── STUDY-ROADMAP.md             # 8-week study plan
 │
-├── 📝 exam-reviews/            # Practice test reviews
-│   └── 2026-03-01-Practice-Test-3-Review.md
+├── 📝 exam-reviews/            # Individual practice test reviews
+│   ├── README.md              # Test tracking & analysis
+│   └── [Test review files]    # Detailed test breakdowns
 │
 ├── 🔧 scripts/                 # Maintenance scripts
 │   ├── validate_mermaid.py    # Validate diagrams
