@@ -2,31 +2,25 @@
 
 This directory contains practice test reviews and study materials for the AWS SAA-C03 exam.
 
-**✨ All reviews have been standardized to a consistent, easy-to-read format for quick scanning and better comprehension.**
+**✨ Consolidated into a single, comprehensive, easy-to-read format.**
 
 ---
 
-## 📖 Quick Navigation
+## 🎯 **START HERE**
 
-### 🎯 **START HERE - Most Important Documents**
-
-1. **[EXAM-PROGRESS-SUMMARY.md](./EXAM-PROGRESS-SUMMARY.md)** ⭐ **NEW - Overview of All 5 Tests**
-   - Performance trends across all tests
-   - Domain-by-domain comparison
-   - Critical weakness patterns
-   - Prioritized study recommendations
-   - Action plan for Test 6
-   - ⏱️ **Reading time: ~15 minutes**
-
-2. **[MASTER-SUMMARY.md](./MASTER-SUMMARY.md)** - Detailed analysis with study plan
-   - Consolidated weak areas across all tests
-   - Comprehensive 7-day study schedule
-   - Quick reference for common mistakes
-   - ⏱️ **Reading time: ~20 minutes**
+### **[COMPLETE-EXAM-REVIEW.md](./COMPLETE-EXAM-REVIEW.md)** ⭐ **MAIN FILE**
+**Everything you need in one place:**
+- 📊 All 5 test scores and performance trends
+- 🔥 Critical weaknesses with detailed action plans
+- 📝 Quick reference for all incorrect questions
+- 🎯 7-day intensive study plan to reach 85%+
+- ✅ Exam readiness checklist
+- 📖 Must-know service comparisons
+- ⏱️ **Reading time: 20-25 minutes**
 
 ---
 
-## 📝 Individual Test Reviews
+## 📝 Individual Test Reviews (Optional Deep Dives)
 
 **Choose Your Format:**
 - **Quick Review** (⏱️ 8-15 min) - Perfect for rapid revision
