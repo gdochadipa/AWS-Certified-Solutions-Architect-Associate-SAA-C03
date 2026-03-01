@@ -9,12 +9,12 @@
 
 **A comprehensive, free, and open-source study guide for the AWS Certified Solutions Architect - Associate (SAA-C03) certification exam.**
 
-[🚀 ULTRA-FAST (3-4 hrs)](ULTRA-FAST-LEARNING-INDEX.md) • [⚡ FAST-LEARN (11-14 hrs)](QUICK-START.md) • [📊 Visual Diagrams](DIAGRAMS-INDEX.md) • [📚 Get Started](#-quick-start) • [📖 Documentation](#-documentation) • [🤝 Contributing](CONTRIBUTING.md)
+[🚀 ULTRA-FAST (3-4 hrs)](docs/study-guides/ULTRA-FAST-LEARNING-INDEX.md) • [⚡ FAST-LEARN (11-14 hrs)](docs/reference/QUICK-START.md) • [📊 Visual Diagrams](docs/reference/DIAGRAMS-INDEX.md) • [📚 Get Started](#-quick-start) • [📖 Documentation](#-documentation) • [🤝 Contributing](docs/project-docs/CONTRIBUTING.md)
 
 ---
 
 > **🔥 NEW: ULTRA-FAST-LEARN Materials Added!** Extreme bullet-point summaries for last-minute cramming (3-4 hours total)!  
-> **[→ Ultra-Fast Learning (3-4 hrs)](ULTRA-FAST-LEARNING-INDEX.md)** | **[→ Fast-Learn (11-14 hrs)](QUICK-START.md)** | **[→ Browse Diagrams](DIAGRAMS-INDEX.md)**  
+> **[→ Ultra-Fast Learning (3-4 hrs)](docs/study-guides/ULTRA-FAST-LEARNING-INDEX.md)** | **[→ Fast-Learn (11-14 hrs)](docs/reference/QUICK-START.md)** | **[→ Browse Diagrams](docs/reference/DIAGRAMS-INDEX.md)**  
 > Choose your speed: **Ultra-Fast (3-4 hrs)** • **Fast (11-14 hrs)** • **Comprehensive (40-60 hrs)**
 
 </div>
@@ -87,7 +87,7 @@ This repository contains a **complete, exam-focused study guide** for the AWS Ce
 
 ### ⚡ NEW: Fast-Track Learning Path (11-14 hours)
 
-**Want to learn 75% faster?** Check out our new **[FAST-LEARN Guide](FAST-LEARN-GUIDE.md)**!
+**Want to learn 75% faster?** Check out our new **[FAST-LEARN Guide](docs/study-guides/FAST-LEARN-GUIDE.md)**!
 
 Each module now includes a condensed **FAST-LEARN.md** file with:
 - Essential concepts only (no fluff)
