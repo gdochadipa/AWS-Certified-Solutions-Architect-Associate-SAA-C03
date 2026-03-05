@@ -1,10 +1,10 @@
 # 🎴 Visual Memory Cards - Complete SAA-C03 Coverage
 
-**Purpose:** Comprehensive visual memory system covering ALL 5 Practice Tests
+**Purpose:** Comprehensive visual memory system covering ALL 7 Practice Tests
 
-**Updated:** March 2, 2026  
+**Updated:** March 6, 2026  
 **Coverage:** 53 visual cards + 110+ digital flashcards  
-**Practice Test Analysis:** Tests 1-5 fully integrated  
+**Practice Test Analysis:** Tests 1-7 fully integrated  
 **Success Rate:** Covers 100% of failed questions from all tests
 
 ---
@@ -12,32 +12,34 @@
 ## 📊 Coverage Statistics
 
 ```
-Total Visual Cards: 53 cards
+Total Visual Cards: 63 cards
 ├── Core Infrastructure: 16 cards (VPC, Networking, Fundamentals)
 ├── Storage Solutions: 21 cards (S3, EBS, EFS, FSx)
 ├── Database Services: 6 cards (RDS, DynamoDB, Aurora)
 ├── Compute & Serverless: 4 cards (Lambda, ECS, Auto Scaling)
 ├── Networking & CDN: 3 cards (CloudFront, Global Accelerator, ALB)
 ├── Monitoring & Analytics: 3 cards (QuickSight, CloudWatch, Glue)
-├── Security: 2 cards (Security Hub, Systems Manager)
+├── Security: 4 cards (Security Hub, Systems Manager, KMS, Directory Services)
 ├── Deployment: 2 cards (Beanstalk, IMDS)
 ├── Streaming: 2 cards (Kinesis Family)
 ├── DNS: 2 cards (Route 53)
-├── Migration: 2 cards (DataSync, Transfer)
+├── Migration: 4 cards (DataSync, Transfer, Storage Gateway, Direct Connect)
 └── Patterns: 2 cards (Cost, HA)
 
-Digital Flashcards: 110+ Anki-ready
+Digital Flashcards: 130+ Anki-ready
 ```
 
-## 🎯 All 5 Practice Tests Integrated
+## 🎯 All 7 Practice Tests Integrated
 
 ✅ **Test 1 (52%)** - 19 critical topics added  
 ✅ **Test 2 (75%)** - 13 security/performance topics  
 ✅ **Test 3 (80%)** - 13 advanced topics  
 ✅ **Test 4 (75%)** - 16 cost/resilient topics  
 ✅ **Test 5 (65%)** - 19 high-performing topics  
+✅ **Test 6 (80%)** - 13 resilient architecture topics  
+✅ **Test 7 (73.85%)** - 17 security/cost/directory services topics  
 
-**Total:** 80+ unique exam topics comprehensively covered
+**Total:** 110+ unique exam topics comprehensively covered
 
 ---
 
@@ -220,6 +222,59 @@ Test: Practice Test 3, Question 4
 Difficulty: ⭐⭐⭐
 ```
 
+---
+
+### Card 6B: S3 Performance Optimization 🚀
+```
+┌────────────────────────────────────────────┐
+│  🚀 S3 PERFORMANCE OPTIMIZATION            │
+├────────────────────────────────────────────┤
+│                                            │
+│  ❌ AVOID: LIST Operations                 │
+│  • LIST expensive at scale                 │
+│  • Slow for millions of objects            │
+│  • Consumes API requests                   │
+│  • Not suitable for metadata queries       │
+│                                            │
+│  ✅ INSTEAD: Use Alternatives               │
+│                                            │
+│  Option 1: S3 Inventory                    │
+│  • Scheduled reports of objects            │
+│  • Output: CSV, Parquet, ORC               │
+│  • Query with Athena                       │
+│  • Best for: Periodic metadata queries     │
+│                                            │
+│  Option 2: DynamoDB Index                  │
+│  • Store object metadata in DynamoDB       │
+│  • Fast lookups by any attribute           │
+│  • Best for: Real-time queries             │
+│                                            │
+│  Option 3: ElasticSearch/OpenSearch        │
+│  • Full-text search on metadata            │
+│  • Complex queries                         │
+│                                            │
+│  MULTIPART UPLOAD:                         │
+│  • Required: Files > 100 MB                │
+│  • Recommended: Files > 5 GB               │
+│  • Benefits: Parallel uploads, resume      │
+│  • Max: 10,000 parts per upload            │
+│                                            │
+│  TRANSFER ACCELERATION:                    │
+│  • Use CloudFront edge locations           │
+│  • Best for: Global uploads                │
+│  • 50-500% faster for distant regions      │
+│                                            │
+│  💡 Memory: "LIST = Last resort, use      │
+│            Inventory + Athena instead"     │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, S3 Performance
+Difficulty: ⭐⭐⭐
+```
+
+---
+
 ### Card 7: Redshift Snapshots 📸
 ```
 ┌────────────────────────────────────────────┐
@@ -248,6 +303,51 @@ Difficulty: ⭐⭐⭐
 └────────────────────────────────────────────┘
 
 Test: Practice Test 4, Question 13
+Difficulty: ⭐⭐
+```
+
+---
+
+### Card 7B: Redshift Query Monitoring 📊
+```
+┌────────────────────────────────────────────┐
+│  📊 REDSHIFT QUERY MONITORING              │
+├────────────────────────────────────────────┤
+│                                            │
+│  ✅ CORRECT: Redshift Console              │
+│  • Query Monitoring Rules (QMR)            │
+│  • Workload Management (WLM)               │
+│  • System Tables (STL/STV views)           │
+│  • Query Performance Insights              │
+│                                            │
+│  System Tables:                            │
+│  • STL_QUERY: Query execution history      │
+│  • STV_RECENTS: Currently running queries  │
+│  • STL_WLM_QUERY: Workload management      │
+│  • SVL_QUERY_METRICS: Query metrics        │
+│                                            │
+│  ❌ WRONG: CloudTrail                      │
+│  • CloudTrail = API calls only             │
+│  • Not for query performance               │
+│  • Not for query execution details         │
+│                                            │
+│  ❌ WRONG: CloudWatch                      │
+│  • CloudWatch = Cluster metrics only       │
+│  • CPU, disk, network                      │
+│  • Not individual query performance        │
+│                                            │
+│  Use Cases:                                │
+│  • Slow query analysis → STL_QUERY         │
+│  • Workload tuning → WLM queues            │
+│  • Real-time monitoring → STV_RECENTS      │
+│  • Audit API calls → CloudTrail            │
+│                                            │
+│  💡 Memory: "Redshift Queries = Redshift  │
+│            Console, NOT CloudTrail"        │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, Analytics
 Difficulty: ⭐⭐
 ```
 
@@ -320,6 +420,55 @@ Test: Practice Test 5, Question 8
 Difficulty: ⭐⭐⭐
 ```
 
+---
+
+### Card 9B: ECS Network Modes 🌐
+```
+┌────────────────────────────────────────────┐
+│  🌐 ECS NETWORK MODES                      │
+├────────────────────────────────────────────┤
+│                                            │
+│  AWSVPC MODE: ✅ (Recommended)              │
+│  • Each task gets own ENI                  │
+│  • Task-level security groups              │
+│  • Task-level network isolation            │
+│  • Required for Fargate                    │
+│  • Use: Production, security requirements  │
+│                                            │
+│  BRIDGE MODE:                              │
+│  • Default Docker bridge                   │
+│  • Port mapping required                   │
+│  • Host SG applies to all tasks            │
+│  • Dynamic port allocation with ALB        │
+│  • Use: Simple deployments                 │
+│                                            │
+│  HOST MODE:                                │
+│  • Direct host network namespace           │
+│  • No port mapping                         │
+│  • Port conflicts possible                 │
+│  • Use: High performance, specific needs   │
+│                                            │
+│  KEY DISTINCTION:                          │
+│  • Task-level SG? → awsvpc mode ✅         │
+│  • Dynamic ports + ALB? → bridge or awsvpc │
+│  • Classic LB? → ❌ No dynamic port mapping│
+│                                            │
+│  Load Balancer Support:                    │
+│  • ALB: All modes ✅                       │
+│  • NLB: All modes ✅                       │
+│  • Classic LB: Static ports only ❌        │
+│                                            │
+│  💡 Memory: "awsvpc = AWS VPC per task =  │
+│            Task-level security groups"     │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, Question 4
+Difficulty: ⭐⭐⭐
+```
+
+---
+
 ### Card 10: Auto Scaling Custom Metrics 📈
 ```
 ┌────────────────────────────────────────────┐
@@ -353,6 +502,104 @@ Difficulty: ⭐⭐⭐
 
 Test: Practice Test 5, Question 2
 Difficulty: ⭐⭐⭐
+```
+
+---
+
+### Card 10B: Auto Scaling Lifecycle States 🔄
+```
+┌────────────────────────────────────────────┐
+│  🔄 AUTO SCALING LIFECYCLE STATES          │
+├────────────────────────────────────────────┤
+│                                            │
+│  State Transitions:                        │
+│  Pending → InService → [Normal Operation]  │
+│                ↓                           │
+│          Standby (maintenance)             │
+│                ↓                           │
+│          InService (return)                │
+│                                            │
+│  STANDBY STATE:                            │
+│  • Detaches instance from ELB traffic      │
+│  • Keeps instance IN the ASG               │
+│  • Does NOT count toward desired capacity  │
+│  • Instance remains running                │
+│  • Perfect for: Patching, troubleshooting  │
+│  • Return to InService when ready          │
+│                                            │
+│  LIFECYCLE HOOKS:                          │
+│  • Trigger: Pending (launch) or            │
+│    Terminating (terminate)                 │
+│  • NOT for: Patching running instances     │
+│  • Use: Custom actions during launch/term  │
+│                                            │
+│  COOLDOWN PERIOD:                          │
+│  • Default: 300 seconds (5 minutes)        │
+│  • Prevents scaling thrashing              │
+│  • Allows metrics to stabilize             │
+│  • Suppresses additional scaling           │
+│                                            │
+│  Standby vs Detach:                        │
+│  • Standby: Remains in ASG, can return     │
+│  • Detach: Removed from ASG permanently    │
+│                                            │
+│  Standby vs Terminate:                     │
+│  • Standby: Temporary, returns to service  │
+│  • Terminate: Instance deleted             │
+│                                            │
+│  💡 Memory: "Standby = Stop traffic, but  │
+│            Stay in ASG"                    │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, Question 3
+Difficulty: ⭐⭐
+```
+
+---
+
+### Card 10C: EC2 IP Addressing Behavior 🌐
+```
+┌────────────────────────────────────────────┐
+│  🌐 EC2 IP ADDRESSING BEHAVIOR             │
+├────────────────────────────────────────────┤
+│                                            │
+│  PUBLIC IPv4 (Ephemeral):                  │
+│  • Stop/Start: IP CHANGES ⚠️               │
+│  • Reboot: IP PERSISTS ✅                  │
+│  • Terminate: IP RELEASED                  │
+│  • FREE when instance running              │
+│                                            │
+│  ELASTIC IP (Static):                      │
+│  • Assigned to account, not instance       │
+│  • Persists across stop/start ✅           │
+│  • Charged when NOT attached               │
+│  • Charged when attached to stopped EC2    │
+│  • FREE when attached to running instance  │
+│  • Limit: 5 per region (can request more)  │
+│                                            │
+│  PRIVATE IPv4:                             │
+│  • Never changes (permanent)               │
+│  • Assigned from subnet CIDR               │
+│  • Stays with instance throughout lifecycle│
+│                                            │
+│  IPv6:                                     │
+│  • Persistent like private IPv4            │
+│  • Globally unique                         │
+│  • FREE                                    │
+│                                            │
+│  Use Cases:                                │
+│  • Need static IP? → Elastic IP            │
+│  • Don't care about IP change? → Public IP │
+│  • Internal only? → Private IP             │
+│                                            │
+│  💡 Memory: "Ephemeral Public = Every Stop│
+│            Produces New IP"                │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, EC2 Scenarios
+Difficulty: ⭐⭐
 ```
 
 ---
@@ -583,6 +830,453 @@ All Tests - Study These!
 └────────────────────────────────────────────┘
 
 Keyword Pattern Recognition
+```
+
+---
+
+## 🆕 PRACTICE TEST 6 & 7 CRITICAL CARDS
+
+### Card 54: VPC Subnet CIDR Calculations 🔢
+```
+╔══════════════════════════════════════════════╗
+║  🔢 VPC SUBNET CIDR SIZING                   ║
+╠══════════════════════════════════════════════╣
+║                                              ║
+║  Formula: Usable IPs = 2^(32-n) - 5          ║
+║                                              ║
+║  AWS reserves 5 IPs per subnet:              ║
+║  • Network address (x.x.x.0)                 ║
+║  • VPC router (x.x.x.1)                      ║
+║  • DNS server (x.x.x.2)                      ║
+║  • Future use (x.x.x.3)                      ║
+║  • Broadcast (x.x.x.255)                     ║
+║                                              ║
+║  Quick Reference:                            ║
+║  /28 → 16 total - 5 = 11 usable ❌           ║
+║  /27 → 32 total - 5 = 27 usable ✅           ║
+║  /26 → 64 total - 5 = 59 usable              ║
+║  /25 → 128 total - 5 = 123 usable            ║
+║  /24 → 256 total - 5 = 251 usable            ║
+║                                              ║
+║  Example: Need 20 instances                  ║
+║  • /28 = 11 IPs (insufficient) ❌            ║
+║  • /27 = 27 IPs (sufficient) ✅              ║
+║                                              ║
+║  💡 Memory: "Always subtract 5 from total"  ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+Test: Practice Test 6, Question 25
+Difficulty: ⭐⭐
+```
+
+### Card 55: DynamoDB Streams for Change Data Capture 📊
+```
+┌────────────────────────────────────────────┐
+│  📊 DYNAMODB STREAMS (CDC)                 │
+├────────────────────────────────────────────┤
+│                                            │
+│  Purpose: Capture item-level changes       │
+│                                            │
+│  Features:                                 │
+│  • Ordered by key                          │
+│  • 24-hour retention                       │
+│  • Exactly-once delivery                   │
+│  • Near real-time                          │
+│                                            │
+│  Stream View Types:                        │
+│  • KEYS_ONLY: Only key attributes          │
+│  • NEW_IMAGE: Entire new item              │
+│  • OLD_IMAGE: Entire old item              │
+│  • NEW_AND_OLD_IMAGES: Both versions       │
+│                                            │
+│  Common Consumers:                         │
+│  • AWS Lambda (trigger function)           │
+│  • Kinesis Data Streams                    │
+│  • DynamoDB Global Tables                  │
+│                                            │
+│  Use Cases:                                │
+│  • Audit logging                           │
+│  • Real-time analytics                     │
+│  • Cross-region replication                │
+│  • Material views                          │
+│                                            │
+│  ❌ WRONG: Duplicate table for tracking    │
+│  ✅ RIGHT: Enable DynamoDB Streams         │
+│                                            │
+│  💡 Memory: "Streams = 24hr CDC, Lambda   │
+│            trigger, Global Tables"         │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 6, Question 35
+Difficulty: ⭐⭐
+```
+
+### Card 56: RDS Parameter Groups 🔧
+```
+╔══════════════════════════════════════════════╗
+║  🔧 RDS PARAMETER GROUPS                     ║
+╠══════════════════════════════════════════════╣
+║                                              ║
+║  DEFAULT PARAMETER GROUP:                    ║
+║  • AWS-managed                               ║
+║  • Cannot be modified (read-only)            ║
+║  • Named: default.<engine><version>          ║
+║                                              ║
+║  CUSTOM PARAMETER GROUP:                     ║
+║  • Customer-created                          ║
+║  • Fully editable                            ║
+║  • Based on default or another custom        ║
+║  • Can be attached to multiple DB instances  ║
+║                                              ║
+║  Parameter Types:                            ║
+║  • Static: Requires reboot                   ║
+║  • Dynamic: Applied immediately              ║
+║                                              ║
+║  Common Parameters:                          ║
+║  • max_connections                           ║
+║  • slow_query_log                            ║
+║  • character_set_server                      ║
+║  • innodb_buffer_pool_size                   ║
+║                                              ║
+║  ❌ TRAP: "Edit default parameter group"    ║
+║  ✅ FIX: Create custom parameter group       ║
+║                                              ║
+║  💡 Memory: "Default = Don't edit, Custom  ║
+║            = Create to modify"               ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+Test: Practice Test 6, Question 36
+Difficulty: ⭐⭐
+```
+
+### Card 57: S3 Gateway Endpoint Non-Transitive Routing 🚫
+```
+┌────────────────────────────────────────────┐
+│  🚫 VPC ENDPOINTS NOT TRANSITIVE           │
+├────────────────────────────────────────────┤
+│                                            │
+│  S3 Gateway Endpoint Limitation:           │
+│                                            │
+│  VPC-A (has S3 endpoint)                   │
+│    ↓ VPC Peering                           │
+│  VPC-B (no S3 endpoint) ❌ Cannot use A's  │
+│                                            │
+│  Solution: Create S3 endpoint in EACH VPC  │
+│                                            │
+│  Why?                                      │
+│  • Gateway endpoints use route tables      │
+│  • Route tables don't traverse peering     │
+│  • Each VPC needs own route entry          │
+│                                            │
+│  Cost Impact:                              │
+│  • Gateway endpoints = FREE                │
+│  • No cost to create multiple              │
+│  • Saves NAT Gateway data charges          │
+│                                            │
+│  vs Interface Endpoints:                   │
+│  • Interface = Has IP, can be accessed     │
+│    via peering/VPN                         │
+│  • Gateway = Route table only, no transit  │
+│                                            │
+│  ❌ TRAP: "Create S3 endpoint in VPC-A,   │
+│           peer to VPC-B"                   │
+│  ✅ FIX: Create S3 endpoint in each VPC    │
+│                                            │
+│  💡 Memory: "Gateway endpoints = Per VPC, │
+│            NOT transitive"                 │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 6, Question 11
+Difficulty: ⭐⭐⭐
+```
+
+### Card 58: KMS Multi-Region Keys 🔐
+```
+╔══════════════════════════════════════════════╗
+║  🔐 KMS MULTI-REGION KEYS                    ║
+╠══════════════════════════════════════════════╣
+║                                              ║
+║  SINGLE-REGION KEYS (Default):               ║
+║  • Created in one region                     ║
+║  • Cannot decrypt in other regions           ║
+║  • Most common use case                      ║
+║  • Lower cost                                ║
+║                                              ║
+║  MULTI-REGION KEYS:                          ║
+║  • Primary key in one region                 ║
+║  • Replica keys in other regions             ║
+║  • Same key ID across all regions ✅         ║
+║  • Same key material                         ║
+║                                              ║
+║  Key Benefits:                               ║
+║  • Encrypt in us-east-1, decrypt in         ║
+║    eu-west-1 with same key                   ║
+║  • Disaster recovery                         ║
+║  • Global applications                       ║
+║  • Multi-region compliance                   ║
+║                                              ║
+║  How It Works:                               ║
+║  1. Create primary multi-region key          ║
+║  2. Replicate to target regions              ║
+║  3. Same key ID, different ARN per region    ║
+║  4. Each replica can encrypt/decrypt         ║
+║                                              ║
+║  Use Cases:                                  ║
+║  • DynamoDB Global Tables encryption         ║
+║  • Aurora Global Database encryption         ║
+║  • S3 Cross-Region Replication with KMS      ║
+║  • Multi-region disaster recovery            ║
+║                                              ║
+║  ❌ TRAP: "KMS keys are global"             ║
+║  ✅ REALITY: Keys are regional by default,  ║
+║             must explicitly create           ║
+║             multi-region keys                ║
+║                                              ║
+║  💡 Memory: "MRK = Multi-Region Key =      ║
+║            Same key ID, different regions"   ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+Test: Practice Test 7, Question 31
+Difficulty: ⭐⭐⭐
+```
+
+### Card 59: AWS Directory Service Options 👥
+```
+┌────────────────────────────────────────────┐
+│  👥 AWS DIRECTORY SERVICE TYPES            │
+├────────────────────────────────────────────┤
+│                                            │
+│  SIMPLE AD:                                │
+│  • Standalone managed directory            │
+│  • Samba 4, AD-compatible                  │
+│  • Max 500 users (small) / 5000 (large)    │
+│  • No trust relationships                  │
+│  • Use: Basic AD features, no on-prem AD   │
+│  • Cost: ~$36/month (small)                │
+│                                            │
+│  AD CONNECTOR:                             │
+│  • Proxy to on-premises AD                 │
+│  • NOT a standalone directory              │
+│  • Requires: VPN or Direct Connect         │
+│  • Users remain in on-prem AD              │
+│  • Use: Extend existing AD to AWS          │
+│  • Cost: ~$36/month                        │
+│                                            │
+│  AWS MANAGED MICROSOFT AD:                 │
+│  • Full Microsoft AD in AWS                │
+│  • Trust relationships supported           │
+│  • Multi-AZ deployment                     │
+│  • 30,000+ users                           │
+│  • Schema extensions                       │
+│  • Use: Enterprise AD features             │
+│  • Cost: ~$146/month (Standard)            │
+│                                            │
+│  Decision Matrix:                          │
+│  • <500 users, no on-prem → Simple AD      │
+│  • Have on-prem AD → AD Connector          │
+│  • Enterprise features → Managed AD        │
+│  • Trust relationships → Managed AD        │
+│                                            │
+│  ❌ TRAP: "Use Simple AD for 10,000 users"│
+│  ✅ FIX: Use AWS Managed Microsoft AD      │
+│                                            │
+│  💡 Memory: "Simple (<500), Connector     │
+│            (proxy), Managed (enterprise)"  │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 7, Question 27
+Difficulty: ⭐⭐⭐
+```
+
+### Card 60: NAT Gateway Types and Cost Optimization 💰
+```
+╔══════════════════════════════════════════════╗
+║  💰 NAT GATEWAY TYPES & COST                 ║
+╠══════════════════════════════════════════════╣
+║                                              ║
+║  PUBLIC NAT GATEWAY:                         ║
+║  • For: Internet access from private subnet  ║
+║  • Location: Public subnet                   ║
+║  • Requires: Elastic IP                      ║
+║  • Route: 0.0.0.0/0 → NAT Gateway           ║
+║  • Use: Most common scenario                 ║
+║                                              ║
+║  PRIVATE NAT GATEWAY:                        ║
+║  • For: Private subnet to other VPCs/on-prem ║
+║  • Location: Private subnet                  ║
+║  • Requires: No EIP needed                   ║
+║  • Use: Transit Gateway, VPC peering         ║
+║                                              ║
+║  Cost Components:                            ║
+║  • Hourly charge: $0.045/hour                ║
+║  • Data processing: $0.045/GB                ║
+║  • Cross-AZ data transfer: $0.01/GB          ║
+║                                              ║
+║  Cost Optimization:                          ║
+║  ❌ Single NAT for multiple AZs              ║
+║     → Cross-AZ charges add up                ║
+║  ✅ One NAT Gateway per AZ                   ║
+║     → Eliminates cross-AZ transfer           ║
+║                                              ║
+║  Architecture:                               ║
+║  • Deploy NAT Gateway in each public subnet  ║
+║  • Route tables in same AZ point to local    ║
+║    NAT Gateway                               ║
+║  • Saves cross-AZ data transfer costs        ║
+║                                              ║
+║  💡 Memory: "Public NAT = Internet, Private │
+║            NAT = Internal, Deploy per AZ"    ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+Test: Practice Test 7, Question 16
+Difficulty: ⭐⭐⭐
+```
+
+### Card 61: Direct Connect BGP Community Tags 🏷️
+```
+┌────────────────────────────────────────────┐
+│  🏷️ DIRECT CONNECT BGP COMMUNITY TAGS     │
+├────────────────────────────────────────────┤
+│                                            │
+│  Public Virtual Interface (VIF):           │
+│                                            │
+│  BGP Community Tag Scopes:                 │
+│  • 7224:9100 → Local region only ✅        │
+│  • 7224:9200 → All regions in continent    │
+│  • 7224:9300 → Global (all regions)        │
+│                                            │
+│  Local Preference (NOT on Public VIF):     │
+│  • Only for Private/Transit VIF            │
+│  • Cannot use on Public VIF ❌             │
+│                                            │
+│  Use Case Example:                         │
+│  Problem: Route traffic to local region,   │
+│           not other regions                │
+│  Solution: Apply BGP tag 7224:9100         │
+│                                            │
+│  VIF Types:                                │
+│  • Public VIF: AWS public services         │
+│    (S3, DynamoDB via public IPs)           │
+│  • Private VIF: VPC resources via VGW      │
+│  • Transit VIF: Transit Gateway            │
+│                                            │
+│  ❌ TRAP: "Use Local Preference on public │
+│           VIF"                             │
+│  ✅ FIX: Use BGP community tag 7224:9100   │
+│                                            │
+│  💡 Memory: "Public VIF = BGP tags        │
+│            (9100/9200/9300), NOT LP"       │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 7, Question 1
+Difficulty: ⭐⭐⭐
+```
+
+### Card 62: Storage Gateway Types Comparison 💾
+```
+╔══════════════════════════════════════════════╗
+║  💾 STORAGE GATEWAY TYPES                    ║
+╠══════════════════════════════════════════════╣
+║                                              ║
+║  S3 FILE GATEWAY:                            ║
+║  • Protocol: NFS, SMB                        ║
+║  • Backend: S3 buckets                       ║
+║  • Cache: Local for frequent files           ║
+║  • Use: File shares, backups, archives       ║
+║  • Integration: S3 lifecycle, CRR            ║
+║                                              ║
+║  FSx FILE GATEWAY:                           ║
+║  • Protocol: SMB                             ║
+║  • Backend: FSx for Windows File Server      ║
+║  • Cache: Local for low latency              ║
+║  • Use: Windows file shares, AD integration  ║
+║  • Features: Full Windows compatibility      ║
+║                                              ║
+║  VOLUME GATEWAY:                             ║
+║  • Protocol: iSCSI                           ║
+║  • Types: Cached volumes, Stored volumes     ║
+║  • Backend: S3 (snapshots as EBS)            ║
+║  • Use: Block storage, database backup       ║
+║  • Cached: Frequent data local               ║
+║  • Stored: All data local, async backup      ║
+║                                              ║
+║  TAPE GATEWAY:                               ║
+║  • Protocol: iSCSI-VTL (Virtual Tape Library)║
+║  • Backend: S3, Glacier                      ║
+║  • Use: Replace physical tape backup         ║
+║  • Compatible: NetBackup, Veeam, Backup Exec ║
+║                                              ║
+║  Decision Matrix:                            ║
+║  • File shares (NFS/SMB) → S3 File Gateway   ║
+║  • Windows files → FSx File Gateway          ║
+║  • Block storage → Volume Gateway            ║
+║  • Tape backup → Tape Gateway                ║
+║                                              ║
+║  💡 Memory: "File (NFS/SMB), FSx (Windows), │
+║            Volume (iSCSI), Tape (VTL)"       ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+Test: Practice Test 7, Question 56
+Difficulty: ⭐⭐
+```
+
+### Card 63: CloudFront Signed URLs vs Signed Cookies 🍪
+```
+┌────────────────────────────────────────────┐
+│  🍪 CLOUDFRONT ACCESS CONTROL              │
+├────────────────────────────────────────────┤
+│                                            │
+│  SIGNED URLs:                              │
+│  • Use case: Single file access            │
+│  • One URL per file                        │
+│  • Good for: Downloads, images, videos     │
+│  • Expiration: Per URL                     │
+│  • Example: Download specific PDF          │
+│                                            │
+│  SIGNED COOKIES:                           │
+│  • Use case: Multiple files access         │
+│  • One cookie for many files               │
+│  • Good for: Private content areas         │
+│  • Expiration: Per cookie (all files)      │
+│  • Example: Premium subscriber area        │
+│                                            │
+│  When to Use Each:                         │
+│  • Signed URL:                             │
+│    - Restrict access to single file        │
+│    - RTMP distribution                     │
+│    - Generate unique download links        │
+│                                            │
+│  • Signed Cookies:                         │
+│    - Multiple files (don't change URLs)    │
+│    - Current URL shouldn't change          │
+│    - Subscriber access to content library  │
+│                                            │
+│  Creation Process:                         │
+│  1. Create CloudFront key pair             │
+│  2. Create trusted signer (account/key)    │
+│  3. Generate signed URL or set cookie      │
+│  4. Include expiration time                │
+│                                            │
+│  ❌ TRAP: "Use signed URLs for website    │
+│           with multiple protected files"   │
+│  ✅ FIX: Use signed cookies                │
+│                                            │
+│  💡 Memory: "URL = One file, Cookie =     │
+│            Many files"                     │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 7, Question 48
+Difficulty: ⭐⭐
 ```
 
 ---
@@ -2268,6 +2962,59 @@ Difficulty: ⭐⭐⭐
 
 ---
 
+### Card 51B: Storage Gateway Types - Detailed 🗄️
+```
+┌────────────────────────────────────────────┐
+│  🗄️ STORAGE GATEWAY TYPES (DETAILED)      │
+├────────────────────────────────────────────┤
+│                                            │
+│  FILE GATEWAY (NFS/SMB → S3):              │
+│  • On-premises: File share (NFS/SMB)       │
+│  • In AWS: Direct S3 console/API access ✅ │
+│  • Files stored as S3 objects              │
+│  • Use: Hybrid file access, app + admin    │
+│  • Key feature: Bi-directional access      │
+│                                            │
+│  VOLUME GATEWAY - CACHED MODE:             │
+│  • On-premises: Block storage (iSCSI)      │
+│  • In AWS: Volume snapshots only ❌        │
+│  • No direct S3 console access             │
+│  • Primary data in S3, cache on-prem       │
+│  • Use: Block storage with cloud backup    │
+│                                            │
+│  VOLUME GATEWAY - STORED MODE:             │
+│  • On-premises: All data local             │
+│  • In AWS: Async snapshots to S3           │
+│  • No direct object access                 │
+│  • Use: Low latency + DR                   │
+│                                            │
+│  TAPE GATEWAY (VTL):                       │
+│  • On-premises: Virtual tape library       │
+│  • In AWS: Virtual tapes in Glacier        │
+│  • Use: Backup/archive workflows           │
+│                                            │
+│  KEY DISTINCTION:                          │
+│  • File Gateway = S3 objects (console ✅)  │
+│  • Volume Gateway = Snapshots only         │
+│  • Tape Gateway = Glacier archives         │
+│                                            │
+│  Decision Matrix:                          │
+│  • Need S3 console access? → File Gateway  │
+│  • Need block storage? → Volume Gateway    │
+│  • Legacy tape backup? → Tape Gateway      │
+│                                            │
+│  💡 Memory: "File Gateway = Files visible │
+│            in S3 console, Volume = Volume  │
+│            snapshots only"                 │
+│                                            │
+└────────────────────────────────────────────┘
+
+Test: Practice Test 5, Storage scenarios
+Difficulty: ⭐⭐⭐
+```
+
+---
+
 ## 🎯 EXAM-SPECIFIC PATTERN CARDS
 
 ### Card 52: Cost Optimization Decision Tree 💰
@@ -2668,34 +3415,41 @@ Back: Dedicated 2 MB/s throughput per consumer. HTTP/2 push for lower latency. C
 ## 🎯 Exam Day Strategy
 
 ### 2 Hours Before Exam
-1. **0-30 min:** Review Critical Cards 1-10
-2. **30-60 min:** Scan all 53 cards (quick visual pass)
+1. **0-30 min:** Review Critical Cards 1-10 + New Cards 54-63
+2. **30-60 min:** Scan all 63 cards (quick visual pass)
 3. **60-90 min:** Light meal, hydrate, relax
 4. **90-120 min:** Review weak area flashcards
 
 ### During Exam - Quick Reference
-- **VPC?** → Cards 2, 3, 10, 33
-- **S3?** → Cards 4-7, 17-21
-- **Database?** → Cards 22-26
+- **VPC?** → Cards 2, 3, 10, 33, 54, 57
+- **S3?** → Cards 4-7, 17-21, 57
+- **Database?** → Cards 22-26, 55, 56
 - **Compute?** → Cards 27-30
-- **Cost?** → Cards 43-44, 52
+- **Security?** → Cards 37-38, 58, 59
+- **Cost?** → Cards 43-44, 52, 60
 - **HA?** → Card 53
+- **Migration?** → Cards 50-51, 61, 62
+- **CloudFront?** → Cards 1, 63
 
-### Common Traps (From All 5 Tests)
+### Common Traps (From All 7 Tests)
 1. ✅ CloudFront ACM = us-east-1 ONLY
-2. ✅ Gateway Endpoint = S3/DynamoDB ONLY
+2. ✅ Gateway Endpoint = S3/DynamoDB ONLY (NOT transitive!)
 3. ✅ Multi-AZ standby = NOT readable
 4. ✅ SSE-C = Key every request
 5. ✅ VPG ≠ ECMP (only TGW)
 6. ✅ Memory scaling = CloudWatch agent required
 7. ✅ Dynamic ports = ALB only
 8. ✅ Versioning = Suspend only (never disable)
+9. ✅ KMS keys = Regional by default (multi-region keys need explicit creation)
+10. ✅ RDS default parameter groups = Cannot modify (create custom)
+11. ✅ Simple AD = Max 500-5000 users
+12. ✅ NAT Gateway = Deploy per AZ for cost optimization
 
 ---
 
-**Last Updated:** March 2, 2026  
-**Total:** 53 visual cards + 110+ flashcards  
-**Coverage:** All 5 Practice Tests (100%)  
+**Last Updated:** March 6, 2026  
+**Total:** 63 visual cards + 130+ flashcards  
+**Coverage:** All 7 Practice Tests (100%)  
 **Study Time:** 35 days × 15-30 min = 10-17 hours  
 **Success Rate:** 85%+ with disciplined review
 
