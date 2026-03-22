@@ -6,36 +6,36 @@
 
 ```mermaid
 graph TB
-    Internet["Internet[
+    Internet["Internet"]
     
-    subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"[
-        IGW[Internet Gateway[
+    subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"]
+        IGW[Internet Gateway]
         
-        subgraph Availability_Zone_A_Group["Availability Zone A"[
-            PublicSubnetA["Public Subnet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.0/24"[
-            PrivateSubnetA["Private Subnet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.3.0/24"[
+        subgraph Availability_Zone_A_Group["Availability Zone A"]
+            PublicSubnetA["Public Subnet<br/>10.0.1.0/24"]
+            PrivateSubnetA["Private Subnet<br/>10.0.3.0/24"]
             
-            WebServerA["Web Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.10"[
-            AppServerA["App Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.3.10"[
+            WebServerA["Web Server<br/>10.0.1.10"]
+            AppServerA["App Server<br/>10.0.3.10"]
             
             WebServerA --> PublicSubnetA
             AppServerA --> PrivateSubnetA
         end
         
-        subgraph Availability_Zone_B_Group["Availability Zone B"[
-            PublicSubnetB["Public Subnet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.2.0/24"[
-            PrivateSubnetB["Private Subnet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.4.0/24"[
+        subgraph Availability_Zone_B_Group["Availability Zone B"]
+            PublicSubnetB["Public Subnet<br/>10.0.2.0/24"]
+            PrivateSubnetB["Private Subnet<br/>10.0.4.0/24"]
             
-            WebServerB["Web Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.2.10"[
-            AppServerB["App Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.4.10"[
-            NATGW["NAT Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.2.100"[
+            WebServerB["Web Server<br/>10.0.2.10"]
+            AppServerB["App Server<br/>10.0.4.10"]
+            NATGW["NAT Gateway<br/>10.0.2.100"]
             
             WebServerB --> PublicSubnetB
             AppServerB --> PrivateSubnetB
             NATGW --> PublicSubnetB
         end
         
-        RDS["(RDS Multi-AZ&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Primary: AZ-A&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Standby: AZ-B[""]
+        RDS["RDS Multi-AZ<br/>Primary: AZ-A<br/>Standby: AZ-B"]
     end
     
     Internet <--> IGW
@@ -66,14 +66,14 @@ graph TB
 
 ```mermaid
 graph TB
-    VPC[""VPC: 10.0.0.0/16&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;65,536 IP addresses"[
+    VPC["VPC: 10.0.0.0/16<br/>65,536 IP addresses"]
     
-    VPC --> Subnet1["Public Subnet 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;256 IPs - 5 = 251 usable"[
-    VPC --> Subnet2["Public Subnet 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.2.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;256 IPs - 5 = 251 usable"[
-    VPC --> Subnet3["Private Subnet 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.3.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;256 IPs - 5 = 251 usable"[
-    VPC --> Subnet4["Private Subnet 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.4.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;256 IPs - 5 = 251 usable"[
+    VPC --> Subnet1["Public Subnet 1<br/>10.0.1.0/24<br/>256 IPs - 5 = 251 usable"]
+    VPC --> Subnet2["Public Subnet 2<br/>10.0.2.0/24<br/>256 IPs - 5 = 251 usable"]
+    VPC --> Subnet3["Private Subnet 1<br/>10.0.3.0/24<br/>256 IPs - 5 = 251 usable"]
+    VPC --> Subnet4["Private Subnet 2<br/>10.0.4.0/24<br/>256 IPs - 5 = 251 usable"]
     
-    Reserved["AWS Reserved IPs per Subnet:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.0 - Network address&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.1 - VPC router&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.2 - DNS server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.3 - Future use&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.255 - Broadcast not supported but reserved"[
+    Reserved["AWS Reserved IPs per Subnet:<br/>10.0.1.0 - Network address<br/>10.0.1.1 - VPC router<br/>10.0.1.2 - DNS server<br/>10.0.1.3 - Future use<br/>10.0.1.255 - Broadcast not supported but reserved"]
     
     Subnet1 -.Reserves.-> Reserved
     
@@ -87,24 +87,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Public_Route_Table_Group["Public Route Table"[
-        PRT[Public Route Table[
-        PRT --> PR1["Destination: 10.0.0.0/16&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Target: local"[
-        PRT --> PR2["Destination: 0.0.0.0/0&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Target: igw-xxxxx"[
+    subgraph Public_Route_Table_Group["Public Route Table"]
+        PRT[Public Route Table]
+        PRT --> PR1["Destination: 10.0.0.0/16<br/>Target: local"]
+        PRT --> PR2["Destination: 0.0.0.0/0<br/>Target: igw-xxxxx"]
         
-        PRT -.Associated with.-> PublicSubnets["Public Subnets&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.1.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.2.0/24"[
+        PRT -.Associated with.-> PublicSubnets["Public Subnets<br/>10.0.1.0/24<br/>10.0.2.0/24"]
     end
     
-    subgraph Private_Route_Table_Group["Private Route Table"[
-        PrivRT[Private Route Table[
-        PrivRT --> PrivR1["Destination: 10.0.0.0/16&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Target: local"[
-        PrivRT --> PrivR2["Destination: 0.0.0.0/0&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Target: nat-xxxxx"[
+    subgraph Private_Route_Table_Group["Private Route Table"]
+        PrivRT[Private Route Table]
+        PrivRT --> PrivR1["Destination: 10.0.0.0/16<br/>Target: local"]
+        PrivRT --> PrivR2["Destination: 0.0.0.0/0<br/>Target: nat-xxxxx"]
         
-        PrivRT -.Associated with.-> PrivateSubnets["Private Subnets&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.3.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.4.0/24"[
+        PrivRT -.Associated with.-> PrivateSubnets["Private Subnets<br/>10.0.3.0/24<br/>10.0.4.0/24"]
     end
     
-    IGW["Internet Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;igw-xxxxx"[ -.Routes to.-> PR2
-    NATGW["NAT Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;nat-xxxxx"[ -.Routes to.-> PrivR2
+    IGW["Internet Gateway<br/>igw-xxxxx"] -.Routes to.-> PR2
+    NATGW["NAT Gateway<br/>nat-xxxxx"] -.Routes to.-> PrivR2
     
     classDef style1 fill:#569A31
     class PRT style1
@@ -118,24 +118,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Security_Groups_Group["Security Groups"[
-        SG["Security Group&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Instance Level&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Stateful"[
+    subgraph Security_Groups_Group["Security Groups"]
+        SG["Security Group<br/>Instance Level<br/>Stateful"]
         
-        SGRules["Rules:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Allow rules only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Can reference other SGs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Return traffic automatic&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Evaluate all rules&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Default: Deny all inbound"[
+        SGRules["Rules:<br/>✅ Allow rules only<br/>✅ Can reference other SGs<br/>✅ Return traffic automatic<br/>✅ Evaluate all rules<br/>Default: Deny all inbound"]
         
-        SGExample["Example:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Inbound: SSH from 10.0.0.0/16&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Inbound: HTTP from 0.0.0.0/0&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Outbound: All traffic allowed"[
+        SGExample["Example:<br/>Inbound: SSH from 10.0.0.0/16<br/>Inbound: HTTP from 0.0.0.0/0<br/>Outbound: All traffic allowed"]
     end
     
-    subgraph Network_ACLs_Group["Network ACLs"[
-        NACL["Network ACL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Subnet Level&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Stateless"[
+    subgraph Network_ACLs_Group["Network ACLs"]
+        NACL["Network ACL<br/>Subnet Level<br/>Stateless"]
         
-        NACLRules["Rules:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Allow and Deny rules&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Process in number order&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;❌ Return traffic must be explicitly allowed&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ First match wins&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Default: Allow all"[
+        NACLRules["Rules:<br/>✅ Allow and Deny rules<br/>✅ Process in number order<br/>❌ Return traffic must be explicitly allowed<br/>✅ First match wins<br/>Default: Allow all"]
         
-        NACLExample["Example:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;100: Allow HTTP from 0.0.0.0/0&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;200: Allow HTTPS from 0.0.0.0/0&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;300: Deny all from 10.0.5.0/24&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;*: Deny all"[
+        NACLExample["Example:<br/>100: Allow HTTP from 0.0.0.0/0<br/>200: Allow HTTPS from 0.0.0.0/0<br/>300: Deny all from 10.0.5.0/24<br/>*: Deny all"]
     end
     
-    Instance[EC2 Instance[ --> SG
-    SG --> Subnet[Subnet[
+    Instance[EC2 Instance] --> SG
+    SG --> Subnet[Subnet]
     Subnet --> NACL
     
     classDef style1 fill:#569A31
@@ -178,28 +178,28 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph VPC_A_10_0_0_0_16_Group["VPC A: 10.0.0.0/16"[
-        VPC_A["VPC A&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;us-east-1"[
-        SubnetA["Subnet 10.0.1.0/24"[
-        EC2_A[EC2 Instance A[
+    subgraph VPC_A_10_0_0_0_16_Group["VPC A: 10.0.0.0/16"]
+        VPC_A["VPC A<br/>us-east-1"]
+        SubnetA["Subnet 10.0.1.0/24"]
+        EC2_A[EC2 Instance A]
         
         SubnetA --> VPC_A
         EC2_A --> SubnetA
     end
     
-    subgraph VPC_B_172_16_0_0_16_Group["VPC B: 172.16.0.0/16"[
-        VPC_B["VPC B&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;us-east-1"[
-        SubnetB["Subnet 172.16.1.0/24"[
-        EC2_B[EC2 Instance B[
+    subgraph VPC_B_172_16_0_0_16_Group["VPC B: 172.16.0.0/16"]
+        VPC_B["VPC B<br/>us-east-1"]
+        SubnetB["Subnet 172.16.1.0/24"]
+        EC2_B[EC2 Instance B]
         
         SubnetB --> VPC_B
         EC2_B --> SubnetB
     end
     
-    subgraph VPC_C_192_168_0_0_16_Group["VPC C: 192.168.0.0/16"[
-        VPC_C["VPC C&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;eu-west-1"[
-        SubnetC["Subnet 192.168.1.0/24"[
-        EC2_C[EC2 Instance C[
+    subgraph VPC_C_192_168_0_0_16_Group["VPC C: 192.168.0.0/16"]
+        VPC_C["VPC C<br/>eu-west-1"]
+        SubnetC["Subnet 192.168.1.0/24"]
+        EC2_C[EC2 Instance C]
         
         SubnetC --> VPC_C
         EC2_C --> SubnetC
@@ -208,7 +208,7 @@ graph TB
     VPC_A <-.Peering Connection.-> VPC_B
     VPC_A <-.Peering Connection.-> VPC_C
     
-    Limitations["Limitations:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;❌ No transitive peering&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;VPC C cannot access VPC B through VPC A&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;❌ CIDR must not overlap&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Cross-region supported&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Cross-account supported"[
+    Limitations["Limitations:<br/>❌ No transitive peering<br/>VPC C cannot access VPC B through VPC A<br/>❌ CIDR must not overlap<br/>✅ Cross-region supported<br/>✅ Cross-account supported"]
     
     classDef style1 fill:#FF9900
     class VPC_A style1
@@ -222,15 +222,15 @@ graph TB
 
 ```mermaid
 graph TB
-    TGW["Transit Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Hub & Spoke Model&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Regional Resource"[
+    TGW["Transit Gateway<br/>Hub & Spoke Model<br/>Regional Resource"]
     
-    VPC1["VPC 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.0.0.0/16"[
-    VPC2["VPC 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;172.16.0.0/16"[
-    VPC3["VPC 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;192.168.0.0/16"[
-    VPC4["VPC 4&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10.1.0.0/16"[
+    VPC1["VPC 1<br/>10.0.0.0/16"]
+    VPC2["VPC 2<br/>172.16.0.0/16"]
+    VPC3["VPC 3<br/>192.168.0.0/16"]
+    VPC4["VPC 4<br/>10.1.0.0/16"]
     
-    VPN["VPN Connection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-Premises"[
-    DX["Direct Connect&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-Premises"[
+    VPN["VPN Connection<br/>On-Premises"]
+    DX["Direct Connect<br/>On-Premises"]
     
     VPC1 <--> TGW
     VPC2 <--> TGW
@@ -239,9 +239,9 @@ graph TB
     VPN <--> TGW
     DX <--> TGW
     
-    TGW_Peer["Transit Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Another Region"[ <-.Peering.-> TGW
+    TGW_Peer["Transit Gateway<br/>Another Region"] <-.Peering.-> TGW
     
-    Benefits["Benefits:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Transitive routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Hub and spoke topology&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Works with VPN & Direct Connect&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Cross-region peering&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Single gateway for thousands of VPCs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per attachment per hour"[
+    Benefits["Benefits:<br/>✅ Transitive routing<br/>✅ Hub and spoke topology<br/>✅ Works with VPN & Direct Connect<br/>✅ Cross-region peering<br/>✅ Single gateway for thousands of VPCs<br/>💰 Pay per attachment per hour"]
     
     classDef style1 fill:#FF9900
     class TGW style1
@@ -253,23 +253,23 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"[
-        subgraph Private_Subnet_Group["Private Subnet"[
-            EC2["EC2 Instance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Private IP only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;No internet access"[
+    subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"]
+        subgraph Private_Subnet_Group["Private Subnet"]
+            EC2["EC2 Instance<br/>Private IP only<br/>No internet access"]
         end
         
-        subgraph VPC_Endpoints_Group["VPC Endpoints"[
-            InterfaceEP["Interface Endpoint&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ENI with Private IP&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Powered by PrivateLink"[
-            GatewayEP["Gateway Endpoint&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Route table entry"[
+        subgraph VPC_Endpoints_Group["VPC Endpoints"]
+            InterfaceEP["Interface Endpoint<br/>ENI with Private IP<br/>Powered by PrivateLink"]
+            GatewayEP["Gateway Endpoint<br/>Route table entry"]
         end
     end
     
-    subgraph AWS_Services_Group["AWS Services"[
-        S3[Amazon S3[
-        DynamoDB[DynamoDB[
-        SNS[SNS[
-        SQS[SQS[
-        Others[Other AWS Services[
+    subgraph AWS_Services_Group["AWS Services"]
+        S3[Amazon S3]
+        DynamoDB[DynamoDB]
+        SNS[SNS]
+        SQS[SQS]
+        Others[Other AWS Services]
     end
     
     EC2 -->|Private connection| InterfaceEP
@@ -282,7 +282,7 @@ graph TB
     GatewayEP -.Free.-> S3
     GatewayEP -.Free.-> DynamoDB
     
-    Comparison["Gateway Endpoint:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ S3 and DynamoDB only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Free&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Route table entry&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Interface Endpoint:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Most AWS services&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per hour + data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ ENI in subnet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Security groups apply"[
+    Comparison["Gateway Endpoint:<br/>✅ S3 and DynamoDB only<br/>✅ Free<br/>✅ Route table entry<br/><br/>Interface Endpoint:<br/>✅ Most AWS services<br/>💰 Pay per hour + data<br/>✅ ENI in subnet<br/>✅ Security groups apply"]
     
     classDef style1 fill:#FF9900
     class InterfaceEP style1
@@ -296,20 +296,20 @@ graph TB
 
 ```mermaid
 graph TB
-    Route53["Route 53&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;DNS Service"[
+    Route53["Route 53<br/>DNS Service"]
     
-    Route53 --> Simple["Simple Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Single resource&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;No health checks"[
-    Route53 --> Weighted["Weighted Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;% traffic distribution&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;A/B testing, gradual deployment"[
-    Route53 --> Latency["Latency Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Lowest latency&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Based on user location"[
-    Route53 --> Failover["Failover Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Active-Passive&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Health check based"[
-    Route53 --> Geolocation["Geolocation Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Based on user location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Country/continent"[
-    Route53 --> Geoproximity["Geoproximity Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Route based on resource location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Bias adjustment"[
-    Route53 --> Multivalue["Multi-Value Routing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Multiple resources&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Up to 8 healthy records"[
+    Route53 --> Simple["Simple Routing<br/>Single resource<br/>No health checks"]
+    Route53 --> Weighted["Weighted Routing<br/>% traffic distribution<br/>A/B testing, gradual deployment"]
+    Route53 --> Latency["Latency Routing<br/>Lowest latency<br/>Based on user location"]
+    Route53 --> Failover["Failover Routing<br/>Active-Passive<br/>Health check based"]
+    Route53 --> Geolocation["Geolocation Routing<br/>Based on user location<br/>Country/continent"]
+    Route53 --> Geoproximity["Geoproximity Routing<br/>Route based on resource location<br/>Bias adjustment"]
+    Route53 --> Multivalue["Multi-Value Routing<br/>Multiple resources<br/>Up to 8 healthy records"]
     
-    Simple --> Example1["example.com -&gt; 1.2.3.4"[
-    Weighted --> Example2["70% -&gt; us-east-1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;30% -&gt; eu-west-1"[
-    Latency --> Example3["EU users -&gt; eu-west-1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;US users -&gt; us-east-1"[
-    Failover --> Example4["Primary: us-east-1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Secondary: eu-west-1"[
+    Simple --> Example1["example.com -&gt; 1.2.3.4"]
+    Weighted --> Example2["70% -&gt; us-east-1<br/>30% -&gt; eu-west-1"]
+    Latency --> Example3["EU users -&gt; eu-west-1<br/>US users -&gt; us-east-1"]
+    Failover --> Example4["Primary: us-east-1<br/>Secondary: eu-west-1"]
     
     classDef style1 fill:#8C4FFF
     class Route53 style1
@@ -371,24 +371,24 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph Users_Worldwide_Group["Users Worldwide"[
-        User1[User in NYC[
-        User2[User in London[
-        User3[User in Tokyo[
-        User4[User in Sydney[
+    subgraph Users_Worldwide_Group["Users Worldwide"]
+        User1[User in NYC]
+        User2[User in London]
+        User3[User in Tokyo]
+        User4[User in Sydney]
     end
     
-    subgraph CloudFront_Edge_Locations_Group["CloudFront Edge Locations"[
-        Edge1["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;New York&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cache"[
-        Edge2["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;London&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cache"[
-        Edge3["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Tokyo&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cache"[
-        Edge4["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Sydney&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cache"[
+    subgraph CloudFront_Edge_Locations_Group["CloudFront Edge Locations"]
+        Edge1["Edge Location<br/>New York<br/>Cache"]
+        Edge2["Edge Location<br/>London<br/>Cache"]
+        Edge3["Edge Location<br/>Tokyo<br/>Cache"]
+        Edge4["Edge Location<br/>Sydney<br/>Cache"]
     end
     
-    subgraph Origin_Group["Origin"[
-        S3["S3 Bucket&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;us-east-1"[
-        ALB["Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load Balancer"[
-        Custom["Custom Origin&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;HTTP Server"[
+    subgraph Origin_Group["Origin"]
+        S3["S3 Bucket<br/>us-east-1"]
+        ALB["Application<br/>Load Balancer"]
+        Custom["Custom Origin<br/>HTTP Server"]
     end
     
     User1 --> Edge1
@@ -402,9 +402,9 @@ graph TB
     Edge2 -.Cache Miss.-> ALB
     Edge3 -.Cache Miss.-> Custom
     
-    OAI["Origin Access Identity&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Restrict S3 to CloudFront only"[ -.Secures.-> S3
+    OAI["Origin Access Identity<br/>Restrict S3 to CloudFront only"] -.Secures.-> S3
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Global CDN with 400+ edge locations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ DDoS protection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ SSL/TLS support&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Geo-restriction&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Caching at edge&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Compress objects automatically"[
+    Features["Features:<br/>✅ Global CDN with 400+ edge locations<br/>✅ DDoS protection<br/>✅ SSL/TLS support<br/>✅ Geo-restriction<br/>✅ Caching at edge<br/>✅ Compress objects automatically"]
     
     classDef style1 fill:#146EB4
     class Edge1 style1
@@ -464,22 +464,22 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph On_Premises_Data_Center_Group["On-Premises Data Center"[
-        OnPrem["Corporate Network&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;192.168.0.0/16"[
-        CGW["Customer Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Physical device&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Public IP: 203.0.113.1"[
+    subgraph On_Premises_Data_Center_Group["On-Premises Data Center"]
+        OnPrem["Corporate Network<br/>192.168.0.0/16"]
+        CGW["Customer Gateway<br/>Physical device<br/>Public IP: 203.0.113.1"]
         
         OnPrem --> CGW
     end
     
-    Internet[Internet[
+    Internet[Internet]
     
-    subgraph AWS_Cloud_Group["AWS Cloud"[
-        VGW["Virtual Private Gateway&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;VPN endpoint on AWS side"[
+    subgraph AWS_Cloud_Group["AWS Cloud"]
+        VGW["Virtual Private Gateway<br/>VPN endpoint on AWS side"]
         
-        subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"[
-            PrivateSubnet[Private Subnet[
-            EC2[EC2 Instances[
-            RDS[(RDS Database["]
+        subgraph VPC_10_0_0_0_16_Group["VPC: 10.0.0.0/16"]
+            PrivateSubnet[Private Subnet]
+            EC2[EC2 Instances]
+            RDS[(RDS Database)]
             
             PrivateSubnet --> EC2
             PrivateSubnet --> RDS
@@ -492,7 +492,7 @@ graph TB
     CGW <-.VPN Tunnel 2<br/>IPSec encrypted.-> Internet
     Internet <-.VPN Tunnels.-> VGW
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Encrypted connection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Goes over internet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Quick to setup&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Two tunnels for HA&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ Bandwidth limited by internet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ Variable latency"[
+    Features["Features:<br/>✅ Encrypted connection<br/>✅ Goes over internet<br/>✅ Quick to setup<br/>✅ Two tunnels for HA<br/>⚠️ Bandwidth limited by internet<br/>⚠️ Variable latency"]
     
     classDef style1 fill:#FF9900
     class VGW style1
@@ -504,25 +504,25 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph On_Premises_Group["On-Premises"[
-        OnPrem[Corporate Data Center[
-        Router[Customer Router[
+    subgraph On_Premises_Group["On-Premises"]
+        OnPrem[Corporate Data Center]
+        Router[Customer Router]
         
         OnPrem --> Router
     end
     
-    subgraph AWS_Direct_Connect_Location_Group["AWS Direct Connect Location"[
-        DXLocation["Direct Connect Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Co-location facility"[
-        DXRouter["AWS Direct Connect&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Router"[
+    subgraph AWS_Direct_Connect_Location_Group["AWS Direct Connect Location"]
+        DXLocation["Direct Connect Location<br/>Co-location facility"]
+        DXRouter["AWS Direct Connect<br/>Router"]
         
         DXLocation --> DXRouter
     end
     
-    subgraph AWS_Region_Group["AWS Region"[
-        VGW[Virtual Private Gateway[
+    subgraph AWS_Region_Group["AWS Region"]
+        VGW[Virtual Private Gateway]
         
-        subgraph VPC_Group["VPC"[
-            Resources[AWS Resources[
+        subgraph VPC_Group["VPC"]
+            Resources[AWS Resources]
         end
         
         VGW --> Resources
@@ -531,12 +531,12 @@ graph TB
     Router <-.Dedicated Private<br/>Connection.-> DXLocation
     DXRouter <-.AWS Private<br/>Network.-> VGW
     
-    PublicVIF["Public VIF&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Access public AWS services&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;S3, DynamoDB"[ -.-> DXRouter
-    PrivateVIF["Private VIF&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Access VPC resources"[ -.-> VGW
+    PublicVIF["Public VIF<br/>Access public AWS services<br/>S3, DynamoDB"] -.-> DXRouter
+    PrivateVIF["Private VIF<br/>Access VPC resources"] -.-> VGW
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Dedicated network connection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Consistent network performance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Reduced bandwidth costs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ 1 Gbps or 10 Gbps&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ Takes weeks/months to set up&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 More expensive than VPN"[
+    Features["Features:<br/>✅ Dedicated network connection<br/>✅ Consistent network performance<br/>✅ Reduced bandwidth costs<br/>✅ 1 Gbps or 10 Gbps<br/>⚠️ Takes weeks/months to set up<br/>💰 More expensive than VPN"]
     
-    Backup["Backup VPN Connection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;over Internet"[ -.Failover.-> VGW
+    Backup["Backup VPN Connection<br/>over Internet"] -.Failover.-> VGW
     
     classDef style1 fill:#FF9900
     class DXRouter style1
@@ -548,34 +548,34 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Users_Worldwide_Group["Users Worldwide"[
-        User1[User in Asia[
-        User2[User in Europe[
-        User3[User in Americas[
+    subgraph Users_Worldwide_Group["Users Worldwide"]
+        User1[User in Asia]
+        User2[User in Europe]
+        User3[User in Americas]
     end
     
-    subgraph AWS_Global_Accelerator_Group["AWS Global Accelerator"[
-        AnyCast["2 Static Anycast IPs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Global edge network"[
+    subgraph AWS_Global_Accelerator_Group["AWS Global Accelerator"]
+        AnyCast["2 Static Anycast IPs<br/>Global edge network"]
         
-        Edge1["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Asia"[
-        Edge2["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Europe"[
-        Edge3["Edge Location&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Americas"[
+        Edge1["Edge Location<br/>Asia"]
+        Edge2["Edge Location<br/>Europe"]
+        Edge3["Edge Location<br/>Americas"]
         
         AnyCast --> Edge1
         AnyCast --> Edge2
         AnyCast --> Edge3
     end
     
-    subgraph AWS_Regions_Group["AWS Regions"[
-        subgraph us_east_1_Group["us-east-1"[
-            ALB1["Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load Balancer"[
-            EC2_1[EC2 Instances[
+    subgraph AWS_Regions_Group["AWS Regions"]
+        subgraph us_east_1_Group["us-east-1"]
+            ALB1["Application<br/>Load Balancer"]
+            EC2_1[EC2 Instances]
             ALB1 --> EC2_1
         end
         
-        subgraph eu_west_1_Group["eu-west-1"[
-            ALB2["Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load Balancer"[
-            EC2_2[EC2 Instances[
+        subgraph eu_west_1_Group["eu-west-1"]
+            ALB2["Application<br/>Load Balancer"]
+            EC2_2[EC2 Instances]
             ALB2 --> EC2_2
         end
     end
@@ -588,12 +588,12 @@ graph TB
     Edge2 -.AWS Private<br/>Network.-> ALB2
     Edge3 -.AWS Private<br/>Network.-> ALB1
     
-    HealthCheck["Health Checks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Automatic failover"[ -.Monitor.-> ALB1
+    HealthCheck["Health Checks<br/>Automatic failover"] -.Monitor.-> ALB1
     HealthCheck -.Monitor.-> ALB2
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ 2 static anycast IPs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Uses AWS global network&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Faster than internet&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Health checks & failover&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ DDoS protection with Shield&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Use: Gaming, IoT, VoIP, non-HTTP"[
+    Features["Features:<br/>✅ 2 static anycast IPs<br/>✅ Uses AWS global network<br/>✅ Faster than internet<br/>✅ Health checks & failover<br/>✅ DDoS protection with Shield<br/>Use: Gaming, IoT, VoIP, non-HTTP"]
     
-    VsCloudFront["vs CloudFront:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;CloudFront: Cacheable content, HTTP&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Global Accelerator: TCP/UDP, static IPs, global performance"[
+    VsCloudFront["vs CloudFront:<br/>CloudFront: Cacheable content, HTTP<br/>Global Accelerator: TCP/UDP, static IPs, global performance"]
     
     classDef style1 fill:#FF9900
     class AnyCast style1
@@ -607,18 +607,18 @@ graph TB
 
 ```mermaid
 graph TB
-    EC2[EC2 Instance Types[
+    EC2[EC2 Instance Types]
     
-    EC2 --> ENA["Elastic Network Adapter ENA&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Up to 100 Gbps"[
-    EC2 --> IntelVF["Intel 82599 VF&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Up to 10 Gbps&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Legacy"[
+    EC2 --> ENA["Elastic Network Adapter ENA<br/>Up to 100 Gbps"]
+    EC2 --> IntelVF["Intel 82599 VF<br/>Up to 10 Gbps<br/>Legacy"]
     
-    ENA --> Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Higher bandwidth&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Higher PPS (packets per second[<br/>✅ Lower latency<br/>✅ Lower jitter<br/>✅ No additional cost"]
+    ENA --> Features["Features:<br/>✅ Higher bandwidth<br/>✅ Higher PPS (packets per second[<br/>✅ Lower latency<br/>✅ Lower jitter<br/>✅ No additional cost"]
     
-    ENA --> UseWith["Supported:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Most current gen instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Some previous gen&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Enabled by default on modern AMIs"[
+    ENA --> UseWith["Supported:<br/>• Most current gen instances<br/>• Some previous gen<br/>• Enabled by default on modern AMIs"]
     
-    PlacementGroup[Cluster Placement Group[ -.Combine with.-> ENA
+    PlacementGroup[Cluster Placement Group] -.Combine with.-> ENA
     
-    EFA["Elastic Fabric Adapter&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;HPC & ML workloads&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;OS-bypass for ultra-low latency"[ --> ENA
+    EFA]"Elastic Fabric Adapter<br/>HPC & ML workloads<br/>OS-bypass for ultra-low latency"] --> ENA
     
     classDef style1 fill:#FF9900
     class ENA style1

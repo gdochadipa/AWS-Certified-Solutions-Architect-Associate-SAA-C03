@@ -6,32 +6,32 @@
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group["Data Sources"[
-        S3["S3 Data Lake&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;CSV, JSON, Parquet, ORC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Partitioned data"[
-        CloudTrail[CloudTrail Logs[
-        VPCFlow[VPC Flow Logs[
-        ELB_Logs[ELB Access Logs[
+    subgraph Data_Sources_Group["Data Sources"]
+        S3["S3 Data Lake<br/>CSV, JSON, Parquet, ORC<br/>Partitioned data"]
+        CloudTrail[CloudTrail Logs]
+        VPCFlow[VPC Flow Logs]
+        ELB_Logs[ELB Access Logs]
     end
     
-    subgraph AWS_Athena_Group["AWS Athena"[
-        Athena["Amazon Athena&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Serverless SQL queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Presto-based"[
+    subgraph AWS_Athena_Group["AWS Athena"]
+        Athena["Amazon Athena<br/>Serverless SQL queries<br/>Presto-based"]
         
-        GlueCatalog["AWS Glue Data Catalog&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Table definitions&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Schema metadata"[
+        GlueCatalog["AWS Glue Data Catalog<br/>Table definitions<br/>Schema metadata"]
         
         Athena --> GlueCatalog
     end
     
-    subgraph Query_Analysis_Group["Query & Analysis"[
-        Query["SQL Queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;SELECT, JOIN, GROUP BY&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Standard SQL"[
+    subgraph Query_Analysis_Group["Query & Analysis"]
+        Query["SQL Queries<br/>SELECT, JOIN, GROUP BY<br/>Standard SQL"]
         
-        Results["Query Results&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Stored in S3"[
+        Results["Query Results<br/>Stored in S3"]
         
         Query --> Results
     end
     
-    subgraph Visualization_Group["Visualization"[
-        QuickSight["Amazon QuickSight&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Business intelligence"[
-        JDBC["JDBC/ODBC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;BI Tools&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Tableau, PowerBI"[
+    subgraph Visualization_Group["Visualization"]
+        QuickSight["Amazon QuickSight<br/>Business intelligence"]
+        JDBC["JDBC/ODBC<br/>BI Tools<br/>Tableau, PowerBI"]
     end
     
     S3 --> GlueCatalog
@@ -44,7 +44,7 @@ graph TB
     Results --> QuickSight
     Results --> JDBC
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Serverless - no infrastructure&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Pay per query $5 per TB scanned&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Supports partitioning&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Columnar formats for cost savings&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Federated queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💡 Use Parquet for 90% cost reduction"[
+    Features["Features:<br/>✅ Serverless - no infrastructure<br/>✅ Pay per query $5 per TB scanned<br/>✅ Supports partitioning<br/>✅ Columnar formats for cost savings<br/>✅ Federated queries<br/>💡 Use Parquet for 90% cost reduction"]
     
     classDef style1 fill:#FF9900
     class Athena style1
@@ -56,27 +56,27 @@ graph TB
 
 ```mermaid
 graph TB
-    Original["Original S3 Data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;CSV format&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;1 TB data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$5 per query"[
+    Original["Original S3 Data<br/>CSV format<br/>1 TB data<br/>$5 per query"]
     
-    Optimizations{"Performance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Optimizations"{
+    Optimizations{"Performance<br/>Optimizations{"
     
     Original --> Optimizations
     
-    Optimizations --> Partition["Partition Data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;By year/month/day&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Only scan relevant partitions"[
+    Optimizations --> Partition["Partition Data<br/>By year/month/day<br/>Only scan relevant partitions"]
     
-    Optimizations --> Columnar["Use Columnar Format&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Parquet or ORC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Only read needed columns"[
+    Optimizations --> Columnar["Use Columnar Format<br/>Parquet or ORC<br/>Only read needed columns"]
     
-    Optimizations --> Compress["Compress Data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Snappy, GZIP, LZO&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Smaller file sizes"[
+    Optimizations --> Compress["Compress Data<br/>Snappy, GZIP, LZO<br/>Smaller file sizes"]
     
-    Optimizations --> Larger["Larger Files&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;&gt; 128 MB per file&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Reduce overhead"[
+    Optimizations --> Larger["Larger Files<br/>&gt; 128 MB per file<br/>Reduce overhead"]
     
-    Partition --> Result1["Scan only 1 month:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;83 GB instead of 1 TB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$0.42 per query&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;92% savings"[
+    Partition --> Result1["Scan only 1 month:<br/>83 GB instead of 1 TB<br/>$0.42 per query<br/>92% savings"]
     
-    Columnar --> Result2["Select 2 of 10 columns:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;200 GB instead of 1 TB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$1 per query&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;80% savings"[
+    Columnar --> Result2["Select 2 of 10 columns:<br/>200 GB instead of 1 TB<br/>$1 per query<br/>80% savings"]
     
-    Compress --> Result3["Compress by 50%:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;500 GB instead of 1 TB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$2.50 per query&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;50% savings"[
+    Compress --> Result3["Compress by 50%:<br/>500 GB instead of 1 TB<br/>$2.50 per query<br/>50% savings"]
     
-    Combined["Combined Optimizations:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Partition + Parquet + Compress&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;10 GB scanned&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$0.05 per query&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;99% cost reduction!"[
+    Combined["Combined Optimizations:<br/>Partition + Parquet + Compress<br/>10 GB scanned<br/>$0.05 per query<br/>99% cost reduction!"]
     
     Result1 --> Combined
     Result2 --> Combined
@@ -96,17 +96,17 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph EMR_Cluster_Group["EMR Cluster"[
-        Master["Master Node&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Manage cluster&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Coordinate jobs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Track status"[
+    subgraph EMR_Cluster_Group["EMR Cluster"]
+        Master["Master Node<br/>Manage cluster<br/>Coordinate jobs<br/>Track status"]
         
-        subgraph Core_Nodes_Group["Core Nodes"[
-            Core1["Core Node 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Run tasks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Store data in HDFS"[
-            Core2["Core Node 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Run tasks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Store data in HDFS"[
+        subgraph Core_Nodes_Group["Core Nodes"]
+            Core1["Core Node 1<br/>Run tasks<br/>Store data in HDFS"]
+            Core2["Core Node 2<br/>Run tasks<br/>Store data in HDFS"]
         end
         
-        subgraph Task_Nodes_Optional_Group["Task Nodes Optional"[
-            Task1["Task Node 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Run tasks only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;No HDFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Spot instances OK"[
-            Task2["Task Node 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Run tasks only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;No HDFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Spot instances OK"[
+        subgraph Task_Nodes_Optional_Group["Task Nodes Optional"]
+            Task1["Task Node 1<br/>Run tasks only<br/>No HDFS<br/>Spot instances OK"]
+            Task2["Task Node 2<br/>Run tasks only<br/>No HDFS<br/>Spot instances OK"]
         end
         
         Master --> Core1
@@ -115,18 +115,18 @@ graph TB
         Master --> Task2
     end
     
-    subgraph Storage_Group["Storage"[
-        HDFS["HDFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Distributed file system&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On core nodes"[
+    subgraph Storage_Group["Storage"]
+        HDFS["HDFS<br/>Distributed file system<br/>On core nodes"]
         
-        EMRFS["EMRFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Access S3 as HDFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Persistent storage"[
+        EMRFS["EMRFS<br/>Access S3 as HDFS<br/>Persistent storage"]
     end
     
-    subgraph Data_Sources_Targets_Group["Data Sources & Targets"[
-        S3["Amazon S3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Input & Output&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Persistent data"[
+    subgraph Data_Sources_Targets_Group["Data Sources & Targets"]
+        S3["Amazon S3<br/>Input & Output<br/>Persistent data"]
         
-        DynamoDB["DynamoDB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Read/Write"[
+        DynamoDB["DynamoDB<br/>Read/Write"]
         
-        RDS["RDS/Aurora&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;JDBC connections"[
+        RDS["RDS/Aurora<br/>JDBC connections"]
     end
     
     Core1 --> HDFS
@@ -138,7 +138,7 @@ graph TB
     Master --> DynamoDB
     Master --> RDS
     
-    Frameworks["Big Data Frameworks:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Hadoop MapReduce&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Apache Spark&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Apache Hive&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Apache HBase&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Presto&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Flink&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Hudi"[
+    Frameworks["Big Data Frameworks:<br/>• Hadoop MapReduce<br/>• Apache Spark<br/>• Apache Hive<br/>• Apache HBase<br/>• Presto<br/>• Flink<br/>• Hudi"]
     
     classDef style1 fill:#FF9900
     class Master style1
@@ -150,30 +150,30 @@ graph TB
 
 ```mermaid
 graph TB
-    EMR[Amazon EMR[
+    EMR[Amazon EMR]
     
-    EMR --> EC2["EMR on EC2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Traditional clusters"[
-    EMR --> EKS["EMR on EKS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Kubernetes pods"[
-    EMR --> Outposts["EMR on Outposts&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-premises"[
-    EMR --> Serverless["EMR Serverless&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;No cluster management"[
+    EMR --> EC2["EMR on EC2<br/>Traditional clusters"]
+    EMR --> EKS["EMR on EKS<br/>Kubernetes pods"]
+    EMR --> Outposts["EMR on Outposts<br/>On-premises"]
+    EMR --> Serverless["EMR Serverless<br/>No cluster management"]
     
-    subgraph EMR_on_EC2_Group["EMR on EC2"[
-        EC2_Features["• Full control&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Instance types&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Persistent or transient&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Spot instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Auto-scaling"[
+    subgraph EMR_on_EC2_Group["EMR on EC2"]
+        EC2_Features["• Full control<br/>• Instance types<br/>• Persistent or transient<br/>• Spot instances<br/>• Auto-scaling"]
     end
     
-    subgraph EMR_on_EKS_Group["EMR on EKS"[
-        EKS_Features["• Shared EKS cluster&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Multiple teams&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Better resource utilization&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Faster startup"[
+    subgraph EMR_on_EKS_Group["EMR on EKS"]
+        EKS_Features["• Shared EKS cluster<br/>• Multiple teams<br/>• Better resource utilization<br/>• Faster startup"]
     end
     
-    subgraph EMR_Serverless_Group["EMR Serverless"[
-        Serverless_Features["• No cluster management&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Auto-scaling&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Pay per use&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Sub-minute startup&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Ideal for: Ad-hoc, batch"[
+    subgraph EMR_Serverless_Group["EMR Serverless"]
+        Serverless_Features["• No cluster management<br/>• Auto-scaling<br/>• Pay per use<br/>• Sub-minute startup<br/>• Ideal for: Ad-hoc, batch"]
     end
     
     EC2 --> EC2_Features
     EKS --> EKS_Features
     Serverless --> Serverless_Features
     
-    Comparison["Choose:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Control needed -&gt; EC2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Kubernetes -&gt; EKS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Simplicity -&gt; Serverless"[
+    Comparison["Choose:<br/>• Control needed -&gt; EC2<br/>• Kubernetes -&gt; EKS<br/>• Simplicity -&gt; Serverless"]
     
     classDef style1 fill:#FF9900
     class EMR style1
@@ -187,7 +187,7 @@ graph TB
 
 ```mermaid
 mindmap
-    root((Amazon Kinesis&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Real-time Streaming()
+    root((Amazon Kinesis<br/>Real-time Streaming))
         Kinesis Data Streams
             Real-time data ingestion
             Custom processing
@@ -216,30 +216,30 @@ mindmap
 
 ```mermaid
 graph LR
-    subgraph Producers_Group["Producers"[
-        App["Applications&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Kinesis Producer Library"[
-        Agent["Kinesis Agent&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Log files"[
-        SDK["AWS SDK&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;PutRecord API"[
-        IoT[IoT Devices[
+    subgraph Producers_Group["Producers"]
+        App["Applications<br/>Kinesis Producer Library"]
+        Agent["Kinesis Agent<br/>Log files"]
+        SDK["AWS SDK<br/>PutRecord API"]
+        IoT[IoT Devices]
     end
     
-    subgraph Kinesis_Data_Stream_Group["Kinesis Data Stream"[
-        Stream["Kinesis Data Stream&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;my-stream"[
+    subgraph Kinesis_Data_Stream_Group["Kinesis Data Stream"]
+        Stream["Kinesis Data Stream<br/>my-stream"]
         
-        Shard1["Shard 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;1 MB/s in&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2 MB/s out"[
-        Shard2["Shard 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;1 MB/s in&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2 MB/s out"[
-        Shard3["Shard 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;1 MB/s in&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2 MB/s out"[
+        Shard1["Shard 1<br/>1 MB/s in<br/>2 MB/s out"]
+        Shard2["Shard 2<br/>1 MB/s in<br/>2 MB/s out"]
+        Shard3["Shard 3<br/>1 MB/s in<br/>2 MB/s out"]
         
         Stream --> Shard1
         Stream --> Shard2
         Stream --> Shard3
     end
     
-    subgraph Consumers_Group["Consumers"[
-        Lambda["Lambda&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Event processing"[
-        EC2["EC2/ECS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Kinesis Client Library"[
-        Firehose["Kinesis Firehose&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load to S3/Redshift"[
-        Analytics["Kinesis Analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;SQL queries"[
+    subgraph Consumers_Group["Consumers"]
+        Lambda["Lambda<br/>Event processing"]
+        EC2["EC2/ECS<br/>Kinesis Client Library"]
+        Firehose["Kinesis Firehose<br/>Load to S3/Redshift"]
+        Analytics["Kinesis Analytics<br/>SQL queries"]
     end
     
     App --> Shard1
@@ -252,7 +252,7 @@ graph LR
     Shard3 --> Firehose
     Shard1 --> Analytics
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Real-time 70ms-200ms&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Replay capability&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Retention: 1-365 days&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Immutable records&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Ordered per shard&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per shard-hour + PUT"[
+    Features["Features:<br/>✅ Real-time 70ms-200ms<br/>✅ Replay capability<br/>✅ Retention: 1-365 days<br/>✅ Immutable records<br/>✅ Ordered per shard<br/>💰 Pay per shard-hour + PUT"]
     
     classDef style1 fill:#FF9900
     class Stream style1
@@ -264,38 +264,38 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group["Data Sources"[
-        DirectPut["Direct PUT&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Applications, SDK"[
-        KinesisStreams[Kinesis Data Streams[
-        CloudWatch[CloudWatch Logs[
-        IoTCore[AWS IoT[
+    subgraph Data_Sources_Group["Data Sources"]
+        DirectPut["Direct PUT<br/>Applications, SDK"]
+        KinesisStreams[Kinesis Data Streams]
+        CloudWatch[CloudWatch Logs]
+        IoTCore[AWS IoT]
     end
     
-    subgraph Kinesis_Firehose_Group["Kinesis Firehose"[
-        Firehose["Kinesis Data Firehose&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Fully managed&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Auto-scaling&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Near real-time"[
+    subgraph Kinesis_Firehose_Group["Kinesis Firehose"]
+        Firehose["Kinesis Data Firehose<br/>Fully managed<br/>Auto-scaling<br/>Near real-time"]
         
-        Transform["Optional Transformation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Lambda function&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Convert, enrich, filter"[
+        Transform["Optional Transformation<br/>Lambda function<br/>Convert, enrich, filter"]
         
-        Batch["Batching&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Buffer: 1 MB - 128 MB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Interval: 60s - 900s"[
+        Batch["Batching<br/>Buffer: 1 MB - 128 MB<br/>Interval: 60s - 900s"]
         
         Firehose --> Transform
         Transform --> Batch
     end
     
-    subgraph Destinations_Group["Destinations"[
-        S3["Amazon S3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data lake&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Parquet, ORC, JSON"[
+    subgraph Destinations_Group["Destinations"]
+        S3["Amazon S3<br/>Data lake<br/>Parquet, ORC, JSON"]
         
-        Redshift["Amazon Redshift&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Copy via S3"[
+        Redshift["Amazon Redshift<br/>Copy via S3"]
         
-        OpenSearch["Amazon OpenSearch&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Log analytics"[
+        OpenSearch["Amazon OpenSearch<br/>Log analytics"]
         
-        Splunk["Splunk&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;3rd party"[
+        Splunk["Splunk<br/>3rd party"]
         
-        HTTP["Custom HTTP Endpoint&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Datadog, New Relic"[
+        HTTP["Custom HTTP Endpoint<br/>Datadog, New Relic"]
     end
     
-    subgraph Backup_Group["Backup"[
-        BackupS3["Backup S3 Bucket&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;All source records&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Failed records"[
+    subgraph Backup_Group["Backup"]
+        BackupS3["Backup S3 Bucket<br/>All source records<br/>Failed records"]
     end
     
     DirectPut --> Firehose
@@ -311,7 +311,7 @@ graph TB
     
     Firehose -.Optional.-> BackupS3
     
-    VsStreams["Firehose vs Data Streams:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Firehose: Fully managed, near real-time, destinations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Streams: Real-time, custom processing, replay"[
+    VsStreams["Firehose vs Data Streams:<br/>Firehose: Fully managed, near real-time, destinations<br/>Streams: Real-time, custom processing, replay"]
     
     classDef style1 fill:#FF9900
     class Firehose style1
@@ -323,27 +323,27 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Input_Streams_Group["Input Streams"[
-        KinesisIn["Kinesis Data Streams&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Real-time input"[
-        FirehoseIn["Kinesis Firehose&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Near real-time input"[
-        S3Reference["S3 Reference Data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Enrich streaming data"[
+    subgraph Input_Streams_Group["Input Streams"]
+        KinesisIn["Kinesis Data Streams<br/>Real-time input"]
+        FirehoseIn["Kinesis Firehose<br/>Near real-time input"]
+        S3Reference["S3 Reference Data<br/>Enrich streaming data"]
     end
     
-    subgraph Kinesis_Data_Analytics_Group["Kinesis Data Analytics"[
-        Analytics[Kinesis Data Analytics[
+    subgraph Kinesis_Data_Analytics_Group["Kinesis Data Analytics"]
+        Analytics[Kinesis Data Analytics]
         
-        SQL["SQL Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Standard SQL queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Windowing, aggregations"[
+        SQL["SQL Application<br/>Standard SQL queries<br/>Windowing, aggregations"]
         
-        Flink["Apache Flink Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Java, Scala, Python&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Advanced processing"[
+        Flink["Apache Flink Application<br/>Java, Scala, Python<br/>Advanced processing"]
         
         Analytics --> SQL
         Analytics --> Flink
     end
     
-    subgraph Output_Destinations_Group["Output Destinations"[
-        KinesisOut["Kinesis Data Streams&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Further processing"[
-        FirehoseOut["Kinesis Firehose&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load to destinations"[
-        Lambda["Lambda&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Custom processing"[
+    subgraph Output_Destinations_Group["Output Destinations"]
+        KinesisOut["Kinesis Data Streams<br/>Further processing"]
+        FirehoseOut["Kinesis Firehose<br/>Load to destinations"]
+        Lambda["Lambda<br/>Custom processing"]
     end
     
     KinesisIn --> SQL
@@ -359,9 +359,9 @@ graph TB
     Flink --> KinesisOut
     Flink --> FirehoseOut
     
-    UseCases["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Real-time dashboards&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Real-time metrics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Streaming ETL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Anomaly detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• IoT analytics"[
+    UseCases["Use Cases:<br/>• Real-time dashboards<br/>• Real-time metrics<br/>• Streaming ETL<br/>• Anomaly detection<br/>• IoT analytics"]
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Serverless&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Auto-scaling&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Pay for processing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ IAM for access control&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Schema discovery"[
+    Features["Features:<br/>✅ Serverless<br/>✅ Auto-scaling<br/>✅ Pay for processing<br/>✅ IAM for access control<br/>✅ Schema discovery"]
     
     classDef style1 fill:#FF9900
     class Analytics style1
@@ -375,31 +375,31 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group["Data Sources"[
-        S3_Source[S3 Data Lake[
-        RDS_Source[RDS Databases[
-        DynamoDB_Source[DynamoDB[
-        JDBC_Source["JDBC Sources&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-premises DBs"[
+    subgraph Data_Sources_Group["Data Sources"]
+        S3_Source[S3 Data Lake]
+        RDS_Source[RDS Databases]
+        DynamoDB_Source[DynamoDB]
+        JDBC_Source["JDBC Sources<br/>On-premises DBs"]
     end
     
-    subgraph AWS_Glue_Group["AWS Glue"[
-        Crawler["Glue Crawler&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Auto-discover schema&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Populate catalog"[
+    subgraph AWS_Glue_Group["AWS Glue"]
+        Crawler["Glue Crawler<br/>Auto-discover schema<br/>Populate catalog"]
         
-        Catalog["Glue Data Catalog&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Central metadata repository&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Table definitions&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Schema versions"[
+        Catalog["Glue Data Catalog<br/>Central metadata repository<br/>Table definitions<br/>Schema versions"]
         
-        ETL["Glue ETL Jobs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Serverless Spark/Python&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Transform data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Auto-scaling"[
+        ETL["Glue ETL Jobs<br/>Serverless Spark/Python<br/>Transform data<br/>Auto-scaling"]
         
-        Scheduler["Job Scheduler&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Time-based triggers&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Event-based triggers"[
+        Scheduler["Job Scheduler<br/>Time-based triggers<br/>Event-based triggers"]
         
         Crawler --> Catalog
         Catalog --> ETL
         Scheduler --> ETL
     end
     
-    subgraph Data_Targets_Group["Data Targets"[
-        S3_Target["S3 Data Lake&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Parquet, ORC, CSV"[
-        Redshift_Target["Redshift&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data warehouse"[
-        RDS_Target["RDS/Aurora&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Analytics DB"[
+    subgraph Data_Targets_Group["Data Targets"]
+        S3_Target["S3 Data Lake<br/>Parquet, ORC, CSV"]
+        Redshift_Target["Redshift<br/>Data warehouse"]
+        RDS_Target["RDS/Aurora<br/>Analytics DB"]
     end
     
     S3_Source --> Crawler
@@ -413,9 +413,9 @@ graph TB
     
     Athena[Amazon Athena[ -.Query.-> Catalog
     EMR[Amazon EMR[ -.Use.-> Catalog
-    Redshift2[Redshift Spectrum[ -.Use.-> Catalog
+    Redshift2[Redshift Spectrum] -.Use.-> Catalog
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Serverless&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Pay per second for ETL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Python or Scala&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Built-in transformations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Job bookmarks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Development endpoints"[
+    Features]"Features:<br/>✅ Serverless<br/>✅ Pay per second for ETL<br/>✅ Python or Scala<br/>✅ Built-in transformations<br/>✅ Job bookmarks<br/>✅ Development endpoints"]
     
     classDef style1 fill:#FF9900
     class Catalog style1
@@ -427,28 +427,28 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Data_Catalog_Components_Group["Data Catalog Components"[
-        Catalog["Glue Data Catalog&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Metadata repository"[
+    subgraph Data_Catalog_Components_Group["Data Catalog Components"]
+        Catalog["Glue Data Catalog<br/>Metadata repository"]
         
-        Database["Databases&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Logical grouping"[
+        Database["Databases<br/>Logical grouping"]
         
-        Tables["Tables&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Schema definition&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Column types&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Partitions"[
+        Tables["Tables<br/>Schema definition<br/>Column types<br/>Partitions"]
         
-        Crawler_Config["Crawlers&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Scan data sources&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Infer schema"[
+        Crawler_Config["Crawlers<br/>Scan data sources<br/>Infer schema"]
         
         Catalog --> Database
         Database --> Tables
         Catalog --> Crawler_Config
     end
     
-    subgraph Services_Using_Catalog_Group["Services Using Catalog"[
-        Athena["Amazon Athena&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;SQL queries"[
+    subgraph Services_Using_Catalog_Group["Services Using Catalog"]
+        Athena["Amazon Athena<br/>SQL queries"]
         
-        Redshift_Spectrum["Redshift Spectrum&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Query S3"[
+        Redshift_Spectrum["Redshift Spectrum<br/>Query S3"]
         
-        EMR["Amazon EMR&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Spark, Hive"[
+        EMR["Amazon EMR<br/>Spark, Hive"]
         
-        Glue_ETL["Glue ETL Jobs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Transform data"[
+        Glue_ETL["Glue ETL Jobs<br/>Transform data"]
     end
     
     Tables --> Athena
@@ -456,9 +456,9 @@ graph TB
     Tables --> EMR
     Tables --> Glue_ETL
     
-    Benefits["Benefits:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Single source of truth&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Avoid data silos&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Schema evolution&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Partition discovery&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Cross-service metadata&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 First million objects stored free"[
+    Benefits["Benefits:<br/>✅ Single source of truth<br/>✅ Avoid data silos<br/>✅ Schema evolution<br/>✅ Partition discovery<br/>✅ Cross-service metadata<br/>💰 First million objects stored free"]
     
-    Hive["Hive Metastore Compatible&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Import existing Hive catalogs"[ -.Compatible.-> Catalog
+    Hive["Hive Metastore Compatible<br/>Import existing Hive catalogs"] -.Compatible.-> Catalog
     
     classDef style1 fill:#FF9900
     class Catalog style1
@@ -472,36 +472,36 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group["Data Sources"[
-        RDS["RDS/Aurora"[
-        Redshift[Redshift[
-        Athena[Athena[
-        S3[S3[
-        Salesforce[Salesforce[
-        Excel[Excel, CSV[
-        OnPrem["On-Premises DBs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;via VPC"[
+    subgraph Data_Sources_Group["Data Sources"]
+        RDS["RDS/Aurora"]
+        Redshift[Redshift]
+        Athena[Athena]
+        S3[S3]
+        Salesforce[Salesforce]
+        Excel[Excel, CSV]
+        OnPrem["On-Premises DBs<br/>via VPC"]
     end
     
-    subgraph QuickSight_Group["QuickSight"[
-        SPICE["SPICE In-Memory Engine&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Super-fast Performance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Interactive Caching Engine&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Columnar storage"[
+    subgraph QuickSight_Group["QuickSight"]
+        SPICE["SPICE In-Memory Engine<br/>Super-fast Performance<br/>Interactive Caching Engine<br/>Columnar storage"]
         
-        Datasets["Datasets&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data preparation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Joins, filters, transforms"[
+        Datasets["Datasets<br/>Data preparation<br/>Joins, filters, transforms"]
         
-        Analysis["Analysis&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Visual exploration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Drag-and-drop"[
+        Analysis["Analysis<br/>Visual exploration<br/>Drag-and-drop"]
         
-        Dashboards["Dashboards&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Published views&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Share with users"[
+        Dashboards["Dashboards<br/>Published views<br/>Share with users"]
         
         Datasets --> SPICE
         SPICE --> Analysis
         Analysis --> Dashboards
     end
     
-    subgraph Features_Group["Features"[
-        ML["QuickSight ML Insights&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Anomaly detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Forecasting&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Natural language queries"[
+    subgraph Features_Group["Features"]
+        ML["QuickSight ML Insights<br/>Anomaly detection<br/>Forecasting<br/>Natural language queries"]
         
-        Embedded["Embedded Analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Embed in applications&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Custom branding"[
+        Embedded["Embedded Analytics<br/>Embed in applications<br/>Custom branding"]
         
-        Enterprise["Enterprise Edition&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Row-level security&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;AD integration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Encryption at rest"[
+        Enterprise["Enterprise Edition<br/>Row-level security<br/>AD integration<br/>Encryption at rest"]
     end
     
     RDS --> Datasets
@@ -516,7 +516,7 @@ graph TB
     Dashboards --> Embedded
     Dashboards --> Enterprise
     
-    Pricing["Pricing:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Standard: $9/user/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Enterprise: $18/user/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 SPICE: $0.25/GB/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Readers: $0.30/session $5 max"[
+    Pricing["Pricing:<br/>💰 Standard: $9/user/month<br/>💰 Enterprise: $18/user/month<br/>💰 SPICE: $0.25/GB/month<br/>💰 Readers: $0.30/session $5 max"]
     
     classDef style1 fill:#FF9900
     class SPICE style1
@@ -530,24 +530,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Data_Ingestion_Group["Data Ingestion"[
-        Kinesis["Kinesis Firehose&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Streaming logs"[
-        Logstash["Logstash&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Log shipping"[
-        CloudWatch[CloudWatch Logs[
-        Lambda[Lambda Functions[
-        IoT[AWS IoT[
+    subgraph Data_Ingestion_Group["Data Ingestion"]
+        Kinesis["Kinesis Firehose<br/>Streaming logs"]
+        Logstash["Logstash<br/>Log shipping"]
+        CloudWatch[CloudWatch Logs]
+        Lambda[Lambda Functions]
+        IoT[AWS IoT]
     end
     
-    subgraph OpenSearch_Domain_Group["OpenSearch Domain"[
-        Master["Master Nodes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cluster management&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Optional, dedicated"[
+    subgraph OpenSearch_Domain_Group["OpenSearch Domain"]
+        Master["Master Nodes<br/>Cluster management<br/>Optional, dedicated"]
         
-        Data1["Data Node 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Store & search&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Instance types"[
-        Data2["Data Node 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Store & search"[
-        Data3["Data Node 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Store & search"[
+        Data1["Data Node 1<br/>Store & search<br/>Instance types"]
+        Data2["Data Node 2<br/>Store & search"]
+        Data3["Data Node 3<br/>Store & search"]
         
-        UltraWarm["UltraWarm Nodes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Read-only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;S3-backed&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cost-effective"[
+        UltraWarm["UltraWarm Nodes<br/>Read-only<br/>S3-backed<br/>Cost-effective"]
         
-        ColdStorage["Cold Storage&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;S3-based&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Infrequent access&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Lowest cost"[
+        ColdStorage["Cold Storage<br/>S3-based<br/>Infrequent access<br/>Lowest cost"]
         
         Master --> Data1
         Master --> Data2
@@ -557,12 +557,12 @@ graph TB
         UltraWarm --> ColdStorage
     end
     
-    subgraph Access_Visualization_Group["Access & Visualization"[
-        Kibana["OpenSearch Dashboards&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Formerly Kibana&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Visualization"[
+    subgraph Access_Visualization_Group["Access & Visualization"]
+        Kibana["OpenSearch Dashboards<br/>Formerly Kibana<br/>Visualization"]
         
-        API["REST API&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Search queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;CRUD operations"[
+        API["REST API<br/>Search queries<br/>CRUD operations"]
         
-        SQL["SQL Support&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Query with SQL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;JDBC driver"[
+        SQL["SQL Support<br/>Query with SQL<br/>JDBC driver"]
     end
     
     Kinesis --> Data1
@@ -575,9 +575,9 @@ graph TB
     Data1 --> API
     Data1 --> SQL
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Multi-AZ deployment&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Built-in dashboards&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Full-text search&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Application monitoring&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Log analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per instance hour"[
+    Features["Features:<br/>✅ Multi-AZ deployment<br/>✅ Built-in dashboards<br/>✅ Full-text search<br/>✅ Application monitoring<br/>✅ Log analytics<br/>💰 Pay per instance hour"]
     
-    UseCases["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Log analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Application monitoring&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Security analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Full-text search&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Clickstream analytics"[
+    UseCases["Use Cases:<br/>• Log analytics<br/>• Application monitoring<br/>• Security analytics<br/>• Full-text search<br/>• Clickstream analytics"]
     
     classDef style1 fill:#FF9900
     class Master style1
@@ -593,36 +593,36 @@ graph TB
 
 ```mermaid
 graph LR
-    subgraph Data_Sources_Group["Data Sources"[
-        Website[Website Clickstream[
-        Mobile[Mobile App Events[
-        IoT[IoT Sensors[
+    subgraph Data_Sources_Group["Data Sources"]
+        Website[Website Clickstream]
+        Mobile[Mobile App Events]
+        IoT[IoT Sensors]
     end
     
-    subgraph Real_Time_Ingestion_Group["Real-Time Ingestion"[
-        Kinesis["Kinesis Data Streams&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Real-time collection"[
+    subgraph Real_Time_Ingestion_Group["Real-Time Ingestion"]
+        Kinesis["Kinesis Data Streams<br/>Real-time collection"]
     end
     
-    subgraph Stream_Processing_Group["Stream Processing"[
-        Lambda["Lambda&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Transform"[
-        Analytics["Kinesis Analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Windowing, aggregation"[
+    subgraph Stream_Processing_Group["Stream Processing"]
+        Lambda["Lambda<br/>Transform"]
+        Analytics["Kinesis Analytics<br/>Windowing, aggregation"]
     end
     
-    subgraph Storage_Analysis_Group["Storage & Analysis"[
-        Firehose[Kinesis Firehose[
-        S3["S3 Data Lake&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Parquet format"[
-        OpenSearch["OpenSearch&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Real-time dashboards"[
+    subgraph Storage_Analysis_Group["Storage & Analysis"]
+        Firehose[Kinesis Firehose]
+        S3["S3 Data Lake<br/>Parquet format"]
+        OpenSearch["OpenSearch<br/>Real-time dashboards"]
     end
     
-    subgraph Batch_Analysis_Group["Batch Analysis"[
-        Glue["Glue ETL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Nightly processing"[
-        Athena["Athena&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Ad-hoc queries"[
-        Redshift["Redshift&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data warehouse"[
+    subgraph Batch_Analysis_Group["Batch Analysis"]
+        Glue["Glue ETL<br/>Nightly processing"]
+        Athena["Athena<br/>Ad-hoc queries"]
+        Redshift["Redshift<br/>Data warehouse"]
     end
     
-    subgraph Visualization_Group["Visualization"[
-        QuickSight["QuickSight&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;BI dashboards"[
-        Kibana["OpenSearch Dashboards&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Real-time monitoring"[
+    subgraph Visualization_Group["Visualization"]
+        QuickSight["QuickSight<br/>BI dashboards"]
+        Kibana["OpenSearch Dashboards<br/>Real-time monitoring"]
     end
     
     Website --> Kinesis
@@ -658,36 +658,36 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group["Data Sources"[
-        Databases["RDS/Aurora&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Transactional DBs"[
-        Apps["Application Logs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;S3 buckets"[
-        OnPrem["On-Premises&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;DataSync"[
+    subgraph Data_Sources_Group["Data Sources"]
+        Databases["RDS/Aurora<br/>Transactional DBs"]
+        Apps["Application Logs<br/>S3 buckets"]
+        OnPrem["On-Premises<br/>DataSync"]
     end
     
-    subgraph Data_Lake_S3_Group["Data Lake - S3"[
-        Raw["Raw Zone&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Original data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;All formats"[
+    subgraph Data_Lake_S3_Group["Data Lake - S3"]
+        Raw["Raw Zone<br/>Original data<br/>All formats"]
         
-        Processed["Processed Zone&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cleaned data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Parquet/ORC"[
+        Processed["Processed Zone<br/>Cleaned data<br/>Parquet/ORC"]
         
-        Curated["Curated Zone&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Business views&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Aggregated"[
+        Curated["Curated Zone<br/>Business views<br/>Aggregated"]
     end
     
-    subgraph ETL_Processing_Group["ETL Processing"[
-        Glue["AWS Glue&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Serverless ETL&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Scheduled jobs"[
+    subgraph ETL_Processing_Group["ETL Processing"]
+        Glue["AWS Glue<br/>Serverless ETL<br/>Scheduled jobs"]
         
-        EMR["Amazon EMR&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Complex transformations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Spark jobs"[
+        EMR["Amazon EMR<br/>Complex transformations<br/>Spark jobs"]
     end
     
-    subgraph Data_Catalog_Group["Data Catalog"[
-        Catalog["Glue Data Catalog&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Metadata&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Schema registry"[
+    subgraph Data_Catalog_Group["Data Catalog"]
+        Catalog["Glue Data Catalog<br/>Metadata<br/>Schema registry"]
     end
     
-    subgraph Analytics_Group["Analytics"[
-        Athena["Athena&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;SQL queries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Interactive"[
+    subgraph Analytics_Group["Analytics"]
+        Athena["Athena<br/>SQL queries<br/>Interactive"]
         
-        Redshift["Redshift&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data warehouse&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;OLAP"[
+        Redshift["Redshift<br/>Data warehouse<br/>OLAP"]
         
-        SageMaker["SageMaker&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ML training"[
+        SageMaker["SageMaker<br/>ML training"]
     end
     
     Databases --> Raw
@@ -709,7 +709,7 @@ graph TB
     Curated --> Redshift
     Curated --> SageMaker
     
-    Athena --> QuickSight["QuickSight&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Dashboards"[
+    Athena --> QuickSight["QuickSight<br/>Dashboards"]
     Redshift --> QuickSight
     
     classDef style1 fill:#C00

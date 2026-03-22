@@ -6,7 +6,7 @@
 
 ```mermaid
 mindmap
-    root((7 Rs of Migration((
+    root([(7 Rs of Migration()
         Retire
             Decommission
             Turn off unused
@@ -50,29 +50,29 @@ mindmap
 
 ```mermaid
 flowchart TD
-    Start([Application to Migrate((
+    Start]Application to Migrate()
     
     Start --> Q1{Still needed?{
-    Q1 -->|No| Retire["Retire: Decommission"[
+    Q1 -->|No| Retire["Retire: Decommission"]
     Q1 -->|Yes| Q2{Ready to migrate?{
     
-    Q2 -->|No| Retain["Retain: Keep on-premises"[
+    Q2 -->|No| Retain["Retain: Keep on-premises"]
     Q2 -->|Yes| Q3{Migration urgency?{
     
     Q3 -->|Very Urgent| Q4{VMware workload?{
-    Q3 -->|Not Urgent| Q5{Willing to redesign?{
+    Q3 -->|Not Urgent| Q5{Willing to redesign?}
     
-    Q4 -->|Yes| Relocate["Relocate: VMware Cloud on AWS"[
-    Q4 -->|No| Rehost["Rehost: Lift & Shift to EC2"[
+    Q4 -->|Yes| Relocate["Relocate: VMware Cloud on AWS"]
+    Q4 -->|No| Rehost["Rehost: Lift & Shift to EC2"]
     
-    Q5 -->|No| Q6{Some optimization OK?{
-    Q5 -->|Yes| Q7{Budget available?{
+    Q5 -->|No| Q6{Some optimization OK?}
+    Q5 -->|Yes| Q7{Budget available?}
     
-    Q6 -->|Yes| Replatform["Replatform: Use managed services"[
+    Q6 -->|Yes| Replatform["Replatform: Use managed services"]
     Q6 -->|No| Rehost
     
-    Q7 -->|No| Repurchase["Repurchase: Move to SaaS"[
-    Q7 -->|Yes| Refactor["Refactor: Cloud-native redesign"[
+    Q7 -->|No| Repurchase["Repurchase: Move to SaaS"]
+    Q7 -->|Yes| Refactor["Refactor: Cloud-native redesign"]
     
     classDef style1 fill:#232F3E
     class Start style1
@@ -90,40 +90,40 @@ flowchart TD
 
 ```mermaid
 graph TB
-    subgraph On_Premises_Environment_Group["On-Premises Environment"[
-        Servers["Physical/Virtual Servers&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Databases&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Applications"[
+    subgraph On_Premises_Environment_Group["On-Premises Environment"]
+        Servers["Physical/Virtual Servers<br/>Databases<br/>Applications"]
     end
     
-    subgraph Discovery_Group["Discovery"[
-        Connector["AWS Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Discovery Service&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Agent-based or agentless"[
+    subgraph Discovery_Group["Discovery"]
+        Connector["AWS Application<br/>Discovery Service<br/>Agent-based or agentless"]
         
-        Import["Import via CSV&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Manual entry&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Partner tools"[
+        Import["Import via CSV<br/>Manual entry<br/>Partner tools"]
         
         Servers --> Connector
     end
     
-    subgraph AWS_Migration_Hub_Group["AWS Migration Hub"[
-        Hub["Migration Hub&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Central tracking dashboard"[
+    subgraph AWS_Migration_Hub_Group["AWS Migration Hub"]
+        Hub["Migration Hub<br/>Central tracking dashboard"]
         
-        Groups["Application Groups&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Logical grouping"[
+        Groups["Application Groups<br/>Logical grouping"]
         
-        Status["Migration Status&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Track progress"[
+        Status["Migration Status<br/>Track progress"]
         
         Hub --> Groups
         Hub --> Status
     end
     
-    subgraph Migration_Tools_Group["Migration Tools"[
-        DMS["AWS DMS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Database migration"[
-        SMS["AWS SMS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Server migration"[
-        MGN["AWS MGN&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Application Migration"[
-        DataSync["AWS DataSync&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Data transfer"[
+    subgraph Migration_Tools_Group["Migration Tools"]
+        DMS["AWS DMS<br/>Database migration"]
+        SMS["AWS SMS<br/>Server migration"]
+        MGN["AWS MGN<br/>Application Migration"]
+        DataSync["AWS DataSync<br/>Data transfer"]
     end
     
-    subgraph AWS_Cloud_Group["AWS Cloud"[
-        EC2[EC2 Instances[
-        RDS[RDS Databases[
-        S3[S3 Storage[
+    subgraph AWS_Cloud_Group["AWS Cloud"]
+        EC2[EC2 Instances]
+        RDS[RDS Databases]
+        S3[S3 Storage]
     end
     
     Connector --> Hub
@@ -151,24 +151,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Agentless_Discovery_Group["Agentless Discovery"[
-        Agentless["AWS Agentless&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Discovery Connector&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;VMware vCenter"[
+    subgraph Agentless_Discovery_Group["Agentless Discovery"]
+        Agentless["AWS Agentless<br/>Discovery Connector<br/>VMware vCenter"]
         
-        Agentless_Data["Collects:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• VM inventory&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Configuration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Performance metrics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Network connections&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ VMware only"[
+        Agentless_Data["Collects:<br/>• VM inventory<br/>• Configuration<br/>• Performance metrics<br/>• Network connections<br/>⚠️ VMware only"]
     end
     
-    subgraph Agent_based_Discovery_Group["Agent-based Discovery"[
-        Agent["AWS Discovery Agent&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Install on each server"[
+    subgraph Agent_based_Discovery_Group["Agent-based Discovery"]
+        Agent["AWS Discovery Agent<br/>Install on each server"]
         
-        Agent_Data["Collects:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• System config&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Performance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Running processes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Network connections&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Dependencies&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Works on any server"[
+        Agent_Data["Collects:<br/>• System config<br/>• Performance<br/>• Running processes<br/>• Network connections<br/>• Dependencies<br/>✅ Works on any server"]
     end
     
-    subgraph Data_Analysis_Group["Data Analysis"[
-        MigrationHub["Migration Hub&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Analyze data"[
+    subgraph Data_Analysis_Group["Data Analysis"]
+        MigrationHub["Migration Hub<br/>Analyze data"]
         
-        Athena["Amazon Athena&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Query discovery data"[
+        Athena["Amazon Athena<br/>Query discovery data"]
         
-        QuickSight["Amazon QuickSight&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Visualize data"[
+        QuickSight["Amazon QuickSight<br/>Visualize data"]
     end
     
     Agentless --> Agentless_Data
@@ -180,7 +180,7 @@ graph TB
     MigrationHub --> Athena
     MigrationHub --> QuickSight
     
-    Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Discover application dependencies&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Plan migration wave&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Rightsizing recommendations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• TCO analysis"[
+    Use["Use Cases:<br/>• Discover application dependencies<br/>• Plan migration wave<br/>• Rightsizing recommendations<br/>• TCO analysis"]
     
     classDef style1 fill:#FF9900
     class Agentless style1
@@ -194,34 +194,34 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Source_Databases_Group["Source Databases"[
-        Oracle[Oracle[
-        SQLServer[SQL Server[
-        MySQL[MySQL[
-        PostgreSQL[PostgreSQL[
-        MongoDB[MongoDB[
-        SAP[SAP ASE[
-        S3Source[Amazon S3[
+    subgraph Source_Databases_Group["Source Databases"]
+        Oracle[Oracle]
+        SQLServer[SQL Server]
+        MySQL[MySQL]
+        PostgreSQL[PostgreSQL]
+        MongoDB[MongoDB]
+        SAP[SAP ASE]
+        S3Source[Amazon S3]
     end
     
-    subgraph AWS_DMS_Group["AWS DMS"[
-        Replication["DMS Replication Instance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;EC2 instance running DMS"[
+    subgraph AWS_DMS_Group["AWS DMS"]
+        Replication["DMS Replication Instance<br/>EC2 instance running DMS"]
         
-        Tasks["Migration Tasks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Source -&gt; Target mapping"[
+        Tasks["Migration Tasks<br/>Source -&gt; Target mapping"]
         
-        SCT["Schema Conversion Tool&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Heterogeneous migrations"[
+        SCT["Schema Conversion Tool<br/>Heterogeneous migrations"]
         
         Replication --> Tasks
     end
     
-    subgraph Target_Databases_Group["Target Databases"[
-        RDS[Amazon RDS[
-        Aurora[Amazon Aurora[
-        Redshift[Amazon Redshift[
-        S3Target[Amazon S3[
-        DynamoDB[DynamoDB[
-        OpenSearch[OpenSearch[
-        Kinesis[Kinesis Data Streams[
+    subgraph Target_Databases_Group["Target Databases"]
+        RDS[Amazon RDS]
+        Aurora[Amazon Aurora]
+        Redshift[Amazon Redshift]
+        S3Target[Amazon S3]
+        DynamoDB[DynamoDB]
+        OpenSearch[OpenSearch]
+        Kinesis[Kinesis Data Streams]
     end
     
     Oracle --> SCT
@@ -243,7 +243,7 @@ graph TB
     Tasks --> OpenSearch
     Tasks --> Kinesis
     
-    CDC["Continuous Data Capture CDC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Ongoing replication&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Minimal downtime"[ -.Feature.-> Replication
+    CDC["Continuous Data Capture CDC<br/>Ongoing replication<br/>Minimal downtime"] -.Feature.-> Replication
     
     classDef style1 fill:#FF9900
     class Replication style1
@@ -255,29 +255,29 @@ graph TB
 
 ```mermaid
 graph LR
-    subgraph Full_Load_Group["Full Load"[
-        FL["Full Load Migration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;One-time migration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Snapshot of data"[
+    subgraph Full_Load_Group["Full Load"]
+        FL["Full Load Migration<br/>One-time migration<br/>Snapshot of data"]
         
-        FL_Steps["1. Stop writes to source&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2. Migrate all data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;3. Switch to target&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ Downtime required"[
+        FL_Steps["1. Stop writes to source<br/>2. Migrate all data<br/>3. Switch to target<br/>⚠️ Downtime required"]
     end
     
-    subgraph Full_Load_CDC_Group["Full Load + CDC"[
-        FLCDC["Full Load + CDC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Minimal downtime&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Recommended approach"[
+    subgraph Full_Load_CDC_Group["Full Load + CDC"]
+        FLCDC["Full Load + CDC<br/>Minimal downtime<br/>Recommended approach"]
         
-        FLCDC_Steps["1. Full load starts&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2. CDC captures changes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;3. Apply cached changes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;4. Ongoing replication&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Minimal downtime"[
+        FLCDC_Steps["1. Full load starts<br/>2. CDC captures changes<br/>3. Apply cached changes<br/>4. Ongoing replication<br/>✅ Minimal downtime"]
     end
     
-    subgraph CDC_Only_Group["CDC Only"[
-        CDC["CDC Only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Replicate ongoing changes&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Assumes data already migrated"[
+    subgraph CDC_Only_Group["CDC Only"]
+        CDC["CDC Only<br/>Replicate ongoing changes<br/>Assumes data already migrated"]
         
-        CDC_Steps["1. Existing data in target&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2. Replicate changes only&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;3. Keep in sync&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Use: After full load"[
+        CDC_Steps["1. Existing data in target<br/>2. Replicate changes only<br/>3. Keep in sync<br/>Use: After full load"]
     end
     
     FL --> FL_Steps
     FLCDC --> FLCDC_Steps
     CDC --> CDC_Steps
     
-    Recommendation["Recommendation:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Use Full Load + CDC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;for production migrations"[
+    Recommendation["Recommendation:<br/>Use Full Load + CDC<br/>for production migrations"]
     
     classDef style1 fill:#569A31
     class FLCDC style1
@@ -328,30 +328,30 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph Source_Environment_Group["Source Environment"[
-        Physical[Physical Servers[
-        Virtual[Virtual Machines[
-        Cloud["Other Cloud&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Azure, GCP"[
+    subgraph Source_Environment_Group["Source Environment"]
+        Physical[Physical Servers]
+        Virtual[Virtual Machines]
+        Cloud["Other Cloud<br/>Azure, GCP"]
         
-        Agent["MGN Replication Agent&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Installed on each server"[
+        Agent["MGN Replication Agent<br/>Installed on each server"]
         
         Physical --> Agent
         Virtual --> Agent
         Cloud --> Agent
     end
     
-    subgraph AWS_Migration_Service_Group["AWS Migration Service"[
-        MGN["AWS Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Migration Service&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Automated Lift-and-Shift"[
+    subgraph AWS_Migration_Service_Group["AWS Migration Service"]
+        MGN["AWS Application<br/>Migration Service<br/>Automated Lift-and-Shift"]
         
-        Staging["Staging Area&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Low-cost replication&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;EBS volumes"[
+        Staging["Staging Area<br/>Low-cost replication<br/>EBS volumes"]
         
         MGN --> Staging
     end
     
-    subgraph Target_AWS_Group["Target AWS"[
-        Testing["Test Instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Non-disruptive testing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Isolated environment"[
+    subgraph Target_AWS_Group["Target AWS"]
+        Testing["Test Instances<br/>Non-disruptive testing<br/>Isolated environment"]
         
-        Production["Production Instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cutover when ready&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Minimal downtime"[
+        Production["Production Instances<br/>Cutover when ready<br/>Minimal downtime"]
     end
     
     Agent -.Continuous<br/>Block-level replication.-> Staging
@@ -359,9 +359,9 @@ graph TB
     Staging --> Testing
     Testing -.Launch cutover.-> Production
     
-    Cutover["Cutover Process:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;1. Stop replication agent&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;2. Launch target instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;3. Switch DNS/network&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;4. Application running on AWS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Downtime: Minutes"[
+    Cutover["Cutover Process:<br/>1. Stop replication agent<br/>2. Launch target instances<br/>3. Switch DNS/network<br/>4. Application running on AWS<br/>Downtime: Minutes"]
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Continuous replication&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Non-disruptive testing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Automated conversion&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Minimal downtime &lt;1 hour&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Any source to AWS"[
+    Features["Features:<br/>✅ Continuous replication<br/>✅ Non-disruptive testing<br/>✅ Automated conversion<br/>✅ Minimal downtime &lt;1 hour<br/>✅ Any source to AWS"]
     
     classDef style1 fill:#FF9900
     class MGN style1
@@ -375,34 +375,34 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Source_Locations_Group["Source Locations"[
-        NFS["NFS Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-premises"[
-        SMB["SMB Server&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;On-premises"[
-        HDFS["HDFS Cluster&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Hadoop"[
-        S3Compatible[S3-compatible storage[
+    subgraph Source_Locations_Group["Source Locations"]
+        NFS["NFS Server<br/>On-premises"]
+        SMB["SMB Server<br/>On-premises"]
+        HDFS["HDFS Cluster<br/>Hadoop"]
+        S3Compatible[S3-compatible storage]
         
-        Agent["DataSync Agent&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;VM on-premises&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;or EC2"[
+        Agent["DataSync Agent<br/>VM on-premises<br/>or EC2"]
         
         NFS --> Agent
         SMB --> Agent
         HDFS --> Agent
     end
     
-    subgraph AWS_DataSync_Service_Group["AWS DataSync Service"[
-        DataSync["AWS DataSync&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Managed data transfer&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Accelerated, encrypted"[
+    subgraph AWS_DataSync_Service_Group["AWS DataSync Service"]
+        DataSync["AWS DataSync<br/>Managed data transfer<br/>Accelerated, encrypted"]
         
-        Schedule["Scheduled Tasks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Hourly, daily, weekly&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;or one-time"[
+        Schedule["Scheduled Tasks<br/>Hourly, daily, weekly<br/>or one-time"]
         
-        Verification["Data Verification&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Integrity checks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;End-to-end"[
+        Verification["Data Verification<br/>Integrity checks<br/>End-to-end"]
         
         DataSync --> Schedule
         DataSync --> Verification
     end
     
-    subgraph Destination_Locations_Group["Destination Locations"[
-        S3["Amazon S3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;All storage classes"[
-        EFS["Amazon EFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;File system"[
-        FSx["Amazon FSx&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Windows/Lustre/NetApp/OpenZFS"[
+    subgraph Destination_Locations_Group["Destination Locations"]
+        S3["Amazon S3<br/>All storage classes"]
+        EFS["Amazon EFS<br/>File system"]
+        FSx["Amazon FSx<br/>Windows/Lustre/NetApp/OpenZFS"]
     end
     
     Agent --> DataSync
@@ -412,9 +412,9 @@ graph TB
     DataSync --> EFS
     DataSync --> FSx
     
-    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ 10x faster than open-source tools&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Bandwidth throttling&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Data encryption in-transit&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Data integrity validation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Pay per GB transferred&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Incremental transfers"[
+    Features["Features:<br/>✅ 10x faster than open-source tools<br/>✅ Bandwidth throttling<br/>✅ Data encryption in-transit<br/>✅ Data integrity validation<br/>✅ Pay per GB transferred<br/>✅ Incremental transfers"]
     
-    VsSnowball["DataSync vs Snowball:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;DataSync: Online transfer, recurring&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Snowball: Offline, one-time large migration"[
+    VsSnowball["DataSync vs Snowball:<br/>DataSync: Online transfer, recurring<br/>Snowball: Offline, one-time large migration"]
     
     classDef style1 fill:#FF9900
     class DataSync style1
@@ -458,20 +458,20 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    subgraph Clients_Group["Clients"[
-        SFTP_Client[SFTP Clients[
-        FTPS_Client[FTPS Clients[
-        FTP_Client[FTP Clients[
-        AS2_Client[AS2 EDI Partners[
+    subgraph Clients_Group["Clients"]
+        SFTP_Client[SFTP Clients]
+        FTPS_Client[FTPS Clients]
+        FTP_Client[FTP Clients]
+        AS2_Client[AS2 EDI Partners]
     end
     
-    subgraph AWS_Transfer_Family_Group["AWS Transfer Family"[
-        SFTP["Transfer for SFTP&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;SSH File Transfer Protocol"[
-        FTPS["Transfer for FTPS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;FTP over SSL/TLS"[
-        FTP["Transfer for FTP&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;File Transfer Protocol"[
-        AS2["Transfer for AS2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;EDI B2B"[
+    subgraph AWS_Transfer_Family_Group["AWS Transfer Family"]
+        SFTP["Transfer for SFTP<br/>SSH File Transfer Protocol"]
+        FTPS["Transfer for FTPS<br/>FTP over SSL/TLS"]
+        FTP["Transfer for FTP<br/>File Transfer Protocol"]
+        AS2["Transfer for AS2<br/>EDI B2B"]
         
-        Auth["Authentication:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Service-managed&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Active Directory&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Custom Lambda&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Okta, Auth0"[
+        Auth["Authentication:<br/>• Service-managed<br/>• Active Directory<br/>• Custom Lambda<br/>• Okta, Auth0"]
         
         SFTP --> Auth
         FTPS --> Auth
@@ -479,15 +479,15 @@ graph TB
         AS2 --> Auth
     end
     
-    subgraph Storage_Backends_Group["Storage Backends"[
-        S3["Amazon S3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Object storage"[
-        EFS["Amazon EFS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;File storage"[
+    subgraph Storage_Backends_Group["Storage Backends"]
+        S3["Amazon S3<br/>Object storage"]
+        EFS["Amazon EFS<br/>File storage"]
     end
     
-    subgraph Features_Group["Features"[
-        VPC["VPC Hosted&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Private endpoints"[
-        Public["Internet-facing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Public endpoints"[
-        DNS["Custom DNS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Your domain"[
+    subgraph Features_Group["Features"]
+        VPC["VPC Hosted<br/>Private endpoints"]
+        Public["Internet-facing<br/>Public endpoints"]
+        DNS["Custom DNS<br/>Your domain"]
     end
     
     SFTP_Client --> SFTP
@@ -505,7 +505,7 @@ graph TB
     SFTP -.Deploy.-> Public
     SFTP -.Use.-> DNS
     
-    UseCase["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Legacy application migration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• B2B file exchange&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Data lake ingestion&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Replace on-prem FTP servers&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per hour + data transferred"[
+    UseCase["Use Cases:<br/>• Legacy application migration<br/>• B2B file exchange<br/>• Data lake ingestion<br/>• Replace on-prem FTP servers<br/>💰 Pay per hour + data transferred"]
     
     classDef style1 fill:#FF9900
     class SFTP style1
@@ -521,25 +521,25 @@ graph TB
 graph TB
     Decision["📊 Choose Your Device:<br/>• &lt; 10 TB → Snowcone<br/>• 10-80 TB → Snowball<br/>• &gt; 10 PB → Snowmobile"]
     
-    subgraph Snowcone_Group["Snowcone"[
-        Snowcone["AWS Snowcone&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Smallest device"[
+    subgraph Snowcone_Group["Snowcone"]
+        Snowcone["AWS Snowcone<br/>Smallest device"]
         
-        Snowcone_Specs["Specs:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💾 8-14 TB usable&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💪 2 vCPUs, 4 GB RAM&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📦 4.5 lbs / 2 kg&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🔋 Battery optional&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📡 Wi-Fi optional"[
+        Snowcone_Specs["Specs:<br/>💾 8-14 TB usable<br/>💪 2 vCPUs, 4 GB RAM<br/>📦 4.5 lbs / 2 kg<br/>🔋 Battery optional<br/>📡 Wi-Fi optional"]
         
-        Snowcone_Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Edge computing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• IoT&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Remote locations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Drones&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Vehicles"[
+        Snowcone_Use["Use Cases:<br/>• Edge computing<br/>• IoT<br/>• Remote locations<br/>• Drones<br/>• Vehicles"]
         
         Snowcone --> Snowcone_Specs
         Snowcone_Specs --> Snowcone_Use
     end
     
-    subgraph Snowball_Group["Snowball Edge"[
-        Snowball["AWS Snowball Edge"[
+    subgraph Snowball_Group["Snowball Edge"]
+        Snowball["AWS Snowball Edge"]
         
-        Storage["Storage Optimized&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💾 80 TB usable&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💪 40 vCPUs, 80 GB RAM&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📦 50 lbs"[
+        Storage["Storage Optimized<br/>💾 80 TB usable<br/>💪 40 vCPUs, 80 GB RAM<br/>📦 50 lbs"]
         
-        Compute["Compute Optimized&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💾 42-28 TB usable&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💪 52 vCPUs, 208 GB RAM&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🎮 Optional GPU"[
+        Compute["Compute Optimized<br/>💾 42-28 TB usable<br/>💪 52 vCPUs, 208 GB RAM<br/>🎮 Optional GPU"]
         
-        Snowball_Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Data center migration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Disaster recovery&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Content distribution&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Local processing"[
+        Snowball_Use["Use Cases:<br/>• Data center migration<br/>• Disaster recovery<br/>• Content distribution<br/>• Local processing"]
         
         Snowball --> Storage
         Snowball --> Compute
@@ -547,12 +547,12 @@ graph TB
         Compute --> Snowball_Use
     end
     
-    subgraph Snowmobile_Group["Snowmobile"[
-        Snowmobile["AWS Snowmobile&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Shipping container"[
+    subgraph Snowmobile_Group["Snowmobile"]
+        Snowmobile["AWS Snowmobile<br/>Shipping container"]
         
-        Snowmobile_Specs["Specs:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💾 100 PB capacity&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🚛 45-foot container&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🔒 GPS tracking&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;👮 Security escort&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📹 Video surveillance"[
+        Snowmobile_Specs["Specs:<br/>💾 100 PB capacity<br/>🚛 45-foot container<br/>🔒 GPS tracking<br/>👮 Security escort<br/>📹 Video surveillance"]
         
-        Snowmobile_Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Exabyte-scale migration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Complete datacenter&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Video libraries&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Massive datasets"[
+        Snowmobile_Use["Use Cases:<br/>• Exabyte-scale migration<br/>• Complete datacenter<br/>• Video libraries<br/>• Massive datasets"]
         
         Snowmobile --> Snowmobile_Specs
         Snowmobile_Specs --> Snowmobile_Use
@@ -577,33 +577,33 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Edge_Location_Remote_Site_Group["Edge Location Remote Site"[
-        Snowball["Snowball Edge&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Compute Optimized"[
+    subgraph Edge_Location_Remote_Site_Group["Edge Location Remote Site"]
+        Snowball["Snowball Edge<br/>Compute Optimized"]
         
-        LocalData["Local Data Sources&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Sensors, Cameras, IoT"[
+        LocalData["Local Data Sources<br/>Sensors, Cameras, IoT"]
         
-        EC2["EC2 Instances&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Running on Snowball"[
+        EC2["EC2 Instances<br/>Running on Snowball"]
         
-        Lambda["Lambda Functions&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Local processing"[
+        Lambda["Lambda Functions<br/>Local processing"]
         
         LocalData --> Snowball
         Snowball --> EC2
         Snowball --> Lambda
     end
     
-    subgraph Processing_at_Edge_Group["Processing at Edge"[
-        Analysis["Data Analysis&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ML inference&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Video processing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Image recognition"[
+    subgraph Processing_at_Edge_Group["Processing at Edge"]
+        Analysis["Data Analysis<br/>ML inference<br/>Video processing<br/>Image recognition"]
         
-        Storage["Local Storage&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Buffer data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;80 TB capacity"[
+        Storage["Local Storage<br/>Buffer data<br/>80 TB capacity"]
         
         EC2 --> Analysis
         Analysis --> Storage
     end
     
-    subgraph AWS_Cloud_Group["AWS Cloud"[
-        S3["Amazon S3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Final destination"[
+    subgraph AWS_Cloud_Group["AWS Cloud"]
+        S3["Amazon S3<br/>Final destination"]
         
-        CloudProcessing["Cloud Processing&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ML training&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Analytics&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Long-term storage"[
+        CloudProcessing["Cloud Processing<br/>ML training<br/>Analytics<br/>Long-term storage"]
     end
     
     Storage -.Ship device back.-> S3
@@ -611,9 +611,9 @@ graph TB
     
     S3 --> CloudProcessing
     
-    UseCase["Edge Computing Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Oil & gas exploration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Military operations&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Cruise ships&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Mining sites&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Manufacturing floors&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Disaster zones"[
+    UseCase["Edge Computing Use Cases:<br/>• Oil & gas exploration<br/>• Military operations<br/>• Cruise ships<br/>• Mining sites<br/>• Manufacturing floors<br/>• Disaster zones"]
     
-    OpsHub["AWS OpsHub&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;GUI management tool&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Manage Snow devices"[ -.Manages.-> Snowball
+    OpsHub["AWS OpsHub<br/>GUI management tool<br/>Manage Snow devices"] -.Manages.-> Snowball
     
     classDef style1 fill:#FF9900
     class Snowball style1
