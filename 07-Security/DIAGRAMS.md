@@ -6,27 +6,27 @@
 
 ```mermaid
 graph TB
-    subgraph KMS_Service_Group ["KMS Service"]
-        CMK["Customer Master Key<br/>Never leaves KMS<br/>FIPS 140-2 Level 2"]
+    subgraph KMS_Service_Group["KMS Service"[
+        CMK["Customer Master Key&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Never leaves KMS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;FIPS 140-2 Level 2"[
         
-        Symmetric["Symmetric CMK<br/>AES-256<br/>Same key encrypt/decrypt"]
-        Asymmetric["Asymmetric CMK<br/>RSA or ECC<br/>Public + Private keys"]
+        Symmetric["Symmetric CMK&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;AES-256&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Same key encrypt/decrypt"[
+        Asymmetric["Asymmetric CMK&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;RSA or ECC&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Public + Private keys"[
         
         CMK --> Symmetric
         CMK --> Asymmetric
     end
     
-    subgraph Key_Types_Group ["Key Types"]
-        AWSManaged["AWS Managed Keys<br/>aws/service-name<br/>Free, Auto-rotate yearly"]
-        CustomerManaged["Customer Managed Keys<br/>$1/month<br/>Optional rotation"]
-        AWSOwned["AWS Owned Keys<br/>Shared across accounts<br/>Free, Not visible"]
+    subgraph Key_Types_Group["Key Types"[
+        AWSManaged["AWS Managed Keys&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;aws/service-name&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Free, Auto-rotate yearly"[
+        CustomerManaged["Customer Managed Keys&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;$1/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Optional rotation"[
+        AWSOwned["AWS Owned Keys&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Shared across accounts&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Free, Not visible"[
     end
     
-    subgraph Applications_Group ["Applications"]
-        App[Application]
-        S3[S3]
-        EBS[EBS]
-        RDS[RDS]
+    subgraph Applications_Group["Applications"[
+        App[Application[
+        S3[S3[
+        EBS[EBS[
+        RDS[RDS[
     end
     
     App -->|API Call| Symmetric
@@ -34,7 +34,7 @@ graph TB
     EBS --> CustomerManaged
     RDS --> CustomerManaged
     
-    CloudTrail["CloudTrail<br/>Audit all key usage"] -.->|Logs| CMK
+    CloudTrail["CloudTrail&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Audit all key usage"[ -.Logs.-> CMK
     
     classDef style1 fill:#FF9900
     class CMK style1
@@ -50,8 +50,9 @@ sequenceDiagram
     participant KMS as AWS KMS
     participant S3 as Amazon S3
     
-    Note over App,S3: Encrypt Large File (> 4 KB)
-    App->>KMS: GenerateDataKey(CMK)
+    Note over App,S3: Encrypt Large File (&gt; 4 KB(
+    
+    App->>KMS: GenerateDataKey(CMK(
     KMS->>KMS: Generate Data Key
     KMS->>App: Return Plaintext Data Key + Encrypted Data Key
     
@@ -62,7 +63,7 @@ sequenceDiagram
     Note over App,S3: Decrypt File
     
     S3->>App: Download Encrypted File + Encrypted Data Key
-    App->>KMS: Decrypt(Encrypted Data Key)
+    App->>KMS: Decrypt(Encrypted Data Key(
     KMS->>App: Return Plaintext Data Key
     App->>App: Decrypt file with Plaintext Data Key
     App->>App: Delete Plaintext Data Key from memory
@@ -75,26 +76,26 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    Request[API Request to use KMS Key]
+    Request[API Request to use KMS Key[
     
-    Request --> KeyPolicy{"Key Policy<br/>Allows?"}
+    Request --> KeyPolicy{"Key Policy&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Allows?"{
     
-    KeyPolicy -->|No| Deny1["❌ DENY"]
-    KeyPolicy -->|Yes| IAMPolicy{"IAM Policy<br/>Allows?"}
+    KeyPolicy -->|No| Deny1["❌ DENY"[
+    KeyPolicy -->|Yes| IAMPolicy{"IAM Policy&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Allows?"{
     
-    IAMPolicy -->|No| Deny2["❌ DENY"]
-    IAMPolicy -->|Yes| Grant{"Grant<br/>Allows?"}
+    IAMPolicy -->|No| Deny2["❌ DENY"[
+    IAMPolicy -->|Yes| Grant{"Grant&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Allows?"{
     
-    Grant -->|Not Required| Allow["✅ ALLOW"]
+    Grant -->|Not Required| Allow["✅ ALLOW"[
     Grant -->|Yes| Allow
-    Grant -->|No| Deny3["❌ DENY"]
+    Grant -->|No| Deny3["❌ DENY"[
     
-    DefaultPolicy["Default Key Policy:<br/>Gives root user full access<br/>Enables IAM policies"]
+    DefaultPolicy["Default Key Policy:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Gives root user full access&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Enables IAM policies"[
     
-    CustomPolicy["Custom Key Policy:<br/>Specific users/roles<br/>Cross-account access<br/>Key administrators<br/>Key users"]
+    CustomPolicy["Custom Key Policy:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Specific users/roles&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Cross-account access&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Key administrators&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Key users"[
     
-    KeyPolicy -.->|Can be| DefaultPolicy
-    KeyPolicy -.->|Can be| CustomPolicy
+    KeyPolicy -.Can be.-> DefaultPolicy
+    KeyPolicy -.Can be.-> CustomPolicy
     
     classDef style1 fill:#569A31
     class Allow style1
@@ -114,20 +115,20 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph AWS_KMS_Group ["AWS KMS"]
-        KMS[KMS]
-        KMS_Features["• Multi-tenant<br/>• AWS manages hardware<br/>• FIPS 140-2 Level 2<br/>• Automatic backups<br/>• Free tier available<br/>• Integrates with AWS services"]
+    subgraph AWS_KMS_Group["AWS KMS"[
+        KMS[KMS[
+        KMS_Features["• Multi-tenant&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• AWS manages hardware&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• FIPS 140-2 Level 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Automatic backups&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Free tier available&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Integrates with AWS services"[
     end
     
-    subgraph AWS_CloudHSM_Group ["AWS CloudHSM"]
-        HSM[CloudHSM]
-        HSM_Features["• Single-tenant dedicated HSM<br/>• You manage keys<br/>• FIPS 140-2 Level 3<br/>• No free tier<br/>• Industry-standard APIs<br/>• PKCS#11, JCE, CNG"]
+    subgraph AWS_CloudHSM_Group["AWS CloudHSM"[
+        HSM[CloudHSM[
+        HSM_Features["• Single-tenant dedicated HSM&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• You manage keys&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• FIPS 140-2 Level 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• No free tier&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Industry-standard APIs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• PKCS#11, JCE, CNG"[
     end
     
-    subgraph Use_Cases_Group ["Use Cases"]
-        KMS --> KMS_Use["• Most AWS workloads<br/>• S3, EBS encryption<br/>• Simple key management<br/>• Cost-effective"]
+    subgraph Use_Cases_Group["Use Cases"[
+        KMS --> KMS_Use["• Most AWS workloads&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• S3, EBS encryption&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Simple key management&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Cost-effective"[
         
-        HSM --> HSM_Use["• Contractual requirements<br/>• Regulatory compliance<br/>• FIPS 140-2 Level 3<br/>• Custom key store for KMS"]
+        HSM --> HSM_Use["• Contractual requirements&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Regulatory compliance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• FIPS 140-2 Level 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Custom key store for KMS"[
     end
     
     classDef style1 fill:#FF9900
@@ -142,31 +143,31 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph AWS_Secrets_Manager_Group ["AWS Secrets Manager"]
-        SM[Secrets Manager]
-        SM_Features["Features:<br/>💰 $0.40/secret/month + API calls<br/>🔄 Automatic rotation<br/>🔐 Encrypt with KMS<br/>🎯 RDS integration<br/>📊 Cross-account access<br/>⏱️ Rotation: Lambda function"]
+    subgraph AWS_Secrets_Manager_Group["AWS Secrets Manager"[
+        SM[Secrets Manager[
+        SM_Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 $0.40/secret/month + API calls&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🔄 Automatic rotation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🔐 Encrypt with KMS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;🎯 RDS integration&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📊 Cross-account access&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⏱️ Rotation: Lambda function"[
         
-        SM_Use["Use Cases:<br/>• Database credentials<br/>• API keys requiring rotation<br/>• OAuth tokens<br/>• RDS password rotation"]
+        SM_Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Database credentials&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• API keys requiring rotation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• OAuth tokens&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• RDS password rotation"[
     end
     
-    subgraph Systems_Manager_Parameter_Store_Group ["Systems Manager Parameter Store"]
-        PS[Parameter Store]
+    subgraph Systems_Manager_Parameter_Store_Group["Systems Manager Parameter Store"[
+        PS[Parameter Store[
         
-        Standard["Standard Parameters<br/>✅ Free<br/>📏 4 KB limit<br/>📊 10,000 parameters<br/>⚠️ No rotation"]
+        Standard["Standard Parameters&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Free&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📏 4 KB limit&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📊 10,000 parameters&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⚠️ No rotation"[
         
-        Advanced["Advanced Parameters<br/>💰 $0.05/parameter/month<br/>📏 8 KB limit<br/>📊 100,000 parameters<br/>📋 Parameter policies<br/>⏱️ Manual rotation"]
+        Advanced["Advanced Parameters&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 $0.05/parameter/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📏 8 KB limit&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📊 100,000 parameters&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;📋 Parameter policies&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;⏱️ Manual rotation"[
         
         PS --> Standard
         PS --> Advanced
         
-        PS_Use["Use Cases:<br/>• Configuration data<br/>• License keys<br/>• AMI IDs<br/>• Application parameters<br/>• Cost-sensitive scenarios"]
+        PS_Use["Use Cases:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Configuration data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• License keys&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• AMI IDs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Application parameters&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Cost-sensitive scenarios"[
     end
     
-    Both["Both Support:<br/>✅ KMS encryption<br/>✅ CloudFormation<br/>✅ IAM permissions<br/>✅ CloudWatch Events"]
+    Both["Both Support:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ KMS encryption&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ CloudFormation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ IAM permissions&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ CloudWatch Events"[
     
-    SM -.->|Features| SM_Features
-    SM -.->|Use| SM_Use
-    PS -.->|Use| PS_Use
+    SM -.Features.-> SM_Features
+    SM -.Use.-> SM_Use
+    PS -.Use.-> PS_Use
     
     classDef style1 fill:#FF9900
     class SM style1
@@ -186,14 +187,15 @@ sequenceDiagram
     Note over SM: Rotation interval: 30 days
     
     SM->>Lambda: Trigger rotation
-    Lambda->>SM: CreateSecret (new password)
+    Lambda->>SM: CreateSecret (new password(
     Lambda->>RDS: Create new user credentials
     RDS->>Lambda: Success
-    Lambda->>SM: SetSecret (update with new password)
+    Lambda->>SM: SetSecret (update with new password(
     Lambda->>RDS: Test new credentials
     RDS->>Lambda: Connection successful
-    Lambda->>SM: FinishSecret (mark as current)
-    SM->>Lambda: DeleteSecret (old version after grace period)
+    Lambda->>SM: FinishSecret (mark as current(
+    SM->>Lambda: DeleteSecret (old version after grace period(
+    
     Note over App,RDS: Application automatically gets new credentials
     
     App->>SM: GetSecretValue
@@ -208,26 +210,26 @@ sequenceDiagram
 
 ```mermaid
 graph TB
-    Internet[Internet Traffic]
+    Internet[Internet Traffic[
     
-    subgraph AWS_WAF_Web_ACL_Group ["AWS WAF Web ACL"]
-        WAF["AWS WAF<br/>Web Application Firewall"]
+    subgraph AWS_WAF_Web_ACL_Group["AWS WAF Web ACL"[
+        WAF["AWS WAF&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Web Application Firewall"[
         
-        Rules[WAF Rules]
+        Rules[WAF Rules[
         
-        Rules --> Rule1["SQL Injection<br/>Protection"]
-        Rules --> Rule2["Cross-Site Scripting<br/>XSS Protection"]
-        Rules --> Rule3["Rate-based Rules<br/>DDoS mitigation"]
-        Rules --> Rule4["Geo-blocking<br/>Country restrictions"]
-        Rules --> Rule5["IP Reputation Lists<br/>Known bad IPs"]
-        Rules --> Rule6["Custom Rules<br/>Size constraints, regex"]
+        Rules --> Rule1["SQL Injection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Protection"[
+        Rules --> Rule2["Cross-Site Scripting&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;XSS Protection"[
+        Rules --> Rule3["Rate-based Rules&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;DDoS mitigation"[
+        Rules --> Rule4["Geo-blocking&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Country restrictions"[
+        Rules --> Rule5["IP Reputation Lists&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Known bad IPs"[
+        Rules --> Rule6["Custom Rules&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Size constraints, regex"[
     end
     
-    subgraph Protected_Resources_Group ["Protected Resources"]
-        CloudFront["CloudFront<br/>Distribution"]
-        ALB["Application<br/>Load Balancer"]
-        API[API Gateway]
-        AppSync[AWS AppSync]
+    subgraph Protected_Resources_Group["Protected Resources"[
+        CloudFront["CloudFront&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Distribution"[
+        ALB["Application&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Load Balancer"[
+        API[API Gateway[
+        AppSync[AWS AppSync[
     end
     
     Internet --> WAF
@@ -237,11 +239,11 @@ graph TB
     Rules -->|Allow| ALB
     Rules -->|Allow| API
     Rules -->|Allow| AppSync
-    Rules -->|Block| Blocked["❌ Blocked Traffic"]
+    Rules -->|Block| Blocked["❌ Blocked Traffic"[
     
-    ManagedRules["AWS Managed Rules<br/>Pre-configured rule sets<br/>OWASP Top 10"]
+    ManagedRules["AWS Managed Rules&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Pre-configured rule sets&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;OWASP Top 10"[
     
-    WAF -.->|Can use| ManagedRules
+    WAF -.Can use.-> ManagedRules
     
     classDef style1 fill:#FF9900
     class WAF style1
@@ -253,23 +255,23 @@ graph TB
 
 ```mermaid
 graph TB
-    Shield["AWS Shield<br/>DDoS Protection"]
+    Shield["AWS Shield&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;DDoS Protection"[
     
-    Shield --> Standard["Shield Standard<br/>✅ FREE<br/>✅ Automatic<br/>✅ Layer 3/4 protection<br/>✅ All AWS customers"]
+    Shield --> Standard["Shield Standard&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ FREE&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Automatic&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Layer 3/4 protection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ All AWS customers"[
     
-    Shield --> Advanced["Shield Advanced<br/>💰 $3,000/month<br/>✅ Layer 3/4/7 protection<br/>✅ 24/7 DDoS Response Team<br/>✅ Cost protection<br/>✅ Real-time notifications"]
+    Shield --> Advanced["Shield Advanced&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 $3,000/month&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Layer 3/4/7 protection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ 24/7 DDoS Response Team&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Cost protection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Real-time notifications"[
     
-    subgraph Standard_Protection_Group ["Standard Protection"]
-        Standard --> S_Features["• SYN/UDP floods<br/>• Reflection attacks<br/>• Network layer DDoS<br/>• Automatic detection"]
+    subgraph Standard_Protection_Group["Standard Protection"[
+        Standard --> S_Features["• SYN/UDP floods&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Reflection attacks&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Network layer DDoS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Automatic detection"[
     end
     
-    subgraph Advanced_Protection_Group ["Advanced Protection"]
-        Advanced --> A_Features["• Enhanced detection<br/>• Advanced reporting<br/>• CloudFront, Route 53, ELB<br/>• Global Threat Dashboard<br/>• WAF included at no cost"]
+    subgraph Advanced_Protection_Group["Advanced Protection"[
+        Advanced --> A_Features["• Enhanced detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Advanced reporting&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• CloudFront, Route 53, ELB&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Global Threat Dashboard&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• WAF included at no cost"[
         
-        Advanced --> DRT["AWS DDoS Response Team<br/>24/7 access<br/>Incident response"]
+        Advanced --> DRT["AWS DDoS Response Team&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;24/7 access&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Incident response"[
     end
     
-    Use["Use Shield Advanced when:<br/>• High-value applications<br/>• Potential large-scale DDoS<br/>• Need expert support<br/>• Want cost protection"]
+    Use["Use Shield Advanced when:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• High-value applications&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Potential large-scale DDoS&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Need expert support&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Want cost protection"[
     
     classDef style1 fill:#569A31
     class Standard style1
@@ -283,35 +285,35 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Data_Sources_Group ["Data Sources"]
-        VPCFlow[VPC Flow Logs]
-        CloudTrailLogs[CloudTrail Events]
-        DNSLogs[DNS Logs]
-        K8sLogs[Kubernetes Audit Logs]
-        S3Logs[S3 Data Events]
+    subgraph Data_Sources_Group["Data Sources"[
+        VPCFlow[VPC Flow Logs[
+        CloudTrailLogs[CloudTrail Events[
+        DNSLogs[DNS Logs[
+        K8sLogs[Kubernetes Audit Logs[
+        S3Logs[S3 Data Events[
     end
     
-    subgraph GuardDuty_Group ["GuardDuty"]
-        GD["Amazon GuardDuty<br/>Intelligent Threat Detection<br/>Machine Learning"]
+    subgraph GuardDuty_Group["GuardDuty"[
+        GD["Amazon GuardDuty&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Intelligent Threat Detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Machine Learning"[
         
-        Analysis["Threat Analysis<br/>• Anomaly detection<br/>• ML algorithms<br/>• Threat intelligence feeds<br/>• Known malicious IPs"]
+        Analysis["Threat Analysis&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Anomaly detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• ML algorithms&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Threat intelligence feeds&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Known malicious IPs"[
         
         GD --> Analysis
     end
     
-    subgraph Findings_Group ["Findings"]
-        Finding1["Compromised EC2 Instance<br/>Bitcoin mining"]
-        Finding2[Unauthorized API Calls]
-        Finding3[Reconnaissance Activity]
-        Finding4[Suspicious DNS queries]
-        Finding5[Unusual S3 access]
+    subgraph Findings_Group["Findings"[
+        Finding1["Compromised EC2 Instance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Bitcoin mining"[
+        Finding2[Unauthorized API Calls[
+        Finding3[Reconnaissance Activity[
+        Finding4[Suspicious DNS queries[
+        Finding5[Unusual S3 access[
     end
     
-    subgraph Actions_Group ["Actions"]
-        EventBridge[EventBridge Rules]
-        SNS[SNS Notifications]
-        Lambda[Lambda Remediation]
-        SecurityHub[Security Hub Integration]
+    subgraph Actions_Group["Actions"[
+        EventBridge[EventBridge Rules[
+        SNS[SNS Notifications[
+        Lambda[Lambda Remediation[
+        SecurityHub[Security Hub Integration[
     end
     
     VPCFlow --> GD
@@ -333,7 +335,7 @@ graph TB
     EventBridge --> Lambda
     EventBridge --> SecurityHub
     
-    Features["Features:<br/>✅ 30-day free trial<br/>✅ Continuous monitoring<br/>✅ No agents required<br/>✅ Low overhead<br/>💰 Pay per million events analyzed"]
+    Features["Features:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ 30-day free trial&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Continuous monitoring&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ No agents required&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Low overhead&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per million events analyzed"[
     
     classDef style1 fill:#FF9900
     class GD style1
@@ -347,20 +349,20 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Resources_Group ["Resources to Scan"]
-        EC2[EC2 Instances]
-        ECR[ECR Container Images]
-        Lambda[Lambda Functions]
+    subgraph Resources_Group["Resources to Scan"[
+        EC2[EC2 Instances[
+        ECR[ECR Container Images[
+        Lambda[Lambda Functions[
     end
     
-    subgraph Inspector_Group ["Amazon Inspector"]
-        Inspector["Amazon Inspector<br/>Automated Security Assessment"]
+    subgraph Inspector_Group["Amazon Inspector"[
+        Inspector["Amazon Inspector&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Automated Security Assessment"[
         
-        Scans[Continuous Scans]
+        Scans[Continuous Scans[
         
-        CVE["CVE Detection<br/>Common Vulnerabilities<br/>and Exposures"]
-        Network["Network Reachability<br/>Analysis"]
-        Package["Software package<br/>vulnerabilities"]
+        CVE["CVE Detection&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Common Vulnerabilities&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;and Exposures"[
+        Network["Network Reachability&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Analysis"[
+        Package["Software package&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;vulnerabilities"[
         
         Inspector --> Scans
         Scans --> CVE
@@ -368,23 +370,23 @@ graph TB
         Scans --> Package
     end
     
-    subgraph Findings_Group ["Risk Findings"]
-        Critical[Critical Vulnerabilities]
-        High[High Risk]
-        Medium[Medium Risk]
-        Low[Low Risk]
+    subgraph Findings_Group["Risk Findings"[
+        Critical[Critical Vulnerabilities[
+        High[High Risk[
+        Medium[Medium Risk[
+        Low[Low Risk[
     end
     
-    subgraph Integration_Group ["Integration & Remediation"]
-        SecurityHub[Security Hub]
-        EventBridge[EventBridge]
-        SSM["Systems Manager<br/>Patch Manager"]
+    subgraph Integration_Group["Integration & Remediation"[
+        SecurityHub[Security Hub[
+        EventBridge[EventBridge[
+        SSM["Systems Manager&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Patch Manager"[
         
         EventBridge --> SSM
     end
     
-    subgraph Features_Group ["Key Features"]
-        Features["✅ Continuous scanning<br/>✅ Risk scoring<br/>✅ Remediation guidance<br/>✅ Integration with CI/CD<br/>💰 Pay per assessment"]
+    subgraph Features_Group["Key Features"[
+        Features["✅ Continuous scanning&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Risk scoring&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Remediation guidance&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Integration with CI/CD&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 Pay per assessment"[
     end
     
     EC2 --> Inspector
@@ -438,32 +440,32 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph S3_Buckets_Group ["S3 Buckets"]
-        Bucket1["S3 Bucket 1<br/>Customer Data"]
-        Bucket2["S3 Bucket 2<br/>Financial Records"]
-        Bucket3["S3 Bucket 3<br/>Logs"]
+    subgraph S3_Buckets_Group["S3 Buckets"[
+        Bucket1["S3 Bucket 1&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Customer Data"[
+        Bucket2["S3 Bucket 2&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Financial Records"[
+        Bucket3["S3 Bucket 3&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Logs"[
     end
     
-    subgraph Amazon_Macie_Group ["Amazon Macie"]
-        Macie["Amazon Macie<br/>ML-powered Data Security"]
+    subgraph Amazon_Macie_Group["Amazon Macie"[
+        Macie["Amazon Macie&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ML-powered Data Security"[
         
-        ML["Machine Learning<br/>Classification"]
+        ML["Machine Learning&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Classification"[
         
-        Detects["Detection:<br/>• PII Personal Info<br/>• PHI Health Info<br/>• Financial data<br/>• Credentials<br/>• API keys"]
+        Detects["Detection:&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• PII Personal Info&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• PHI Health Info&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Financial data&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• Credentials&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;• API keys"[
     end
     
-    subgraph Findings_Group ["Findings"]
-        PII["PII Found<br/>Credit cards, SSN"]
-        Unencrypted["Unencrypted<br/>Sensitive Data"]
-        PublicAccess["Publicly Accessible<br/>Sensitive Data"]
-        Policy["Policy Findings<br/>Encryption disabled"]
+    subgraph Findings_Group["Findings"[
+        PII["PII Found&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Credit cards, SSN"[
+        Unencrypted["Unencrypted&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Sensitive Data"[
+        PublicAccess["Publicly Accessible&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Sensitive Data"[
+        Policy["Policy Findings&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Encryption disabled"[
     end
     
-    subgraph Actions_Group ["Actions"]
-        EventBridge[EventBridge]
-        SNS[SNS Alert]
-        SecurityHub[Security Hub]
-        Remediate["Auto-Remediation<br/>Lambda"]
+    subgraph Actions_Group["Actions"[
+        EventBridge[EventBridge[
+        SNS[SNS Alert[
+        SecurityHub[Security Hub[
+        Remediate["Auto-Remediation&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Lambda"[
     end
     
     Bucket1 --> Macie
@@ -497,7 +499,7 @@ graph TB
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Request: Request Certificate
+    [*[ --> Request: Request Certificate
     Request --> Validation: Domain Validation Required
     
     Validation --> DNS: DNS Validation
@@ -507,11 +509,11 @@ stateDiagram-v2
     Email --> Issued: Click email link
     
     Issued --> InUse: Associate with resource
-    InUse --> AutoRenew: Auto-renewal (60 days before expiry)
+    InUse --> AutoRenew: Auto-renewal (60 days before expiry(
     AutoRenew --> InUse: Renewed
     
     InUse --> Revoked: Revoke Certificate
-    Revoked --> [*]
+    Revoked --> [*[
     
     note right of Issued
         Certificate valid for 13 months
@@ -528,20 +530,20 @@ stateDiagram-v2
 
 ```mermaid
 graph TB
-    ACM["AWS Certificate Manager<br/>Free SSL/TLS Certificates"]
+    ACM["AWS Certificate Manager&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Free SSL/TLS Certificates"[
     
-    subgraph Supported_Services_Group ["Supported Services"]
-        ELB["Elastic Load Balancer<br/>ALB, NLB, CLB"]
-        CloudFront["CloudFront<br/>Distributions"]
-        API[API Gateway]
-        ElasticBeanstalk[Elastic Beanstalk]
-        AppRunner[App Runner]
+    subgraph Supported_Services_Group["Supported Services"[
+        ELB["Elastic Load Balancer&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;ALB, NLB, CLB"[
+        CloudFront["CloudFront&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Distributions"[
+        API[API Gateway[
+        ElasticBeanstalk[Elastic Beanstalk[
+        AppRunner[App Runner[
     end
     
-    subgraph Certificate_Types_Group ["Certificate Types"]
-        Public["Public Certificates<br/>✅ Free<br/>✅ Auto-renewal<br/>✅ CA-signed"]
+    subgraph Certificate_Types_Group["Certificate Types"[
+        Public["Public Certificates&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Free&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Auto-renewal&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ CA-signed"[
         
-        Private["Private Certificates<br/>💰 $400/month for CA<br/>✅ Internal use<br/>✅ AWS Private CA"]
+        Private["Private Certificates&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;💰 $400/month for CA&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ Internal use&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;✅ AWS Private CA"[
     end
     
     ACM --> Public
@@ -553,9 +555,9 @@ graph TB
     Public --> ElasticBeanstalk
     Public --> AppRunner
     
-    Private --> Internal["Internal Applications<br/>Private APIs"]
+    Private --> Internal["Internal Applications&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Private APIs"[
     
-    Note["Note: Cannot export public certs<br/>Can export private certs<br/>Not supported on EC2 directly"]
+    Note["Note: Cannot export public certs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Can export private certs&lt;&lt;&lt;BR_SLASH&gt;&gt;&gt;Not supported on EC2 directly"[
     
     classDef style1 fill:#FF9900
     class ACM style1
@@ -569,7 +571,7 @@ graph TB
 
 ```mermaid
 mindmap
-    root((AWS Security Services))
+    root((AWS Security Services((
         Identity & Access
             IAM
             Cognito
@@ -604,19 +606,19 @@ mindmap
 
 ```mermaid
 graph TB
-    Start[Internet Traffic]
+    Start[Internet Traffic[
     
-    Layer1["Layer 1: Edge Protection • Route 53 with health checks • CloudFront with WAF • Shield Standard/Advanced"]
+    Layer1["Layer 1: Edge Protection • Route 53 with health checks • CloudFront with WAF • Shield Standard/Advanced"[
     
-    Layer2["Layer 2: Network • VPC with NACLs • Security Groups • Network Firewall"]
+    Layer2["Layer 2: Network • VPC with NACLs • Security Groups • Network Firewall"[
     
-    Layer3["Layer 3: Compute • IAM roles for EC2 • Instance hardening • Patch management • Inspector scans"]
+    Layer3["Layer 3: Compute • IAM roles for EC2 • Instance hardening • Patch management • Inspector scans"[
     
-    Layer4["Layer 4: Application • WAF rules • API authentication • Input validation"]
+    Layer4["Layer 4: Application • WAF rules • API authentication • Input validation"[
     
-    Layer5["Layer 5: Data • Encryption at rest KMS • Encryption in transit TLS • S3 bucket policies • Macie scanning"]
+    Layer5["Layer 5: Data • Encryption at rest KMS • Encryption in transit TLS • S3 bucket policies • Macie scanning"[
     
-    Layer6["Layer 6: Monitoring • CloudTrail logging • GuardDuty threats • Security Hub compliance • CloudWatch alarms"]
+    Layer6["Layer 6: Monitoring • CloudTrail logging • GuardDuty threats • Security Hub compliance • CloudWatch alarms"[
     
     Start --> Layer1
     Layer1 --> Layer2
@@ -625,7 +627,7 @@ graph TB
     Layer4 --> Layer5
     Layer5 --> Layer6
     
-    Layer6 --> Response["Incident Response • Automated remediation • Security team alerts • Forensics & analysis"]
+    Layer6 --> Response["Incident Response • Automated remediation • Security team alerts • Forensics & analysis"[
     
     classDef style1 fill:#FF9900
     class Layer1 style1
